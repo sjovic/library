@@ -1,4 +1,4 @@
-package com.book.order;
+/*package com.book.order;
 
 import com.book.order.domain.Member;
 import com.book.order.repository.MemberRepository;
@@ -28,4 +28,4 @@ public class CustomMemberUserDetails implements UserDetailsService {
         return new User(member.getUsername(), member.getPassword(), authList);
     }
     
-}
+}*/

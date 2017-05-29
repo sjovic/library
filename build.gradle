@@ -24,7 +24,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('mysql:mysql-connector-java:6.0.5')
     compile('org.jtransfo:jtransfo-core:1.4')
-    compile('org.springframework.boot:spring-boot-starter-security')
+    //compile('org.springframework.boot:spring-boot-starter-security')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }

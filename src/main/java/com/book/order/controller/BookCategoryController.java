@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,7 @@ public class BookCategoryController {
         return new ResponseEntity<>(bookCategory, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+   /* @PreAuthorize("hasRole('ROLE_USER')")*/
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<BookCategoryDTO> save(@RequestBody @Valid BookCategoryDTO bookCategory) {
     	bookCategory = bookCategoryService.save(bookCategory);
