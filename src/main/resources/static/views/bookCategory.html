@@ -1,28 +1,11 @@
 <div class="container">
     <h1 class="text-center">{{headingTitle}}</h1>
     <div class="row">
-    <div class="col-sm-6">
-    <form name="addMenuForm" novalidate>
-        <uib-tabset active="activeForm">
-            <uib-tab index="0" heading="Create Category">
-                <ng-form name="addMenuForm">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" required ng-model="category.name"/>
-                        <br>
-                        <button ng-disabled="menu.name == ''" type="button" class="btn btn-primary" ng-click="saveCategory(category)" >
-                            OK
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-click="category.name = null" >
-                            Clear
-                        </button>
-                    </div>
-                </ng-form>
-            </uib-tab>
-        </uib-tabset>
-    </form>
+        <category-directive></category-directive>
+        <div class="col-sm-6"></div>
     </div>
-    <div class="col-sm-6">
+    <div class="row">
+    <div class="col-sm-12">
         <div ng-repeat="category in categories">
    	        <div class="row">
    	            <div class="col-sm-8 category-header">{{category.name}}</div>
