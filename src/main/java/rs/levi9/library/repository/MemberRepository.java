@@ -1,6 +1,6 @@
-package com.book.order.repository;
+package rs.levi9.library.repository;
 
-import com.book.order.domain.Member;
+import rs.levi9.library.domain.Member;
 
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
-package com.book.order.domain;
+package rs.levi9.library.domain;
 
-import com.book.order.domain.enumeration.Role;
+import rs.levi9.library.enumeration.Role;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

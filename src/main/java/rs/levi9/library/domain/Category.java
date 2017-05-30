@@ -1,16 +1,19 @@
-package com.book.order.domain;
+package rs.levi9.library.domain;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 	
-@Entity(name = "book_category")
-public class BookCategory extends CoreObject {
+@Entity
+@Table(name = "category")
+public class Category extends CoreObject implements Serializable {
 
     private static final long serialVersionUID = 4158644582718832402L;
     
-    @Pattern(regexp = "^(?=\\s*\\S).*$")
     @Column(nullable = false, length = 255)
+    @Pattern(regexp = "^(?=\\s*\\S).*$")
     private String name;
 
     public String getName() {
@@ -19,6 +22,6 @@ public class BookCategory extends CoreObject {
 
     public void setName(String name) {
             this.name = name;
-    }	
-    
+    }
+
 }

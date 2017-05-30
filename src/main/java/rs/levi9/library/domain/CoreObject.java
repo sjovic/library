@@ -1,4 +1,4 @@
-package com.book.order.domain;
+package rs.levi9.library.domain;
 
 import java.io.Serializable;
 
@@ -8,11 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class CoreObject implements Serializable{
+public abstract class CoreObject implements Serializable {
 
-    /**
-     * Serial version
-     */
     private static final long serialVersionUID = -9142195863467644910L;
 
     /**
@@ -23,11 +20,11 @@ public abstract class CoreObject implements Serializable{
     private Long id;
 
     public Long getId() {
-            return id;
+        return id;
     }
 
     public void setId(Long id) {
-            this.id = id;
+        this.id = id;
     }
 
 }

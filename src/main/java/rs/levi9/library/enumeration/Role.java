@@ -1,4 +1,4 @@
-package com.book.order.domain.enumeration;
+package rs.levi9.library.enumeration;
 
 public enum Role {
     ROLE_USER, ROLE_ADMIN;
