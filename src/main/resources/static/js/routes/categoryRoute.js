@@ -4,8 +4,8 @@
 angular.module('book.routes')
     .config(function($routeProvider){
     $routeProvider
-    .when('/book',{
-        templateUrl: '/views/bookCategory.html',
+    .when('/category',{
+        templateUrl: '/views/create-category.html',
         controller: 'BookCategoryController'
 	}).otherwise('/');
 });

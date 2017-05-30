@@ -39,9 +39,7 @@ angular.module('book.directives')
 	        		
 	        	});
 	        }
-	          
-
-	          
+	      	          
 	      }]
 	  };
 	});
