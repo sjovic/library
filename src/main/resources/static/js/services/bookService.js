@@ -4,28 +4,28 @@
 (function() {
     var app = angular.module("app");
 	
-    app.factory('bookCategoryService', function($http, $q){
+    app.factory('bookService', function($http, $q){
         return {
-            getCategories : function(){
+            getBooks : function(){
                 var def = $q.defer();
                 var req = {
                     method : 'GET',
-                    url : "api/v1/categories"
+                    url : "api/v1/books"
                 }
             $http(req).success(function(data){
                     def.resolve(data);
             })
             .error(function(){
-                    def.reject("Failed to get category");
+                    def.reject("Failed to get books");
             });
             return def.promise;
             },
-            createCategory : function(category){
+            createBook : function(book){
                 var def = $q.defer();
                 var req = {
                     method : 'POST',
-                    url : "api/v1/categories",
-                    data: category                    }
+                    url : "api/v1/books",
+                    data: book                    }
             $http(req).success(function(data){
                     def.resolve(data);
             })
@@ -34,11 +34,11 @@
             });
             return def.promise;
             },
-		    deleteCategory : function(id){
+		    deleteBook : function(id){
 		    	var def = $q.defer();
 			    var req = {
 					method : 'DELETE',
-					url : "api/v1/categories/" + id
+					url : "api/v1/books/" + id
 			    }
 		    $http(req).success(function(data){
 			    def.resolve(data);

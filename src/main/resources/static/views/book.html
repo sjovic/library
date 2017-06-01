@@ -1,0 +1,44 @@
+<div class="col-sm-6">
+    <form name="addBookForm" novalidate>
+        <uib-tabset active="activeForm">
+            <uib-tab index="0" heading="Create Category">
+                <ng-form name="addBookForm">
+                    <div class="form-group">
+                    
+                        <br>
+                        <label>Category: </label><br>
+                        <select name="selectCategory" ng-model="book.category">
+                            <option value="">---Must select category---</option>
+                            <option ng-repeat="category in categories" value="{{category}}">{{category.name}}</option>
+                        </select><br><br>
+                        <label>ISBN:</label>
+                        <input type="text" class="form-control" required ng-model="book.isbn"/>
+                        <br>
+                        <label>Name:</label>
+                        <input type="text" class="form-control" required ng-model="book.name"/>
+                        <br>
+                        <label>Author:</label>
+                        <input type="text" class="form-control" required ng-model="book.author"/>
+                        <br>
+                        <label>Publish date:</label>
+                        <input type="text" class="form-control" uib-datepicker-popup ng-model="book.publishDate" is-open="popupCalendar.opened" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <br>
+                        <label>Number of pages:</label>
+                        <input type="text" class="form-control" required ng-model="book.numberOfPages"/>
+                        <br>
+                        <button type="button" class="btn btn-primary" ng-click="saveBook(book)" >
+                            OK
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-click="item = null" >
+                            Clear
+                        </button>
+
+                    </div>
+                </ng-form>
+            </uib-tab>
+        </uib-tabset>
+    </form>
+</div>

@@ -2,7 +2,7 @@
  * 
  */
 var app = angular.module('app');
-app.controller('MainController', function($scope, bookCategoryService, $location, $anchorScroll) {
+app.controller('MainController', function($scope, bookCategoryService, $location, $anchorScroll, bookService) {
 
     $scope.headingTitle = "Book";
     
@@ -18,5 +18,9 @@ app.controller('MainController', function($scope, bookCategoryService, $location
         $location.hash(id);
         $anchorScroll();
      }
+    
+    bookService.getBooks().then(function(data){
+    	$scope.books = data;
+    });
 
 });

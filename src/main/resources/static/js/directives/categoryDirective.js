@@ -4,14 +4,14 @@ angular.module('book.directives')
 		restrict: 'E',
 	    templateUrl: 'views/category.html',
 	    controller : ['$scope', 'bookCategoryService', function ($scope, bookCategoryService) {
-	    	//Get all menus
+	    	//Get all categories
 	        var handleSuccessCategory = function(data, status){
 	        	$scope.categories = data;
 	        }
 	        var getCategories = function(){
 	        	bookCategoryService.getCategories().then(handleSuccessCategory);
 	        }
-	    	//Create new menu
+	    	//Create new category
 	        $scope.category = {};
 	        $scope.saveCategory = function(category){
 	        	console.log(category);
@@ -24,13 +24,11 @@ angular.module('book.directives')
 	        	$scope.category = null;
 	        }
 	       
-	        //edit menu
 	        $scope.editCategory = function(category){
 	        	console.log(category);
 
 	        }
 	        
-	        //remove menu
 	        $scope.deleteCategory = function(id){
 	        	console.log(id);
 	        	bookCategoryService.deleteCategory(id).then(function(response){

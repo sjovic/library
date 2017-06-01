@@ -15,6 +15,14 @@ public class Category extends CoreObject implements Serializable {
     @Column(nullable = false, length = 255)
     @Pattern(regexp = "^(?=\\s*\\S).*$")
     private String name;
+    
+    public Category(){
+    	
+    }
+    
+    public Category(String name){
+    	this.name = name;
+    }
 
     public String getName() {
             return name;
