@@ -7,10 +7,15 @@
                     
                         <br>
                         <label>Category: </label><br>
-                        <select name="selectCategory" ng-model="book.category">
+                        <!-- <select name="selectCategory" ng-model="book.category">
                             <option value="">---Must select category---</option>
                             <option ng-repeat="category in categories" value="{{category}}">{{category.name}}</option>
-                        </select><br><br>
+                        </select> -->
+                        <select name="selectCategory" ng-options="category.name for category in categories track by category.id"
+                        ng-model="book.category">
+                        <option value="" ng-disabled="true" disabled>---Must select category---</option>
+                        </select>
+                        <br><br>
                         <label>ISBN:</label>
                         <input type="text" class="form-control" required ng-model="book.isbn"/>
                         <br>

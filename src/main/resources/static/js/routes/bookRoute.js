@@ -5,7 +5,7 @@ angular.module('app')
     .config(function($routeProvider){
     $routeProvider
     .when('/book',{
-        templateUrl: '/views/create-book.html',
+        templateUrl: '/views/book.html',
         controller: 'BookController'
 	}).otherwise('/');
 });

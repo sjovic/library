@@ -2,7 +2,7 @@
  * 
  */
 var app = angular.module('app');
-app.controller('MainController', function($scope, bookCategoryService, $location, $anchorScroll, bookService) {
+app.controller('MainController', function($scope, CategoryService, $location, $anchorScroll, BookService) {
 
     $scope.headingTitle = "Book";
     
@@ -10,7 +10,7 @@ app.controller('MainController', function($scope, bookCategoryService, $location
     	$scope.categories = data;
     }
     var getCategories = function(){
-    	bookCategoryService.getCategories().then(handleSuccessCategory);
+    	CategoryService.getCategories().then(handleSuccessCategory);
     }
     getCategories();
     
@@ -19,8 +19,8 @@ app.controller('MainController', function($scope, bookCategoryService, $location
         $anchorScroll();
      }
     
-    bookService.getBooks().then(function(data){
-    	$scope.books = data;
+    BookService.getBooks().then(function(response){
+    	$scope.books = response.data;
     });
 
 });
