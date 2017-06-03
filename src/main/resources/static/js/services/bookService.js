@@ -29,7 +29,7 @@
 				data : book
 			}
 			return $http(req).success(function(response) {
-				return bookList.push(response.data);
+				return bookList.push(response);
 			}).error(function() {
 				def.reject("Failed");
 			});
