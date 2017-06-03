@@ -17,7 +17,7 @@
 *.ipr
 
 ### NetBeans ###
-nbproject/private/
+nbproject/
 build/
 nbbuild/
 dist/
@@ -27,3 +27,4 @@ nbdist/
 
 ### Bower ###
 src/main/resources/static/bower_components
+/src/main/resources/static/nbproject/private/

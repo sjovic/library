@@ -25,9 +25,8 @@ public class BookService {
     public Book findOne(Long id) {
         return bookRepository.findOne(id);
     }
-    @Transactional
+
     public Book save(Book book) {
-    	
         return bookRepository.save(book);
     }
 

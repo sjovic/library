@@ -16,7 +16,7 @@ public class Category extends CoreObject implements Serializable {
     @Pattern(regexp = "^(?=\\s*\\S).*$")
     private String name;
     
-    public Category(){
+    public Category() {
     	
     }
     
