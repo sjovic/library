@@ -32,7 +32,7 @@ public class Book extends CoreObject implements Serializable {
     
     private int numberOfPages;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     

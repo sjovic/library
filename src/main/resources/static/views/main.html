@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row main-content">
     <div class="col-sm-4">
         <div ng-repeat="category in categories track by $index">
         <a ng-click="scrollTo('category'+$index)">{{category.name}}</a>
@@ -6,14 +6,15 @@
     </div>
     <div class="col-sm-8">
         <label>All books</label>
-        <div ng-repeat="book in books track by $index">
+        <div ng-repeat="category in categories track by $index">
    	        <div class="row">
-   	            <div id="category{{$index}}" class="col-sm-8 category-header">{{book.category.name}}</div>
-   	            
+   	            <div id="category{{$index}}" class="col-sm-8 category-header">{{category.name}}</div>
    	            <div ng-if="" class="col-sm-1 btn btn-warning edit-button" ng-click="editCategory(category)"> edit</div>
    	            <div ng-if="" class="col-sm-1 btn btn-danger edit-button" ng-click="deleteCategory(category.id)"> remove</div>
-   	            <div  class="col-sm-8 ">{{book.name}}</div>
-   	        </div>
+   	            <div ng-repeat="book in books">
+   	                <div ng-if="category.id === book.category.id" class="col-sm-8 ">{{book.name}}</div>
+   	            </div>
+        </div>
         </div>
     </div>       
 </div>

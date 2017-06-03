@@ -22,5 +22,9 @@ app.controller('MainController', function($scope, CategoryService, $location, $a
     BookService.getBooks().then(function(response){
     	$scope.books = response.data;
     });
+    //nav-bar
+    $scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
 
 });
