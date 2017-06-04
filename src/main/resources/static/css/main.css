@@ -27,3 +27,11 @@
 .navbar-fixed-bottom {
 	position: fixed;
 }
+.publish-date-class {
+	width: 92%;
+    display: initial;
+    margin-left: 35px;
+}
+.calender-button {
+	float: left;
+}

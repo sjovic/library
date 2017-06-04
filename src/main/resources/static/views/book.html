@@ -26,10 +26,11 @@
                         <input type="text" class="form-control" required ng-model="book.author"/>
                         <br>
                         <label>Publish date:</label>
-                        <input type="text" class="form-control" uib-datepicker-popup ng-model="book.publishDate" is-open="popupCalendar.opened" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" />
-                        <span class="input-group-btn">
+                        <br>
+                        <span class="input-group-btn calender-button">
                             <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
+                        <input type="text" class="form-control publish-date-class" uib-datepicker-popup ng-model="book.publishDate" is-open="popupCalendar.opened" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" />
                         <br>
                         <label>Number of pages:</label>
                         <input type="text" class="form-control" required ng-model="book.numberOfPages"/>
