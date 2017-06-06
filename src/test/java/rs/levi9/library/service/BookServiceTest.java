@@ -2,6 +2,8 @@ package rs.levi9.library.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
@@ -54,6 +56,8 @@ public class BookServiceTest {
 		
 		assertNotNull(savedCategory);
 		assertEquals(savedCategory.getName(), "Thinking in java");
+		
+		verify(bookRepository, times(1)).save(book);
     }
 
 }
