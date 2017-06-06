@@ -35,3 +35,11 @@
 .calender-button {
 	float: left;
 }
+
+.error{
+	color: red;
+}
+
+.separator{
+	border-left: 1px solid #d3d3d3;
+}

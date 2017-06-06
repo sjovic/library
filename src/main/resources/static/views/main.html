@@ -1,10 +1,10 @@
 <div class="row main-content">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div ng-repeat="category in categories track by $index">
         <a ng-click="scrollTo('category'+$index)">{{category.name}}</a>
         </div> 
     </div>
-    <div class="col-sm-8">
+    <div class="separator col-sm-9">
         <label>All books</label>
         <div ng-repeat="category in categories track by $index">
    	        <div class="row">

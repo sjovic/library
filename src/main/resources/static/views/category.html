@@ -5,13 +5,12 @@
                 <ng-form name="addCategoryForm">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" required ng-model="category.name"/>
+                        <input name="name" type="text" class="form-control" required ng-model="category.name"/>
+                        <span class="error" ng-if="addCategoryForm.name.$error.required">* Name is required! </span>
                         <br>
-                        <button ng-disabled="menu.name == ''" type="button" class="btn btn-primary" ng-click="saveCategory(category)" >
+                        <br>
+                        <button ng-disabled="addCategoryForm.$invalid" type="button" class="btn btn-primary" ng-click="saveCategory(category)" >
                            OK
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-click="category.name = null" >
-                            Clear
                         </button>
                     </div>
                 </ng-form>

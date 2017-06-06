@@ -37,7 +37,8 @@ app.controller('BookController', function($scope, CategoryService, BookService) 
     }
     
     $scope.datePickerOptions = {
-    	    formatYear: 'yy'
+    	formatYear: 'yy',
+    	maxDate : new Date()
     };
   	        
     $scope.book.publishDate = new Date();
@@ -48,6 +49,6 @@ app.controller('BookController', function($scope, CategoryService, BookService) 
    
    $scope.openCalendar = function() {
 	    $scope.popupCalendar.opened = true;
-	  };
+   };
 
 });
