@@ -1,15 +1,13 @@
 package rs.levi9.library.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import rs.levi9.library.validator.ValidPublishDate;
 
 @Entity
 @Table(name = "book")
@@ -17,7 +15,8 @@ public class Book extends CoreObject implements Serializable {
     
     public static final long serialVersionUID = 5128632882797623323L;
     
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String isbn;
     
     @Column(nullable = false)
@@ -26,9 +25,8 @@ public class Book extends CoreObject implements Serializable {
     @Column(nullable = false)
     private String author;
     
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Date publishDate;
+    @ValidPublishDate
+    private String publishDate;
     
     private int numberOfPages;
 
@@ -40,7 +38,7 @@ public class Book extends CoreObject implements Serializable {
         
     }
 
-    public Book(String isbn, String name, String author, Date publishDate, int numberOfPages, Category category) {
+    public Book(String isbn, String name, String author, String publishDate, int numberOfPages, Category category) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
@@ -73,11 +71,11 @@ public class Book extends CoreObject implements Serializable {
         this.author = author;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
 

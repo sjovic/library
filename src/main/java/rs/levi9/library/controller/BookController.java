@@ -41,12 +41,13 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Book> save(@RequestBody @Valid Book book) {
+        Book result;
         try {
-            Book result = bookService.save(book);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            result = bookService.save(book);
         } catch(DataAccessException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

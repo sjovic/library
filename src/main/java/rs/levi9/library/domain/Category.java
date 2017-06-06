@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 	
 @Entity
@@ -12,8 +13,9 @@ public class Category extends CoreObject implements Serializable {
 
     private static final long serialVersionUID = 4158644582718832402L;
     
-    @Column(nullable = false, length = 255)
+    @NotNull(message = "Name cannot be null")
     @Pattern(regexp = "^(?=\\s*\\S).*$")
+    @Column(unique = true)
     private String name;
     
     public Category() {

@@ -2,7 +2,7 @@
  * 
  */
 var app = angular.module('app');
-app.controller('BookController', function($scope, CategoryService, BookService) {
+app.controller('BookController', function($scope, $filter, CategoryService, BookService) {
 	//Get all category
 	var handleSuccessCategories = function(data, status){
     	$scope.categories = data;
@@ -16,6 +16,8 @@ app.controller('BookController', function($scope, CategoryService, BookService) 
     $scope.book = {};
     $scope.saveBook = function(book){
     	console.log(book);
+        // format publish date string
+        book.publishDate = $filter('date')(book.publishDate, "dd-MM-yyyy");
     	BookService.createBook(book).then(function(response){
     	}, function(error){
     		
