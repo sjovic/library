@@ -1,6 +1,7 @@
 package rs.levi9.library.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,7 +27,7 @@ public class Book extends CoreObject implements Serializable {
     private String author;
     
     @ValidPublishDate
-    private String publishDate;
+    private Date publishDate;
     
     private int numberOfPages;
 
@@ -38,7 +39,7 @@ public class Book extends CoreObject implements Serializable {
         
     }
 
-    public Book(String isbn, String name, String author, String publishDate, int numberOfPages, Category category) {
+    public Book(String isbn, String name, String author, Date publishDate, int numberOfPages, Category category) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
@@ -71,14 +72,6 @@ public class Book extends CoreObject implements Serializable {
         this.author = author;
     }
 
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
     public int getNumberOfPages() {
         return numberOfPages;
     }
@@ -95,4 +88,11 @@ public class Book extends CoreObject implements Serializable {
         this.category = category;
     }
 
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
 }

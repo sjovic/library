@@ -22,7 +22,7 @@ task wrapper(type: Wrapper) {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('mysql:mysql-connector-java:6.0.5')
+    compile('mysql:mysql-connector-java:5.1.39')
     compile('org.jtransfo:jtransfo-core:1.4')
     //compile('org.springframework.boot:spring-boot-starter-security')
     testCompile('org.springframework.boot:spring-boot-starter-test')
