@@ -12,7 +12,7 @@ import rs.levi9.library.validator.ValidPublishDate;
 
 @Entity
 @Table(name = "book")
-public class Book extends CoreObject implements Serializable {
+public class Book extends BaseEntity implements Serializable {
     
     public static final long serialVersionUID = 5128632882797623323L;
     

@@ -6,7 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Entity(name = "member")
-public class Member extends CoreObject {
+public class Member extends BaseEntity {
     
     private String username;
     
