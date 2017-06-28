@@ -1,15 +1,35 @@
 package rs.levi9.library.service;
 
-import java.util.List;
 import rs.levi9.library.domain.Category;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import rs.levi9.library.repository.CategoryRepository;
 
-public interface CategoryService {
+@Service
+public class CategoryService {
     
-    Category findOne(Long id);
+    private CategoryRepository categoryRepository;
     
-    List<Category> findAll();
-    
-    Category save(Category category);
-    
-    void remove(Long id) throws IllegalArgumentException;
+    @Autowired
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    public Category findOne(Long id) {
+        return categoryRepository.findOne(id);
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
+    public Category save(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    public void remove(Long id) {
+        categoryRepository.remove(id);
+    }
+
 }
