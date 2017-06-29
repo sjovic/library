@@ -1,4 +1,4 @@
-package rs.levi9.library.repository;
+package rs.levi9.library.repository.inmemory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Book;
+import rs.levi9.library.repository.BookRepository;
 
 @Repository
 public class InMemoryBookRepository implements BookRepository {

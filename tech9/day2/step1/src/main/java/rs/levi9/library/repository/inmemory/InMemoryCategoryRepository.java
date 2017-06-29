@@ -1,4 +1,4 @@
-package rs.levi9.library.repository;
+package rs.levi9.library.repository.inmemory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Category;
+import rs.levi9.library.repository.CategoryRepository;
 
-@Repository
+
 public class InMemoryCategoryRepository implements CategoryRepository {
     
     private Map<Long, Category> categories = new HashMap<>();

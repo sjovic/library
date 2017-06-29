@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import rs.levi9.library.repository.InMemoryCategoryRepository;
+import rs.levi9.library.repository.inmemory.InMemoryCategoryRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CategoryServiceTest {
