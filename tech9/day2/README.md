@@ -33,7 +33,7 @@ Step 1 - Getting data via JDBC template
 5.  Configure Gradle for mysql connector with version 5.1.39
 6.  Enter the datasource (host, port, user and pass) information in application.properties
 7.  Add rowmapper and map all the fields from the Category entity
-8.  Add JDBC implementations (repository class) for Category with CRUD operations (write sql queries for JDBC template
+8.  Add JDBC implementations (repository class) for Category with CRUD operations (write sql queries for JDBC template)
 9.  Insert few categories via REST interface and retrive by ID
 
 Step 1 - assignment
