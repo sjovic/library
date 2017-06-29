@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.repository.BookRepository;
 
+@Service
 public class BookService {
 
     private BookRepository bookRepository;
