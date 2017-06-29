@@ -7,10 +7,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-/**
- * Created by krle on 29.06.2017
- */
-
 @Configuration
 @EnableTransactionManagement
 public class PersistanceConfig {

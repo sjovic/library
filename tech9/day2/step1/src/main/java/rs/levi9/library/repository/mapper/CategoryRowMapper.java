@@ -1,4 +1,4 @@
-package rs.levi9.library.repository;
+package rs.levi9.library.repository.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import rs.levi9.library.domain.Category;
@@ -6,15 +6,10 @@ import rs.levi9.library.domain.Category;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by krle on 29.06.2017
- *
- */
-
 public class CategoryRowMapper implements RowMapper<Category> {
 
-    private static final String ID_FIELD= "id";
-    private static final String NAME_FIELD = "name";
+    public static final String ID_FIELD= "id";
+    public static final String NAME_FIELD = "name";
 
     @Override
     public Category mapRow(ResultSet rs, int rowNum) throws SQLException {

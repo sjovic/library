@@ -6,20 +6,17 @@ import org.springframework.stereotype.Repository;
 import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Category;
 import rs.levi9.library.repository.CategoryRepository;
-import rs.levi9.library.repository.CategoryRowMapper;
+import rs.levi9.library.repository.mapper.CategoryRowMapper;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by krle on 29.06.2017
- */
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 
     private static final String findAllQuery = "select * from category";
     private static final String findByIdQuery = findAllQuery + " where id=?";
-    private static final String saveQuery = "replace into category(id, name) values (?, ?)";
+    private static final String saveQuery = "replace into category values (?, ?)";
     private static final String deleteQuery = "delete from category where id=?";
 
     private JdbcTemplate jdbcTemplate;
@@ -30,17 +27,17 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public <T extends BaseEntity> T findOne(Long id)  {
+    public Category findOne(Long id)  {
         List<Category> result = jdbcTemplate.query(findByIdQuery, new Object[]{id}, new CategoryRowMapper());
         if ((result.size() < 1) || (result.size() > 1)) {
             return null;
         }
-        return (T) result.get(0);
+        return result.get(0);
     }
 
     @Override
-    public <T extends BaseEntity> List<T> findAll() {
-        return (List<T>)jdbcTemplate.query(findAllQuery, new CategoryRowMapper());
+    public List<Category> findAll() {
+        return jdbcTemplate.query(findAllQuery, new CategoryRowMapper());
     }
 
     @Override
