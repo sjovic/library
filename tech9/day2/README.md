@@ -40,7 +40,10 @@ Step 1 - assignment
 -------------------
 
 1.  Add persistance layer for Book entity repeating the sections 7 to 9 from the step 1.
-2.  Manually test the implementation with Postman
+2.  Additionally, you'll need to add CallbackHandler in order to process entity Book with the Category.
+3.  Manually test the implementation with Postman
 
 Step 2 - Persistance layer with Spring Data JPA
 -----------------------------------------------
+
+

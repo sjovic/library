@@ -23,8 +23,12 @@ public class BookRepositoryImpl implements BookRepository {
             "left join category c\n" +
             "on b.category_id = c.id\n" +
             "where b.id = ?";
-    private static final String saveQuery = "replace into book values (?, ?, ?, ?, ?)";
+    private static final String saveQuery = "INSERT INTO book\n" +
+            "(isbn, category_id, name, author)\n" +
+            "VALUES(?, ?, ?, ?)";
     private static final String deleteQuery = "delete from book where id=?";
+
+    public static final String updateQuery = "update book set isbn = ?, category_id = ?, name = ?, author = ? where id = ?";
 
     @Autowired
     private void setDataSource(DataSource dataSource) {
@@ -49,7 +53,20 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public <T extends BaseEntity> T save(T entity) {
-        return null;
+        Book book;
+        if (entity.getId() != null) {
+            book = (Book) entity;
+
+            if (((Book) entity).getCategory() != null) {
+                jdbcTemplate.update(updateQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
+                        book.getAuthor(), book.getId());
+            }
+        } else {
+            book = (Book)entity;
+            jdbcTemplate.update(saveQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
+                    book.getAuthor());
+        }
+        return (T)book;
     }
 
     @Override
