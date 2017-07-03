@@ -10,7 +10,7 @@ import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Category;
 import rs.levi9.library.repository.CategoryRepository;
 
-
+@Repository(value = "inMemoryCategoryRepository")
 public class InMemoryCategoryRepository implements CategoryRepository {
     
     private Map<Long, Category> categories = new HashMap<>();

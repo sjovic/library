@@ -13,7 +13,8 @@ CREATE TABLE `book` (
   `isbn` varchar(20) NOT NULL,
   `category_id` int(10) NOT NULL,
   `name` varchar(30) NOT NULL,
-   `author` varchar(30) NOT NULL,
+  `author` varchar(30) NOT NULL,
+  `publish_date` date,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
