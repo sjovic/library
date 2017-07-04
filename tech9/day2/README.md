@@ -1,7 +1,7 @@
-Day 3 Adding persistance layer to the project, JDBC Template, JavaPersistanceApi JPA, validation
+Day 2 Adding persistence layer to the project, JDBC Template, JavaPersistenceApi JPA, validation
 ================================================================================================
 
-Adding persistance layer
+Adding persistence layer
 ------------------------
 
 In continuation of developing the library project, today we will implement the persistance
@@ -28,7 +28,7 @@ Step 1 - Getting data via JDBC template
 
 1.  Install DBeaver and connect to your local mysql instance (host: localhost, port 3306, user:root, pass:root)
 2.  Create library database (with charset UTF 8) in MySql server
-3.  Add folowing tables /src/main/resources/!prep/LibraryDB.JPG
+3.  Add following tables /src/main/resources/!prep/LibraryDB.JPG
 4.  Run query from DBeaver(and from command line) to get all the books with categories
 5.  Configure Gradle for mysql connector with version 5.1.39
 6.  Enter the datasource (host, port, user and pass) information in application.properties
@@ -43,7 +43,16 @@ Step 1 - assignment
 2.  Additionally, you'll need to add CallbackHandler in order to process entity Book with the Category.
 3.  Manually test the implementation with Postman
 
-Step 2 - Persistance layer with Spring Data JPA
+Step 2 - Persistence layer with Spring Data JPA
 -----------------------------------------------
+
+1.  Add dependency org.springframework.boot:spring-boot-starter-data-jpa to gradle build file
+2.  Annotate domain classes to with @Entity and fields with @Column annotations
+3.  Refactor service classes to use JPA repositories
+
+Step 3 - Add validators
+-----------------------
+
+1.  
 
 

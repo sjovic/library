@@ -1,47 +1,76 @@
 package rs.levi9.library.repository.jdbc;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import rs.levi9.library.domain.BaseEntity;
-import rs.levi9.library.repository.BookRepository;
 import rs.levi9.library.domain.Book;
-import rs.levi9.library.repository.mapper.BookRowMapper;
+import rs.levi9.library.repository.BookRepository;
+import rs.levi9.library.repository.mapper.BookCallbackHandler;
 
-@Repository(value = "jdbcBookRepository")
+import javax.sql.DataSource;
+import java.util.List;
+
+@Repository
 public class JdbcBookRepository implements BookRepository {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static final String FIND_ALL_QUERY = "select b.id, b.isbn, c.id, c.name, b.name, b.author from book b\n" +
+    private static final String findAllQuery = "select b.id, b.isbn, c.id, c.name, b.name, b.author from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id";
-    private static final String FIND_BY_ID_QUERY = "select b.id, b.isbn, c.id, c.name, b.name, b.author from book b\n" +
+    private static final String findOneQuery = "select b.id, b.isbn, c.id, c.name, b.name, b.author from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id\n" +
             "where b.id = ?";
-    private static final String SAVE_QUERY = "replace into book values (?, ?, ?, ?, ?)";
-    private static final String DELETE_QUERY = "delete from book where id=?";
+    private static final String saveQuery = "INSERT INTO book\n" +
+            "(isbn, category_id, name, author)\n" +
+            "VALUES(?, ?, ?, ?)";
+    private static final String deleteQuery = "delete from book where id=?";
+
+    public static final String updateQuery = "update book set isbn = ?, category_id = ?, name = ?, author = ? where id = ?";
+
+    @Autowired
+    private void setDataSource(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public Book findOne(Long id) {
-        return jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new BookRowMapper());
+        BookCallbackHandler bookCallbackHandler = new BookCallbackHandler();
+
+        jdbcTemplate.query(findOneQuery, bookCallbackHandler, id);
+
+        return bookCallbackHandler.getBook();
     }
 
     @Override
     public List<Book> findAll() {
-        return jdbcTemplate.query(FIND_ALL_QUERY, new BookRowMapper());
+        BookCallbackHandler bookCallbackHandler = new BookCallbackHandler();
+        jdbcTemplate.query(findAllQuery, bookCallbackHandler);
+        return bookCallbackHandler.getBooks();
     }
 
     @Override
     public <T extends BaseEntity> T save(T entity) {
-        return null;
+        Book book;
+        if (entity.getId() != null) {
+            book = (Book) entity;
+
+            if (((Book) entity).getCategory() != null) {
+                jdbcTemplate.update(updateQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
+                        book.getAuthor(), book.getId());
+            }
+        } else {
+            book = (Book)entity;
+            jdbcTemplate.update(saveQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
+                    book.getAuthor());
+        }
+        return (T)book;
     }
 
     @Override
     public void remove(Long id) throws IllegalArgumentException {
-        jdbcTemplate.update(DELETE_QUERY);
+        jdbcTemplate.update(deleteQuery);
     }
 }

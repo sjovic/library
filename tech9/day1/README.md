@@ -1,4 +1,4 @@
-Day 2 Project startup and introduction to Spring framework, MVC pattern, REST, JUnit
+Day 1 Project startup and introduction to Spring framework, MVC pattern, REST, JUnit
 ====================================================================================
 
 Project startup
@@ -17,16 +17,16 @@ Reading - official docs
 
 *   [Spring framework](https://spring.io/docs)
 *   [Dependency injection](https://martinfowler.com/articles/injection.html)
-*   [MVC pattern](link here**)
-*   [Domain and Service layer](link here**)
-*   [REST and HTTP protocols](link here**)
-*   [JUnit](www.junit.org)
+*   [MVC pattern](http://www.oracle.com/technetwork/articles/javase/index-142890.html)
+*   [Domain and Service layer](https://vrtoonjava.wordpress.com/2012/06/17/part-1-designing-the-domain-model-and-the-service-layer/)
+*   [REST and HTTP protocols](https://www.sitepoint.com/developers-rest-api/)
+*   [JUnit](http://junit.org/junit4/)
 
 Concepts
 --------
 
 *   Spring beans, containers, bean wiring
-*   Dependecy injection example
+*   Dependency injection example
 *   Basic CRUD operations (Create, Read, Update, Delete)
 *   Naming conventions
 *   Gradle configuration/tasks
@@ -43,15 +43,15 @@ of your choosing (your working default directory will be just fine)
 Step 2 - Creating domain and service layers
 -------------------------------------------
 
-1.  Create base package and create an additonal package named 'domain'
-2.  Create two domain classes: Category
+1.  Create base package and create an additional package named 'domain'
+2.  Create domain class Category
 3.  Add the corresponding service layer
-4.  Add in-memory implementation for Category entity, which later will be replaced with persistance layer.
+4.  Add in-memory implementation for Category entity, which later will be replaced with persistence layer.
 
 Step 2 - Assignment
 -------------------
 
-Add the Book entity to project with the folowing properties: Id, Name, Category, ISBN
+Add the Book entity to project with the following properties: Id, Name, Category, ISBN
 No. of pages, publish date.
 
 Step 3 - Unit testing
@@ -67,8 +67,9 @@ Add unit tests for Book service implementation.
 Step 4 - Adding controller
 --------------------------
 
-1.  Add controller with appropiate request mappings.
+1.  Add controller with appropriate request mappings.
 2.  Retrieve the in-memory date with Restful client (Postman) and examine the result set (JSON)
+3.  Refactor tests to use spring junit runner
 
 Step 4 - Assignment
 -------------------

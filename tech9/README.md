@@ -1,4 +1,4 @@
-Day 1: Introduction and setup of development environment from the ground-up: Java, Eclipse IDE, Gradle, MySql, GIT
+Introduction and setup of development environment from the ground-up: Java, Eclipse IDE, Gradle, MySql, GIT
 ==================================================================================================================
 
 ----

@@ -35,7 +35,7 @@ Step 1 - Add initial frontend setup structure
 1.  Add index.html (All frontend resources are located in src/main/java/resources/static)
  This file represents entry point for frontend operations.
 2.  Add app.js for AngularJS module, and main.css for styling
-3.  Add bower.json (in which you'll define dependecies for Bootstrap, AngularJS etc) and .bowerrc
+3.  Add bower.json (in which you'll define dependencies for Bootstrap, AngularJS etc) and .bowerrc
 4.  Add mainRoute.js (for which you'll define the routes for controllers)
 
 Step 2 - Add view - Category
@@ -59,6 +59,6 @@ Step 4 - Add main view (First page in which the books will be presented)
 Step 5 - Final touch - Navigation bar, footer and header
 --------------------------------------------------------
 
-1.  Add nav-bar.html (in which you'll define accesable items)
-2.  Add footer (inlcude company info and year) and header (for basic title)
+1.  Add nav-bar.html (in which you'll define accessible items)
+2.  Add footer (include company info and year) and header (for basic title)
 
