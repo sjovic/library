@@ -2,7 +2,6 @@ package rs.levi9.library.repository.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import rs.levi9.library.domain.Category;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

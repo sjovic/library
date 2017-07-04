@@ -10,6 +10,7 @@ import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.repository.BookRepository;
 
+@Repository(value = "inMemoryBookRepository")
 public class InMemoryBookRepository implements BookRepository {
     
     private Map<Long, Book> books = new HashMap<>();
