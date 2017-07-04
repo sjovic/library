@@ -4,6 +4,7 @@ import rs.levi9.library.domain.Category;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import rs.levi9.library.repository.CategoryRepository;
 
 @Service
@@ -12,7 +13,7 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
     
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(@Qualifier("jdbcCategoryRepository") CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
