@@ -23,7 +23,7 @@ public class BookCallbackHandler implements RowCallbackHandler {
             currentBook = new Book();
             result.add(currentBook);
             currentBook.setId(bookId);
-            //currentBook.setPublishDate(rs.getDate("b." + BookMapper.PUBLISH_DATE_FIELD));
+            currentBook.setPublishDate(rs.getDate("b." + BookRowMapper.PUBLISH_DATE_FIELD));
             currentBook.setIsbn(rs.getString("b." + BookRowMapper.ISBN_FIELD));
             currentBook.setAuthor(rs.getString("b." + BookRowMapper.AUTHOR_FIELD));
             currentBook.setName(rs.getString("b." + BookRowMapper.NAME_FIELD));
