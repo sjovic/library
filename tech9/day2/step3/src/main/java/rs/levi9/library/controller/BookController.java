@@ -1,12 +1,16 @@
 package rs.levi9.library.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.service.BookService;
 
@@ -32,7 +36,7 @@ public class BookController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public Book save(@RequestBody Book book) {
+    public Book save(@Valid @RequestBody Book book) {
         return bookService.save(book);
     }
     
