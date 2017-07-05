@@ -51,8 +51,8 @@ Step 2 - Creating domain and service layers
 Step 2 - Assignment
 -------------------
 
-Add the Book entity to project with the following properties: Id, Name, Category, ISBN
-No. of pages, publish date.
+Add the Book entity to project with the following properties: Id, Name, Category, ISBN, 
+publish date.
 
 Step 3 - Unit testing
 ---------------------

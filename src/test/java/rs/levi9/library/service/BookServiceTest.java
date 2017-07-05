@@ -41,7 +41,6 @@ public class BookServiceTest {
 		book.setId(1L);
 		book.setCategory(category);
 		book.setName("Thinking in java");
-		book.setNumberOfPages(445);
 		book.setAuthor("Bruce Eckel");
 		book.setPublishDate(new Date());
 		book.setIsbn("8175257660");
