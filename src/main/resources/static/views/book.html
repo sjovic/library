@@ -38,11 +38,6 @@
                         <span class="error" ng-if="addBookForm.datePicker.$error.required">* Publish date is required! </span>
                         <span class="error" ng-if="addBookForm.datePicker.$error.date">* Date is in wrong format!</span>
                         <br>
-                        <label>Number of pages:</label>
-                        <input name="numberOfPages" type="text" class="form-control" required ng-model="book.numberOfPages"/>
-                        <span class="error" ng-if="addBookForm.numberOfPages.$error.required">* Number of pages is required! </span>
-                        <br>
-                        <br>
                         <button ng-disabled="addBookForm.$invalid" type="button" class="btn btn-primary" ng-click="saveBook(book)" >
                             OK
                         </button>

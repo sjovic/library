@@ -29,7 +29,7 @@ public class BookService {
     }
 
     public void remove(Long id) throws IllegalArgumentException {
-        bookRepository.remove(id);
+        bookRepository.delete(id);
     }
 
 }

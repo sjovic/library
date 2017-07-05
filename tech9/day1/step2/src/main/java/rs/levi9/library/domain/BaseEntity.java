@@ -1,6 +1,6 @@
 package rs.levi9.library.domain;
 
-public class BaseEntity {
+abstract class BaseEntity {
     
     private Long id;
     
