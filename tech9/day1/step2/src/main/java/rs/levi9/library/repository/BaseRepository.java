@@ -11,6 +11,6 @@ public interface BaseRepository {
     
     <T extends BaseEntity> T save(T entity);
     
-    void remove(Long id) throws IllegalArgumentException;
+    void delete(Long id) throws IllegalArgumentException;
     
 }

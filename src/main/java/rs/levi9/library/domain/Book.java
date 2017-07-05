@@ -28,8 +28,6 @@ public class Book extends BaseEntity implements Serializable {
     
     @ValidPublishDate
     private Date publishDate;
-    
-    private int numberOfPages;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -39,12 +37,11 @@ public class Book extends BaseEntity implements Serializable {
         
     }
 
-    public Book(String isbn, String name, String author, Date publishDate, int numberOfPages, Category category) {
+    public Book(String isbn, String name, String author, Date publishDate, Category category) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishDate = publishDate;
-        this.numberOfPages = numberOfPages;
         this.category = category;
     }
 
@@ -70,14 +67,6 @@ public class Book extends BaseEntity implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public int getNumberOfPages() {
-        return numberOfPages;
-    }
-
-    public void setNumberOfPages(int numberOfPages) {
-        this.numberOfPages = numberOfPages;
     }
 
     public Category getCategory() {

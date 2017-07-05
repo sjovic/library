@@ -2,29 +2,26 @@ package rs.levi9.library.service;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.domain.Category;
-import rs.levi9.library.repository.BookRepository;
-import rs.levi9.library.repository.InMemoryBookRepository;
-
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Created by krle on 04.07.2017
- */
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 public class BookServiceTest {
 
+    @Autowired
     private BookService bookService;
 
     @Before
     public void setUp() {
-        BookRepository bookRepository = new InMemoryBookRepository();
-        bookService = new BookService(bookRepository);
-
         Category categoryProgramming = new Category();
         categoryProgramming.setId(1L);
         categoryProgramming.setName("Java Programming");
@@ -52,7 +49,7 @@ public class BookServiceTest {
     public void should_find_books() {
         List<Book> resultBooks = bookService.findAll();
 
-        assertEquals(2L, resultBooks.size());
+        assertEquals(3L, resultBooks.size());
     }
 
     @Test
