@@ -29,7 +29,7 @@ public class JdbcBookRepository implements BookRepository {
             "where b.id = ?";
     private static final String saveQuery = "INSERT INTO book\n" +
             "(isbn, category_id, name, author, publish_date)\n" +
-            "VALUES(?, ?, ?, ?)";
+            "VALUES(?, ?, ?, ?, ?)";
     private static final String deleteQuery = "delete from book where id=?";
 
     public static final String updateQuery = "update book set isbn = ?, category_id = ?, name = ?, author = ?, publish_date = ? where id = ?";
@@ -62,7 +62,7 @@ public class JdbcBookRepository implements BookRepository {
         if (entity.getId() != null) {
             book = (Book) entity;
             jdbcTemplate.update(saveQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
-                    book.getAuthor());
+                    book.getAuthor(), book.getPublishDate());
         } else {
             book = (Book) entity;
 
@@ -79,6 +79,7 @@ public class JdbcBookRepository implements BookRepository {
                         }
                         ps.setString(3, book.getName());
                         ps.setString(4, book.getAuthor());
+                        ps.setDate(5, new java.sql.Date(book.getPublishDate().getTime()));
                         return ps;
                     }
                 }, keyHolder);
