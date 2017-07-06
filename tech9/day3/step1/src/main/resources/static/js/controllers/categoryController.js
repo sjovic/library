@@ -1,40 +1,70 @@
 /**
  * 
  */
-var app = angular.module('app');
-app.controller('CategoryController', function($scope, CategoryService) {
-	//Get all categories
-    var handleSuccessCategory = function(data, status){
-    	$scope.categories = data;
-    }
-    var getCategories = function(){
-    	CategoryService.getCategories().then(handleSuccessCategory);
-    }
-	//Create new category
-    $scope.category = {};
-    $scope.saveCategory = function(category){
-    	console.log(category);
-    	CategoryService.createCategory(category).then(function(response){
-	        getCategories();
-    	}, function(error){
-    		
-    	})
-    	//remove input value after submit
-    	$scope.category = null;
-    }
-   
-    $scope.editCategory = function(category){
-    	console.log(category);
 
-    }
+(function(){
+    angular.module('app')
+    .controller('CategoryController', CategoryController);   
     
-    $scope.deleteCategory = function(id){
-    	console.log(id);
-    	CategoryService.deleteCategory(id).then(function(response){
-    	    getCategories();
-    	}, function(error){
-    		
-    	});
-    }
+    CategoryController.$inject = ['CategoryService'];
+    
+    function CategoryController(CategoryService) {
+        
+        var vm = this;
+        vm.addCategory = addCategory;
+        vm.cancelForm = cancelForm;
+        vm.deleteCategory = deleteCategory;
+        vm.editCategory = editCategory;
+        vm.saveCategory = saveCategory;
+            
+        vm.showForm = false;
+        
+        //Create new category
+        vm.category = {};
+        
+        getCategories();
+        
+        function addCategory(){
+            vm.showForm = true;
+            vm.category = {};
+        }
+        
+        function cancelForm(){
+            vm.showForm = false;
+        }
+        
+        function deleteCategory(id){
+            console.log(id);
+            CategoryService.deleteCategory(id).then(function(response){
+                getCategories();
+            }, function(error){
 
-});
+            });
+        }
+        
+        function editCategory(category){
+            vm.showForm = true;
+            vm.category = angular.copy(category);
+        }
+        
+        function getCategories(){
+            CategoryService.getCategories().then(handleSuccessCategory);
+        }
+        
+        //Get all categories
+        function handleSuccessCategory(data, status){
+            vm.categories = data;
+        }
+
+        function saveCategory(category){
+            CategoryService.saveCategory(category).then(function(response){
+                getCategories();
+            }, function(error){
+
+            })
+            //remove input value after submit
+            vm.addCategoryForm.$setPristine();
+            vm.showForm = false;
+        }
+    };
+})();

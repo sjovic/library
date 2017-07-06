@@ -1,53 +1,57 @@
 /**
  * 
  */
-(function() {
-	var app = angular.module("app");
+(function () {
+    angular.module("app")
+            .service('BookService', BookService);
 
-	app.service('BookService', function($http, $q) {
+    BookService.$inject = ['$http', '$q'];
 
-		var booksList = [];
+    function BookService($http, $q) {
 
-		this.getBooks = function() {
-			var def = $q.defer();
-			var req = {
-				method : 'GET',
-				url : "api/v1/books"
-			}
-			return $http(req).success(function(response) {
-				return booksList = response.data;
-			}).error(function() {
-				return def.reject("Failed to get books");
-			});
-		}
+        var booksList = [];
 
-		this.createBook = function(book) {
-			var def = $q.defer();
-			var req = {
-				method : 'POST',
-				url : "api/v1/books",
-				data : book
-			}
-			return $http(req).success(function(response) {
-				//booksList.push(response);
-				return response;
-			}).error(function() {
-				def.reject("Failed");
-			});
-			return def.promise;
-		}
-		this.deleteBook = function(id) {
-			var def = $q.defer();
-			var req = {
-				method : 'DELETE',
-				url : "api/v1/books/" + id
-			}
-			$http(req).success(function(data) {
-				def.resolve(data);
-			}).error(function() {
-				def.reject("Failed");
-			});
-			return def.promise;
-		}
-	});
+        this.getBooks = function () {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "books"
+            }
+            return $http(req).success(function (response) {
+                return booksList = response.data;
+            }).error(function () {
+                return def.reject("Failed to get books");
+            });
+        }
+
+        this.saveBook = function (book) {
+            var def = $q.defer();
+            var req = {
+                method: book.id ? 'PUT': 'POST',
+                url: "books",
+                data: book
+            }
+            return $http(req).success(function (response) {
+                //booksList.push(response);
+                return response;
+            }).error(function () {
+                def.reject("Failed");
+            });
+            return def.promise;
+        }
+
+        this.deleteBook = function (id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: "books/" + id
+            }
+            $http(req).success(function (data) {
+                def.resolve(data);
+            }).error(function () {
+                def.reject("Failed");
+            });
+            return def.promise;
+        }
+    };
 }());

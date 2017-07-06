@@ -36,6 +36,11 @@ public class CategoryController {
         return categoryService.save(category);
     }
     
+    @RequestMapping(method = RequestMethod.PUT)
+    public Category edit(@RequestBody Category category) {
+        return categoryService.edit(category);
+    }
+    
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void remove(@PathVariable("id") Long id) {
         categoryService.remove(id);

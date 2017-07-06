@@ -1,30 +1,41 @@
 /**
  * 
  */
-var app = angular.module('app');
-app.controller('MainController', function($scope, CategoryService, $location, $anchorScroll, BookService) {
+(function(){
+    angular.module('app')
+        .controller('MainController', MainController);
+    
+        MainController.$inject = ['CategoryService', '$location', '$anchorScroll', 'BookService'];
+    
+        function MainController(CategoryService, $location, $anchorScroll, BookService) {
 
-    $scope.headingTitle = "Book";
-    
-    var handleSuccessCategory = function(data, status){
-    	$scope.categories = data;
-    }
-    var getCategories = function(){
-    	CategoryService.getCategories().then(handleSuccessCategory);
-    }
-    getCategories();
-    
-    $scope.scrollTo = function(id) {
-        $location.hash(id);
-        $anchorScroll();
-     }
-    
-    BookService.getBooks().then(function(response){
-    	$scope.books = response.data;
-    });
-    //nav-bar
-    $scope.isActive = function (viewLocation) { 
-        return viewLocation === $location.path();
-    };
+            var vm = this;
+            vm.isActive = isActive;
+            vm.scrollTo = scrollTo;
+            vm.headingTitle = "Book";
 
-});
+            getCategories();
+
+            //nav-bar
+            function isActive(viewLocation) { 
+                return viewLocation === $location.path();
+            };
+
+            function getCategories(){
+                CategoryService.getCategories().then(handleSuccessCategory);
+            }
+
+            function handleSuccessCategory(data, status) {
+                vm.categories = data;
+            }
+
+            function scrollTo(id) {
+                $location.hash(id);
+                $anchorScroll();
+            }
+
+            BookService.getBooks().then(function(response) {
+                vm.books = response.data;
+            });
+        }
+}) ();

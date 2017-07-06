@@ -1,56 +1,108 @@
 /**
  * 
  */
-var app = angular.module('app');
-app.controller('BookController', function($scope, $filter, CategoryService, BookService) {
-	//Get all category
-	var handleSuccessCategories = function(data, status){
-    	$scope.categories = data;
-    }
-    var getCategories = function(){
-    	CategoryService.getCategories().then(handleSuccessCategories);
-    }
-    getCategories();
-    
-	//Create new book
-    $scope.book = {};
-    $scope.saveBook = function(book){
-    	console.log(book);
-        // format publish date string
-        book.publishDate = $filter('date')(book.publishDate, "dd-MM-yyyy");
-    	BookService.createBook(book).then(function(response){
-    	}, function(error){
-    		
-    	})
-    	//remove input value after submit
-    	$scope.book = null;
-    }
-   
-    $scope.editBook = function(book){
-    	console.log(book);
-    }
-    
-    $scope.deleteBook = function(id){
-    	console.log(id);
-    	BookService.deleteBook(id).then(function(response){
-    	}, function(error){
-    		
-    	});
-    }
-    
-    $scope.datePickerOptions = {
-    	formatYear: 'yy',
-    	maxDate : new Date()
-    };
-  	        
-    $scope.book.publishDate = new Date();
-   
-   $scope.popupCalendar = {
-       opened: false
-   };
-   
-   $scope.openCalendar = function() {
-	    $scope.popupCalendar.opened = true;
-   };
 
-});
+(function(){
+angular.module('app')
+    .controller('BookController', BookController);
+    
+    BookController.$inject = ['$filter', 'CategoryService', 'BookService', 'uibDateParser'];
+   
+    function BookController($filter, CategoryService, BookService, uibDateParser) {
+        
+        var vm = this;
+        vm.addBook = addBook;
+        vm.cancelForm = cancelForm;
+        vm.clearBook = clearBook;
+        vm.deleteBook = deleteBook;
+        vm.editBook = editBook;
+        vm.openCalendar = openCalendar;
+        vm.saveBook = saveBook;
+        
+        vm.showForm = false;
+        
+        getCategories();
+        getBooks();
+        init();
+
+        function init() {
+            //Create new book
+            vm.book = {
+                publishDate: new Date()
+            };
+        }
+
+        vm.datePickerOptions = {
+            formatYear: 'yy',
+            maxDate : new Date()
+        };
+
+        vm.popupCalendar = {
+           opened: false
+        }; 
+
+        function addBook(){
+            vm.showForm = true;
+            init();
+        }
+        
+        function cancelForm(){
+            vm.showForm = false;
+        }
+        
+        function clearBook(){
+            vm.addBookForm.$setPristine();
+            vm.book = {};
+        }
+        
+        function deleteBook(id){
+            console.log(id);
+            BookService.deleteBook(id).then(function(response){
+                getBooks();
+            }, function(error){
+
+            });
+        }
+
+        function editBook(book){
+            vm.showForm = true;
+            vm.book = angular.copy(book);
+            vm.book.publishDate = new Date(vm.book.publishDate.split('-').join(' '));
+        }
+
+        function getCategories(){
+            CategoryService.getCategories().then(handleSuccessCategories);
+        }
+        
+        function getBooks(){
+            BookService.getBooks().then(handleSuccessBooks);
+        }
+
+        //Get all category
+        function handleSuccessCategories(data, status){
+            vm.categories = data;
+        }
+        
+        //Get all books
+        function handleSuccessBooks(data, status){
+            vm.books = data.data;
+        }
+
+        function openCalendar() {
+            vm.popupCalendar.opened = true;
+        };
+
+        function saveBook(book){
+            book.publishDate = $filter('date')(book.publishDate, "yyyy-MM-dd");
+            console.log(book.publishDate);
+            BookService.saveBook(book).then(function(response){
+                getBooks();
+            }, function(error){
+
+            })
+            //remove input value after submit
+            vm.addBookForm.$setPristine();
+            vm.showForm = false;
+        }
+    };
+})();

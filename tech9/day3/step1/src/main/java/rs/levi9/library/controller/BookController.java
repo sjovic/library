@@ -36,6 +36,11 @@ public class BookController {
         return bookService.save(book);
     }
     
+    @RequestMapping(method = RequestMethod.PUT)
+    public Book edit(@RequestBody Book book) {
+        return bookService.edit(book);
+    }
+    
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void remove(@PathVariable("id") Long id) {
         bookService.remove(id);

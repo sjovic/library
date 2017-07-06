@@ -1,5 +1,6 @@
 package rs.levi9.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,6 +31,7 @@ public class Book extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private String author;
     
+///    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date publishDate;

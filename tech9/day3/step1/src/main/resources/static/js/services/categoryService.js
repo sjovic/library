@@ -1,53 +1,65 @@
 /**
  * 
  */
-(function() {
-    var app = angular.module("app");
-	
-    app.factory('CategoryService', function($http, $q){
-        return {
-            getCategories : function(){
-                var def = $q.defer();
-                var req = {
-                    method : 'GET',
-                    url : "api/v1/categories"
-                }
-            $http(req).success(function(data){
-                    def.resolve(data);
+(function () {
+    angular.module("app")
+        .factory('CategoryService', CategoryService);
+    
+    CategoryService.$inject = ['$http', '$q'];
+    
+    function CategoryService($http, $q) {
+
+        var service = {
+            saveCategory: saveCategory,
+            deleteCategory: deleteCategory,
+            getCategories: getCategories
+        }
+
+        return service;
+
+        function saveCategory(category) {
+            var def = $q.defer();
+            var req = {
+                method: category.id ? 'POST' : 'PUT',
+                url: "categories",
+                data: category}
+            $http(req).success(function (data) {
+                def.resolve(data);
             })
-            .error(function(){
-                    def.reject("Failed to get category");
-            });
+                    .error(function () {
+                        def.reject("Failed");
+                    });
             return def.promise;
-            },
-            createCategory : function(category){
-                var def = $q.defer();
-                var req = {
-                    method : 'POST',
-                    url : "api/v1/categories",
-                    data: category                    }
-            $http(req).success(function(data){
-                    def.resolve(data);
+        }
+
+        function deleteCategory(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: "categories/" + id
+            }
+            $http(req).success(function (data) {
+                def.resolve(data);
             })
-            .error(function(){
-                    def.reject("Failed");
-            });
+                    .error(function () {
+                        def.reject("Failed");
+                    });
             return def.promise;
-            },
-		    deleteCategory : function(id){
-		    	var def = $q.defer();
-			    var req = {
-					method : 'DELETE',
-					url : "api/v1/categories/" + id
-			    }
-		    $http(req).success(function(data){
-			    def.resolve(data);
-		    })
-		    .error(function(){
-			    def.reject("Failed");
-		    });
-	            return def.promise;
-		    }
-	    }
-    });
-}());
+        }
+
+        function getCategories() {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "categories"
+            }
+            $http(req).success(function (data) {
+                def.resolve(data);
+            })
+                    .error(function () {
+                        def.reject("Failed to get category");
+                    });
+            return def.promise;
+        }
+    }
+} ());

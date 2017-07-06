@@ -1,5 +1,7 @@
 /**
  * 
  */
-var app = angular.module('app', ['ngRoute','ngResource', 'ui.bootstrap']);
+(function(){
+    angular.module('app', ['ngRoute','ngResource', 'ui.bootstrap']);
+})();
     

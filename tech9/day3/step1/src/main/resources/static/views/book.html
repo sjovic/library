@@ -1,58 +1,87 @@
 <div class="col-sm-6">
-    <form name="addBookForm" novalidate>
-        <uib-tabset active="activeForm">
-            <uib-tab index="0" heading="Create Category">
-                <ng-form name="addBookForm">
-                    <div class="form-group">
-                    
-                        <br>
-                        <label>Category: </label><br>
-                        <select name="selectCategory" ng-options="category.name for category in categories track by category.id"
-                        ng-model="book.category" required>
-                        <option value="" ng-disabled="true" disabled>---Must select category---</option>
-                        </select>
-                        <br>
-                        <br>
-                        <label>ISBN:</label>
-                        <input name="isbn" type="text" class="form-control" required ng-model="book.isbn"/>
-                        <span class="error" ng-if="addBookForm.isbn.$error.required">* ISBN is required! </span>
-                        <br>
-                        <br>
-                        <label>Name:</label>
-                        <input name="name" type="text" class="form-control" required ng-model="book.name"/>
-                        <span class="error" ng-if="addBookForm.name.$error.required">* Name is required! </span>
-                        <br>
-                        <br>
-                        <label>Author:</label>
-                        <input name="author" type="text" class="form-control" required ng-model="book.author"/>
-                        <span class="error" ng-if="addBookForm.author.$error.required">* Author is required! </span>
-                        <br>
-                        <br>
-                        <label>Publish date:</label>
-                        <br>
-                        <span class="input-group-btn calender-button">
-                            <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        <input name="datePicker" type="text" class="form-control publish-date-class" uib-datepicker-popup ng-model="book.publishDate" is-open="popupCalendar.opened" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" required/>
-                        <br>
-                        <span class="error" ng-if="addBookForm.datePicker.$error.required">* Publish date is required! </span>
-                        <span class="error" ng-if="addBookForm.datePicker.$error.date">* Date is in wrong format!</span>
-                        <br>
-                        <label>Number of pages:</label>
-                        <input name="numberOfPages" type="text" class="form-control" required ng-model="book.numberOfPages"/>
-                        <span class="error" ng-if="addBookForm.numberOfPages.$error.required">* Number of pages is required! </span>
-                        <br>
-                        <br>
-                        <button ng-disabled="addBookForm.$invalid" type="button" class="btn btn-primary" ng-click="saveBook(book)" >
-                            OK
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-click="book = null" >
-                            Clear
-                        </button>
-
-                    </div>
-                </ng-form>
-            </uib-tab>
-        </uib-tabset>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>ISBN</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Publish date</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="book in vm.books track by $index">
+            <tr>
+                <td>{{book.category.name}}</td>
+                <td>{{book.isbn}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.publishDate}}</td>
+                <td>
+                    <button class="btn btn-info " type="button" ng-click="vm.editBook(book)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" type="button" ng-click="vm.deleteBook(book.id)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" ng-click="vm.addBook()" ng-show="!vm.showForm">
+        ADD
+    </button>
+    <form name="vm.addBookForm" novalidate ng-show="vm.showForm">
+        <div class="form-group">
+            <br>
+            <label>Category: </label><br>
+            <select name="selectCategory" ng-options="category.name for category in vm.categories track by category.id"
+            ng-model="vm.book.category" required>
+            <option value="" ng-disabled="true" disabled>---Must select category---</option>
+            </select>
+            <br>
+            <br>
+            <label>ISBN:</label>
+            <div ng-class="{ 'has-error' : vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine }">
+                <input name="isbn" type="text" ng-class= class="form-control" required ng-model="vm.book.isbn"/>
+                <span class="error" ng-show="vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine">* ISBN is required! </span>
+            </div>
+            <br>
+            <br>
+            <label>Name:</label>
+            <div ng-class="{ 'has-error' : vm.addBookForm.name.$invalid && !vm.addBookForm.name.$pristine }">
+                <input name="name" type="text" class="form-control" required ng-model="vm.book.name"/>
+                <span class="error" ng-show="vm.addBookForm.name.$invalid && !vm.addBookForm.name.$pristine">* Name is required! </span>
+            </div>
+            <br>
+            <br>
+            <label>Author:</label>
+            <div ng-class="{ 'has-error' : vm.addBookForm.author.$invalid && !vm.addBookForm.author.$pristine }">
+                <input name="author" type="text" class="form-control" required ng-model="vm.book.author"/>
+                <span class="error" ng-show="vm.addBookForm.author.$invalid && !vm.addBookForm.author.$pristine">* Author is required! </span>
+            </div>
+            <br>
+            <br>
+            <label>Publish date:</label>
+            <br>
+            <div ng-class="{ 'has-error' : vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine }">
+                <span class="input-group-btn calender-button">
+                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                <input name="datePicker" type="text" class="form-control publish-date-class" uib-datepicker-popup ng-model="vm.book.publishDate" is-open="vm.popupCalendar.opened" datepicker-options="vm.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
+                <span class="error" ng-show="vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine">* Date is in wrong format!</span>
+            </div>
+            <br>
+            <button type="button" ng-disabled="vm.addBookForm.$invalid" class="btn btn-primary" ng-click="vm.saveBook(vm.book)" >
+                OK
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="vm.clearBook()" >
+                Clear
+            </button>
+            <button type="button" class="btn btn-warning" ng-click="vm.cancelForm()">
+                CANCEL
+            </button>
+        </div>
     </form>
 </div>

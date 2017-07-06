@@ -1,43 +1,49 @@
 /**
  * 
  */
-var app = angular.module('app');
-app.controller('LoginController', function($scope, $rootScope, $location,$http) {
+(function () {
+    angular.module('app')
+        .controller('LoginController', LoginController);
 
-  var self = this
+    LoginController.$inject = ['$rootScope', '$location', '$http'];
 
-  var authenticate = function(credentials, callback) {
+    function LoginController($rootScope, $location, $http) {
 
-    var headers = credentials ? {authorization : "Basic "
-        + btoa(credentials.username + ":" + credentials.password)
-    } : {};
-    $http.get('/user' , {headers : headers}).then(function(response) {
-      console.log(response.data);
-      if (response.data.name) {
-            $rootScope.authenticated = true;
-      } else {
-            $rootScope.authenticated = false;
-      }
-      callback && callback();
-    }, function() {
-        $rootScope.authenticated = false;
-        callback && callback();
-    });
+        var vm = this;
+        vm.login = login;
 
-  }
+        vm.credentials = {};
+        authenticate();
 
-  authenticate();
-  $scope.credentials = {};
-  $scope.login = function() {
-      authenticate($scope.credentials, function() {
-        if ($rootScope.authenticated) {
-          $location.path("/");
-          $scope.error = false;
-        } else {
-          $location.path("/login");
-          $scope.error = true;
+        function authenticate(credentials, callback) {
+            var headers = credentials ? {authorization: "Basic "
+                        + btoa(credentials.username + ":" + credentials.password)
+            } : {};
+            $http.get('/user', {headers: headers}).then(function (response) {
+                console.log(response.data);
+                if (response.data.name) {
+                    $rootScope.authenticated = true;
+                } else {
+                    $rootScope.authenticated = false;
+                }
+                callback && callback();
+            }, function () {
+                $rootScope.authenticated = false;
+                callback && callback();
+            });
+
         }
-      });
-  };
 
-});
+        function login() {
+            authenticate(vm.credentials, function () {
+                if ($rootScope.authenticated) {
+                    $location.path("/");
+                    vm.error = false;
+                } else {
+                    $location.path("/login");
+                    vm.error = true;
+                }
+            });
+        }
+    }
+})();

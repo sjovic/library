@@ -1,20 +1,34 @@
 /**
  * 
  */
-angular.module('app')
-    .config(function($routeProvider){
-    $routeProvider
-    .when('/', {
-    	 templateUrl: '/views/main.html',
-         controller: 'MainController'
-	}).when('/book',{
-        templateUrl: '/views/book.html',
-        controller: 'BookController'
-	}).when('/category',{
-        templateUrl: '/views/category.html',
-        controller: 'CategoryController'
-	}).when('/login', {
-		templateUrl : '/views/login.html',
-		controller : 'LoginController'
-	}).otherwise('/');
-});
+(function () {
+    angular.module('app')
+            .config(config);
+
+    config.$inject = ['$routeProvider'];
+
+    function config($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: '/views/main.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
+            })
+            .when('/book', {
+                templateUrl: '/views/book.html',
+                controller: 'BookController',
+                controllerAs: 'vm'
+            })
+            .when('/category', {
+                templateUrl: '/views/category.html',
+                controller: 'CategoryController',
+                controllerAs: 'vm'
+            })
+            .when('/login', {
+                templateUrl: '/views/login.html',
+                controller: 'LoginController',
+                controllerAs: 'vm'
+            })
+            .otherwise('/');
+    }
+}());
