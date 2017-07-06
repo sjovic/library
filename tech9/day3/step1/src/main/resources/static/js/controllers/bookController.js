@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 (function(){
 angular.module('app')
     .controller('BookController', BookController);
@@ -18,8 +14,6 @@ angular.module('app')
         vm.editBook = editBook;
         vm.openCalendar = openCalendar;
         vm.saveBook = saveBook;
-        vm.selectBook = selectBook;
-        
         vm.showForm = false;
 
         init();
@@ -62,6 +56,7 @@ angular.module('app')
             }, function(error){
 
             });
+
             vm.book= {};
         }
 

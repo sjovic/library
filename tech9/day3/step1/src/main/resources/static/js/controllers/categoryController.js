@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 (function(){
     angular.module('app')
     .controller('CategoryController', CategoryController);   

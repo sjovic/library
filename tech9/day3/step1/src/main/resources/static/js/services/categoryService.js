@@ -1,6 +1,3 @@
-/**
- * 
- */
 (function () {
     angular.module("app")
         .factory('CategoryService', CategoryService);

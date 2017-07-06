@@ -17,10 +17,7 @@
             .when('/book', {
                 templateUrl: '/views/book.html',
                 controller: 'BookController',
-                controllerAs: 'vm',
-                data : {
-                    css: '/css/book.css'
-                }
+                controllerAs: 'vm'
             })
             .when('/category', {
                 templateUrl: '/views/category.html',
