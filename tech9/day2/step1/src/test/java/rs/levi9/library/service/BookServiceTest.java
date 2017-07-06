@@ -60,7 +60,7 @@ public class BookServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void should_remove_book() {
-        bookService.remove(1L);
+        bookService.delete(1L);
         bookService.findOne(1L);
     }
 

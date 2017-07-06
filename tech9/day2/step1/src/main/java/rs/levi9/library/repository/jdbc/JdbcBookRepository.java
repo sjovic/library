@@ -90,7 +90,7 @@ public class JdbcBookRepository implements BookRepository {
     }
 
     @Override
-    public void remove(Long id) throws IllegalArgumentException {
+    public void delete(Long id) throws IllegalArgumentException {
         jdbcTemplate.update(deleteQuery);
     }
 }
