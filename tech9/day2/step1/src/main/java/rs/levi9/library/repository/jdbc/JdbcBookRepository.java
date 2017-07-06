@@ -1,6 +1,5 @@
 package rs.levi9.library.repository.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,50 +8,43 @@ import org.springframework.stereotype.Repository;
 import rs.levi9.library.domain.BaseEntity;
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.repository.BookRepository;
-import rs.levi9.library.repository.mapper.BookCallbackHandler;
-
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import rs.levi9.library.repository.mapper.BookRowMapper;
 
 @Repository
 public class JdbcBookRepository implements BookRepository {
 
-    private JdbcTemplate jdbcTemplate;
-
-    private static final String findAllQuery = "select b.id, b.isbn, c.id, c.name, b.name, b.author, b.publish_date from book b\n" +
+    private static final String FIND_ALL_QUERY = "select b.id, b.isbn, c.id as cid, c.name, b.title, b.author, b.publish_date from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id";
-    private static final String findOneQuery = "select b.id, b.isbn, c.id, c.name, b.name, b.author, b.publish_date from book b\n" +
+    private static final String FIND_BY_ID_QUERY = "select b.id, b.isbn, c.id, c.name, b.title, b.author, b.publish_date from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id\n" +
             "where b.id = ?";
-    private static final String saveQuery = "INSERT INTO book\n" +
-            "(isbn, category_id, name, author, publish_date)\n" +
+    private static final String SAVE_QUERY = "INSERT INTO book\n" +
+            "(isbn, category_id, title, author, publish_date)\n" +
             "VALUES(?, ?, ?, ?, ?)";
-    private static final String deleteQuery = "delete from book where id=?";
+    private static final String DELETE_QUERY = "delete from book where id=?";
+    public static final String UPDATE_QUERY = "update book set isbn = ?, category_id = ?, title = ?, author = ?, publish_date = ? where id = ?";
 
-    public static final String updateQuery = "update book set isbn = ?, category_id = ?, name = ?, author = ?, publish_date = ? where id = ?";
-
+    private JdbcTemplate jdbcTemplate;
+    
     @Autowired
-    private void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public JdbcBookRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
+    
     @Override
     public Book findOne(Long id) {
-        BookCallbackHandler bookCallbackHandler = new BookCallbackHandler();
-
-        jdbcTemplate.query(findOneQuery, bookCallbackHandler, id);
-
-        return bookCallbackHandler.getBook();
+        List<Book> resultSet = jdbcTemplate.query(FIND_BY_ID_QUERY, new BookRowMapper());
+        return resultSet.get(0);
     }
-
+    
     @Override
     public List<Book> findAll() {
-        BookCallbackHandler bookCallbackHandler = new BookCallbackHandler();
-        jdbcTemplate.query(findAllQuery, bookCallbackHandler);
-        return bookCallbackHandler.getBooks();
+        return jdbcTemplate.query(FIND_ALL_QUERY, new BookRowMapper());
     }
 
     @Override
@@ -61,7 +53,7 @@ public class JdbcBookRepository implements BookRepository {
         Book book;
         if (entity.getId() != null) {
             book = (Book) entity;
-            jdbcTemplate.update(saveQuery, book.getIsbn(), book.getCategory().getId(), book.getName(),
+            jdbcTemplate.update(SAVE_QUERY, book.getIsbn(), book.getCategory().getId(), book.getTitle(),
                     book.getAuthor(), book.getPublishDate());
         } else {
             book = (Book) entity;
@@ -70,14 +62,14 @@ public class JdbcBookRepository implements BookRepository {
                 jdbcTemplate.update(new PreparedStatementCreator() {
                     @Override
                     public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                        PreparedStatement ps = con.prepareStatement(saveQuery, Statement.RETURN_GENERATED_KEYS);
+                        PreparedStatement ps = con.prepareStatement(SAVE_QUERY, Statement.RETURN_GENERATED_KEYS);
                         ps.setString(1, book.getIsbn());
                         if (book.getCategory() != null) {
                             ps.setLong(2, book.getCategory().getId());
                         } else {
                             ps.setNull(2, Types.BIGINT);
                         }
-                        ps.setString(3, book.getName());
+                        ps.setString(3, book.getTitle());
                         ps.setString(4, book.getAuthor());
                         ps.setDate(5, new java.sql.Date(book.getPublishDate().getTime()));
                         return ps;
@@ -90,7 +82,7 @@ public class JdbcBookRepository implements BookRepository {
     }
 
     @Override
-    public void remove(Long id) throws IllegalArgumentException {
-        jdbcTemplate.update(deleteQuery);
+    public void delete(Long id) throws IllegalArgumentException {
+        jdbcTemplate.update(DELETE_QUERY);
     }
 }

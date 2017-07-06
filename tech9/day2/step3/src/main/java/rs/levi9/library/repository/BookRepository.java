@@ -1,7 +1,7 @@
 package rs.levi9.library.repository;
 
-import rs.levi9.library.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import rs.levi9.library.domain.Book;
 import org.springframework.stereotype.Repository;
 
 @Repository

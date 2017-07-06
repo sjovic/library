@@ -18,8 +18,12 @@ public class JdbcCategoryRepository implements CategoryRepository {
     private static final String SAVE_QUERY = "replace into category values (?, ?)";
     private static final String DELETE_QUERY = "delete from category where id=?";
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    public JdbcCategoryRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Category findOne(Long id)  {
@@ -42,7 +46,7 @@ public class JdbcCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public void remove(Long id) throws IllegalArgumentException {
+    public void delete(Long id) throws IllegalArgumentException {
         jdbcTemplate.update(DELETE_QUERY, id);
     }
 }
