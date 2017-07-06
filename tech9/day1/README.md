@@ -52,7 +52,8 @@ Step 2 - Assignment
 -------------------
 
 Add the Book entity to project with the following properties: Id, Name, Category, ISBN, 
-publish date.
+publish date. Implement domain and service layers, and add in-memory repository implementation by the example of category
+ repository with basic CRUD operations.
 
 Step 3 - Unit testing
 ---------------------

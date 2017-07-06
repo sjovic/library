@@ -4,15 +4,18 @@ import rs.levi9.library.domain.Category;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import rs.levi9.library.repository.BookRepository;
 import rs.levi9.library.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
     
     private CategoryRepository categoryRepository;
+    private BookRepository bookRepository;
     
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
     }
 
@@ -28,8 +31,11 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void remove(Long id) {
-        categoryRepository.remove(id);
+    public void delete(Long id) {
+        if (bookRepository.findByCategory(id).size() > 0) {
+            throw new IllegalArgumentException("Books with this category exits");
+        }
+        categoryRepository.delete(id);
     }
 
 }

@@ -45,5 +45,16 @@ public class InMemoryBookRepository implements BookRepository {
         books.put(entity.getId(), (Book) entity);
         return entity;
     }
+
+    @Override
+    public List<Book> findByCategory(Long id) {
+        List<Book> foundBooks = new ArrayList<>();
+        for (Map.Entry<Long, Book> book : books.entrySet()) {
+            if (book.getValue().getCategory().getId().equals(id)) {
+                foundBooks.add(book.getValue());
+            }
+        }
+        return foundBooks;
+    }
     
 }

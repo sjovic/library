@@ -7,8 +7,6 @@ only few entities but it shows usage of modern web java technologies.
 Project will be organized in several sections (named steps) when each one represents the final stage of the finished
 section.
 
-Sample picture**
-
 # Course track and project phases
 
 This course will be organized as a 5 day event. Each day will consist of introductory phase, development and QA. At the
@@ -19,9 +17,9 @@ Project development steps/labs are divided between days:
 
 1.	[Introduction and setup of development environment from the ground-up: Java, Eclipse IDE, Gradle, MySql, GIT](https://github.com/sjovic/library/tree/master/tech9)
 2.  [day 1: Project startup and introduction to Spring framework, MVC pattern, REST, JUnit](https://github.com/sjovic/library/tree/master/tech9/day1)
-3.  [day 2: Adding persistance layer to the project, JDBC Template, JavaPersistanceApi JPA, validation](link to day 3**)
-4.  [day 3: Frontend: HTML5, CSS3, Bootstrap, AngularJS, Form Validation, Error messages](link to day 4**)
-5.  [day 4: Adding security layer: Spring security, course wrap up](link to day 5**)
+3.  [day 2: Adding persistance layer to the project, JDBC Template, JavaPersistanceApi JPA, validation](https://github.com/sjovic/library/tree/master/tech9/day2)
+4.  [day 3: Frontend: HTML5, CSS3, Bootstrap, AngularJS, Form Validation, Error messages](https://github.com/sjovic/library/tree/master/tech9/day3)
+5.  [day 4: Adding security layer: Spring security, course wrap up](https://github.com/sjovic/library/tree/master/tech9/day4)
 
 In Day 1 we will concentrate on setup of the development environment, install various needed software to successfully
 finish the project course. The links will be provided in the day 1 README document. You will also get the chance to
@@ -32,12 +30,12 @@ our IDE and you will get introduction to Spring Boot and MVC pattern. Later on w
 In the end we will implement REST endpoints and write JUnit unit tests.
 
 In Day 3 we will continue development of the project by adding persistence layer with MySql relational database server.
-This includes using JDBC template and later on moving to JPA. We will finish this day by adding validation annotations
-for dates.
+This includes using JDBC template and later on moving to JPA. We will finish this day by adding various validation annotations
+for category names ie., category name should not be empty, should be unique etc.
 
-Day 4 After adding REST endpoint we proceed to adding frontend - graphical interface that will communicate with endpoints.
+In Day 4, after adding REST endpoint we proceed to frontend implementation - graphical interface that will communicate with endpoints.
 
-In Day 5 we will wrap up the course with all previous phases and add security layer with Spring Security and OAuth.
+In Day 5 we will wrap up the course with all previous phases and add security layer with basic Spring Security.
 
 
 # Setup information
