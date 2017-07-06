@@ -59,8 +59,8 @@ public class BookServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_remove_book() {
-        bookService.remove(1L);
+    public void should_delete_book() {
+        bookService.delete(1L);
         bookService.findOne(1L);
     }
 
