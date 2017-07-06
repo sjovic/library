@@ -58,10 +58,4 @@ public class BookServiceTest {
         assertEquals("Craig Walls", resultBook.getAuthor());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void should_delete_book() {
-        bookService.delete(1L);
-        bookService.findOne(1L);
-    }
-
 }

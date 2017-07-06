@@ -32,7 +32,7 @@ public class Book extends BaseEntity implements Serializable {
     @NotNull
     @Length(min = 2, max = 100)
     @Column(nullable = false)
-    private String name;
+    private String title;
     
     @NotNull
     @Column(nullable = false)
@@ -49,9 +49,9 @@ public class Book extends BaseEntity implements Serializable {
         
     }
 
-    public Book(String isbn, Category category, String name, String author, Date publishDate) {
+    public Book(String isbn, Category category, String title, String author, Date publishDate) {
         this.isbn = isbn;
-        this.name = name;
+        this.title = title;
         this.author = author;
         this.publishDate = publishDate;
         this.category = category;
@@ -73,12 +73,12 @@ public class Book extends BaseEntity implements Serializable {
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

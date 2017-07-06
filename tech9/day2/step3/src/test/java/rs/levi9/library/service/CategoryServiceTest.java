@@ -48,4 +48,9 @@ public class CategoryServiceTest {
         assertEquals("Category 1", resultCategory.getName());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void should_remove_category() {
+        categoryService.delete(1L);
+        categoryService.findOne(1L);
+    }
 }
