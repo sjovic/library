@@ -1,0 +1,21 @@
+<div class="row main-content">
+    <div class="col-sm-3">
+        <div ng-repeat="category in vm.categories track by $index">
+        <a ng-click="scrollTo('category'+$index)">{{category.name}}</a>
+        </div> 
+    </div>
+    <div class="separator col-sm-9">
+        <label>All books</label>
+        <div ng-repeat="category in vm.categories track by $index">
+   	        <div class="row">
+   	            <div id="category{{$index}}" class="col-sm-8 category-header">{{category.name}}</div>
+   	            <div ng-if="" class="col-sm-1 btn btn-warning edit-button" ng-click="vm.editCategory(category)"> edit</div>
+   	            <div ng-if="" class="col-sm-1 btn btn-danger edit-button" ng-click="vm.deleteCategory(category.id)"> remove</div>
+   	            <div ng-repeat="book in vm.books">
+   	                <div ng-if="category.id === book.category.id" class="col-sm-8 ">{{book.name}}</div>
+   	            </div>
+        </div>
+        </div>
+    </div>       
+</div>
+    
