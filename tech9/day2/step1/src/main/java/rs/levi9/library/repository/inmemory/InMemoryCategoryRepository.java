@@ -31,7 +31,7 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public void remove(Long id) throws IllegalArgumentException {
+    public void delete(Long id) throws IllegalArgumentException {
         Category category = categories.remove(id);
         if (category == null) {
             throw new IllegalArgumentException("category does not exist!");

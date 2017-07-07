@@ -29,8 +29,8 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public void remove(Long id) throws IllegalArgumentException {
-        bookRepository.remove(id);
+    public void delete(Long id) throws IllegalArgumentException {
+        bookRepository.delete(id);
     }
 
 }

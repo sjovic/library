@@ -37,8 +37,8 @@ public class BookController {
     }
     
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void remove(@PathVariable("id") Long id) {
-        bookService.remove(id);
+    public void delete(@PathVariable("id") Long id) {
+        bookService.delete(id);
     }
     
 }

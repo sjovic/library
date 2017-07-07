@@ -56,7 +56,7 @@ public class CategoryServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void should_remove_category() {
-        categoryService.remove(1L);
+        categoryService.delete(1L);
         categoryService.findOne(1L);
     }
 }
