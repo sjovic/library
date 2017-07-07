@@ -2,10 +2,7 @@ package rs.levi9.library.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import rs.levi9.library.domain.Book;
 import rs.levi9.library.domain.Category;
-import rs.levi9.library.repository.BookRepository;
-import rs.levi9.library.repository.InMemoryBookRepository;
 import rs.levi9.library.repository.InMemoryCategoryRepository;
 import java.util.List;
 
@@ -15,12 +12,10 @@ public class CategoryServiceTest {
 
     private InMemoryCategoryRepository categoryRepository;
     private CategoryService categoryService;
-    private BookRepository bookRepository;
 
     @Before
     public void setUp() {
         categoryRepository = new InMemoryCategoryRepository();
-        bookRepository = new InMemoryBookRepository();
         categoryService = new CategoryService(categoryRepository);
 
         Category category1 = new Category();

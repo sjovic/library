@@ -28,7 +28,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws IllegalArgumentException {
         categoryRepository.delete(id);
     }
 

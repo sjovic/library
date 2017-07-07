@@ -48,7 +48,6 @@ public class BookServiceTest {
     @Test
     public void should_find_books() {
         List<Book> resultBooks = bookService.findAll();
-
         assertEquals(2L, resultBooks.size());
     }
 

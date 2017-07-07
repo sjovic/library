@@ -11,9 +11,10 @@ import rs.levi9.library.domain.Category;
 
 @Repository
 public class InMemoryCategoryRepository implements CategoryRepository {
-    
+
     private Map<Long, Category> categories = new HashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
+
     
     @Override
     public Category findOne(Long id) throws IllegalArgumentException {
@@ -31,10 +32,11 @@ public class InMemoryCategoryRepository implements CategoryRepository {
 
     @Override
     public void delete(Long id) throws IllegalArgumentException {
-        Category category = categories.remove(id);
-        if (category == null) {
-            throw new IllegalArgumentException("category does not exist!");
+        if (!categories.containsKey(id)) {
+            throw new IllegalArgumentException("category does not exist");
         }
+        categories.remove(id);
+        
     }
 
     @Override
