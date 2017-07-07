@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,11 +48,7 @@ public class BookController {
     
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        try {
-            bookService.delete(id);
-        } catch(EmptyResultDataAccessException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+        bookService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
     

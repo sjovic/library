@@ -1,4 +1,4 @@
-package rs.levi9.library.controller;
+package rs.levi9.library.web.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,13 @@ public class BookController {
     }
     
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void remove(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Long id) {
         bookService.delete(id);
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    public Book update(@RequestBody Book book) {
+        return bookService.save(book);
     }
     
 }

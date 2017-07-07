@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rs.levi9.library.web.validation.custom;
 
 import java.lang.annotation.Documented;
@@ -19,7 +14,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Isbn13 {
 
-    String message() default "invalid code";
+    String message() default "invalid isbn code";
      
     Class<?>[] groups() default {};
      

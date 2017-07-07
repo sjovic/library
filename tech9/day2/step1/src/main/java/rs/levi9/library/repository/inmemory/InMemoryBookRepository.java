@@ -32,10 +32,11 @@ public class InMemoryBookRepository implements BookRepository {
 
     @Override
     public void delete(Long id) throws IllegalArgumentException {
-        Book book = books.remove(id);
-        if (book == null) {
-            throw new IllegalArgumentException("book does not exist!");
+        if (!books.containsKey(id)) {
+            throw new IllegalArgumentException("book does not exist");
         }
+        books.remove(id);
+        
     }
 
     @Override

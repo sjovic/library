@@ -1,4 +1,4 @@
-package rs.levi9.library.controller;
+package rs.levi9.library.web.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,43 +7,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import rs.levi9.library.domain.Book;
-import rs.levi9.library.service.BookService;
+import rs.levi9.library.domain.Category;
+import rs.levi9.library.service.CategoryService;
 
 @RestController
-@RequestMapping("/books")
-public class BookController {
+@RequestMapping("/categories")
+public class CategoryController {
     
-    private BookService bookService;
+    private CategoryService categoryService;
     
     @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<Book> findAll() {
-        return bookService.findAll();
+    public List<Category> findAll() {
+        return categoryService.findAll();
     }
     
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Book findOne(@PathVariable("id") Long id) {
-        return bookService.findOne(id);
+    public Category findOne(@PathVariable("id") Long id) {
+        return categoryService.findOne(id);
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public Book save(@RequestBody Book book) {
-        return bookService.save(book);
+    public Category save(@RequestBody Category category) {
+        return categoryService.save(category);
     }
     
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        bookService.delete(id);
+        categoryService.delete(id);
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public Book update(@RequestBody Book book) {
-        return bookService.save(book);
+    public Category update(@RequestBody Category category) {
+        return categoryService.save(category);
     }
     
 }

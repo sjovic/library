@@ -24,9 +24,10 @@ public class Book extends BaseEntity implements Serializable {
     
     @NotNull
     @Isbn13
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String isbn;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

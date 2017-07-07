@@ -45,5 +45,5 @@ public class CategoryController {
     public Category update(@RequestBody Category category) {
         return categoryService.save(category);
     }
-    
+
 }

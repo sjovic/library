@@ -16,7 +16,7 @@ public class Book extends BaseEntity implements Serializable {
     
     public static final long serialVersionUID = 5128632882797623323L;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String isbn;
     
     @ManyToOne

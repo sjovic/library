@@ -45,12 +45,8 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity remove(@PathVariable("id") Long id) {
-        try {
-            categoryService.delete(id);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        categoryService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
     
