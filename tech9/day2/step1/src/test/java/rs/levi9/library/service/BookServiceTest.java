@@ -4,10 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import rs.levi9.library.domain.Book;
 import rs.levi9.library.domain.Category;
+import rs.levi9.library.repository.BookRepository;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +20,14 @@ import static org.junit.Assert.assertEquals;
 public class BookServiceTest {
 
     @Autowired
+    @Qualifier(value = "inMemoryBookRepository")
+    private BookRepository bookRepository;
+
     private BookService bookService;
 
     @Before
     public void setUp() {
+        bookService = new BookService(bookRepository);
         Category categoryProgramming = new Category();
         categoryProgramming.setId(1L);
         categoryProgramming.setName("Java Programming");

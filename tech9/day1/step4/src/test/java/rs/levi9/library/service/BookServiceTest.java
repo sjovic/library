@@ -28,7 +28,7 @@ public class BookServiceTest {
 
         Book book1 = new Book();
         book1.setId(1L);
-        book1.setName("Spring in Action 4");
+        book1.setTitle("Spring in Action 4");
         book1.setAuthor("Craig Walls");
         book1.setIsbn("9781617291203");
         book1.setCategory(categoryProgramming);
@@ -37,7 +37,7 @@ public class BookServiceTest {
 
         Book book2 = new Book();
         book2.setId(2L);
-        book2.setName("Spring in Practice");
+        book2.setTitle("Spring in Practice");
         book2.setAuthor("Willie Wheeler");
         book2.setIsbn("9781935182054");
         book2.setPublishDate(new Date());

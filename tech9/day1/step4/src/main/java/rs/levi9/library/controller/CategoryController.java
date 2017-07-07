@@ -38,7 +38,7 @@ public class CategoryController {
     
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void remove(@PathVariable("id") Long id) {
-        categoryService.remove(id);
+        categoryService.delete(id);
     }
     
 }

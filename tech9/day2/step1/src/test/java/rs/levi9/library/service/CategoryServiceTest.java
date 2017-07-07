@@ -4,9 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import rs.levi9.library.domain.Category;
+import rs.levi9.library.repository.CategoryRepository;
+
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,11 +18,14 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class CategoryServiceTest {
 
-    @Autowired
     private CategoryService categoryService;
+    @Autowired
+    @Qualifier(value = "inMemoryCategoryRepository")
+    private CategoryRepository categoryRepository;
 
     @Before
     public void setUp() {
+        categoryService = new CategoryService(categoryRepository);
         Category category1 = new Category();
         category1.setId(1L);
         category1.setName("Category 1");
