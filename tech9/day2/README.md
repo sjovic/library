@@ -4,7 +4,7 @@ Day 2 Adding persistence layer to the project, JDBC Template, JavaPersistenceApi
 Adding persistence layer
 ------------------------
 
-In continuation of developing the library project, today we will implement the persistance
+In continuation of developing the library project, today we will implement the persistence
 layer and thus store our data to MySql database server. Also, a validator will be added for validation of publish dates.
 
 Reading
@@ -34,7 +34,7 @@ Step 1 - Getting data via JDBC template
 6.  Enter the datasource (host, port, user and pass) information in application.properties
 7.  Add rowmapper and map all the fields from the Category entity
 8.  Add JDBC implementations (repository class) for Category with CRUD operations (write sql queries for JDBC template)
-9.  Insert few categories via REST interface and retrive by ID
+9.  Insert few categories via REST interface and retrieve by ID
 
 Step 1 - assignment
 -------------------
