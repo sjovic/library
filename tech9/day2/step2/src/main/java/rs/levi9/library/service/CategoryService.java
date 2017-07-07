@@ -3,10 +3,12 @@ package rs.levi9.library.service;
 import rs.levi9.library.domain.Category;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import rs.levi9.library.repository.CategoryRepository;
 
 @Service
+@Transactional
 public class CategoryService {
     
     private CategoryRepository categoryRepository;

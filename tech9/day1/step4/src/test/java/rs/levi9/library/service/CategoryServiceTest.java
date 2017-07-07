@@ -70,12 +70,7 @@ public class CategoryServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void should_delete_category() {
-        categoryService.delete(2L);
-        categoryService.findOne(2L);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_delete_category_if_book_has_one() {
         categoryService.delete(1L);
+        categoryService.findOne(1L);
     }
 }
