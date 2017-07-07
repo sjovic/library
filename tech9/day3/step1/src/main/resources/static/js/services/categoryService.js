@@ -20,7 +20,7 @@
         function saveCategory(category) {
             var def = $q.defer();
             var req = {
-                method: category.id ? 'POST' : 'PUT',
+                method: category.id ? 'PUT' : 'POST',
                 url: "categories",
                 data: category}
             $http(req).success(function (data) {

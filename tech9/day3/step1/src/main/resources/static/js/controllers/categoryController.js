@@ -16,16 +16,15 @@
         vm.deleteCategory = deleteCategory;
         vm.editCategory = editCategory;
         vm.saveCategory = saveCategory;
-            
-        vm.showForm = false;
+        vm.selectCategory = selectCategory;
         
         //Create new category
         vm.category = {};
-        
+
         getCategories();
         
         function addCategory(){
-            vm.showForm = true;
+        	vm.addCategoryForm
             vm.category = {};
         }
         
@@ -33,17 +32,16 @@
             vm.showForm = false;
         }
         
-        function deleteCategory(id){
-            console.log(id);
-            CategoryService.deleteCategory(id).then(function(response){
+        function deleteCategory(){
+            CategoryService.deleteCategory(vm.category.id).then(function(response){
                 getCategories();
             }, function(error){
 
             });
+            vm.category = {};
         }
         
         function editCategory(category){
-            vm.showForm = true;
             vm.category = angular.copy(category);
         }
         
@@ -64,7 +62,10 @@
             })
             //remove input value after submit
             vm.addCategoryForm.$setPristine();
-            vm.showForm = false;
+        }
+        
+        function selectCategory(category){
+            vm.category = category;
         }
     };
 })();

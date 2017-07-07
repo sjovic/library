@@ -1,5 +1,6 @@
-<div class="col-sm-6">
-    <table class="table">
+<div class="col-sm-12">
+    
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Category</th>
@@ -7,6 +8,8 @@
                 <th>Name</th>
                 <th>Author</th>
                 <th>Publish date</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody ng-repeat="book in vm.books track by $index">
@@ -16,23 +19,46 @@
                 <td>{{book.name}}</td>
                 <td>{{book.author}}</td>
                 <td>{{book.publishDate}}</td>
-                <td>
-                    <button class="btn btn-info " type="button" ng-click="vm.editBook(book)">
+                <td class="option">
+                    <button class="btn btn-info" type="button" ng-click="vm.editBook(book)">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </td>
-                <td>
-                    <button class="btn btn-danger" type="button" ng-click="vm.deleteBook(book.id)">
+                <td class="option">
+<!--                    -->
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" ng-click="vm.selectBook(book)">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Deleting book</h4>
+          </div>
+          <div class="modal-body">
+            <p>Confirm that you want to delete <i>{{vm.book.name}}</i>, Author <i>{{vm.book.author}}</i></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="vm.deleteBook(vm.selectedBook.id)">Confirm</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <button type="button" class="btn btn-primary" ng-click="vm.addBook()" ng-show="!vm.showForm">
         ADD
     </button>
-    <form name="vm.addBookForm" novalidate ng-show="vm.showForm">
+    
+    <form name="vm.addBookForm" novalidate ng-show="vm.showForm" class="col-sm-6">
         <div class="form-group">
             <br>
             <label>Category: </label><br>
@@ -84,4 +110,5 @@
             </button>
         </div>
     </form>
+    
 </div>
