@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 bin
 gradle*
 
 bower_components
 node_modules
+=======
+bin/
+bower_components/
+node_modules/
+>>>>>>> c84eb19... step3.1
 package-lock.json

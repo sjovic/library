@@ -18,6 +18,7 @@ angular.module('app')
         vm.editBook = editBook;
         vm.openCalendar = openCalendar;
         vm.saveBook = saveBook;
+        vm.selectBook = selectBook;
         
         vm.showForm = false;
 
@@ -55,13 +56,13 @@ angular.module('app')
             vm.book = {};
         }
         
-        function deleteBook(id){
-            console.log(id);
-            BookService.deleteBook(id).then(function(response){
+        function deleteBook(){
+            BookService.deleteBook(vm.book.id).then(function(response){
                 getBooks();
             }, function(error){
 
             });
+            vm.book= {};
         }
 
         function editBook(book){
@@ -103,6 +104,10 @@ angular.module('app')
             //remove input value after submit
             vm.addBookForm.$setPristine();
             vm.showForm = false;
+        }
+        
+        function selectBook(book){
+            vm.book = book;
         }
     };
 })();
