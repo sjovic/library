@@ -1,5 +1,13 @@
 @CHARSET "ISO-8859-1";
 
+body {
+    padding-top: 90px;
+}
+
+footer {
+    padding-bottom: 50px;
+}
+
 .cursore-pointer{
     cursor: pointer;
 }
@@ -43,3 +51,4 @@
 .separator{
 	border-left: 1px solid #d3d3d3;
 }
+
