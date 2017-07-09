@@ -12,12 +12,13 @@
             var vm = this;
             vm.isActive = isActive;
             vm.scrollTo = scrollTo;
-            vm.headingTitle = "Book";
 
             getCategories();
 
             //nav-bar
-            function isActive(viewLocation) { 
+            function isActive(viewLocation) {
+                console.log(viewLocation);
+                console.log($location.path());
                 return viewLocation === $location.path();
             };
 

@@ -13,14 +13,16 @@
         vm.editCategory = editCategory;
         vm.saveCategory = saveCategory;
         vm.selectCategory = selectCategory;
+        vm.operation;
         
         //Create new category
         vm.category = {};
 
         getCategories();
         
-        function addCategory(){
-        	vm.addCategoryForm
+        function addCategory() {
+            vm.operation = "Add";
+            vm.addCategoryForm;
             vm.category = {};
         }
         
@@ -37,7 +39,8 @@
             vm.category = {};
         }
         
-        function editCategory(category){
+        function editCategory(category) {
+            vm.operation = "Edit";
             vm.category = angular.copy(category);
         }
         

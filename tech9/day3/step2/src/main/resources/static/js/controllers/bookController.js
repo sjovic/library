@@ -9,12 +9,12 @@ angular.module('app')
         var vm = this;
         vm.addBook = addBook;
         vm.cancelForm = cancelForm;
-        vm.clearBook = clearBook;
         vm.deleteBook = deleteBook;
         vm.editBook = editBook;
         vm.openCalendar = openCalendar;
         vm.saveBook = saveBook;
-        vm.showForm = false;
+        vm.selectBook = selectBook;
+        vm.operation;
 
         init();
 
@@ -36,19 +36,15 @@ angular.module('app')
            opened: false
         }; 
 
-        function addBook(){
-            vm.showForm = true;
+        function addBook() {
+            vm.operation = "Add";
             init();
         }
         
         function cancelForm(){
             vm.showForm = false;
         }
-        
-        function clearBook(){
-            vm.addBookForm.$setPristine();
-            vm.book = {};
-        }
+
         
         function deleteBook(){
             BookService.deleteBook(vm.book.id).then(function(response){
@@ -61,7 +57,7 @@ angular.module('app')
         }
 
         function editBook(book){
-            vm.showForm = true;
+            vm.operation = "Edit";
             vm.book = angular.copy(book);
             vm.book.publishDate = new Date(vm.book.publishDate.split('-').join(' '));
         }

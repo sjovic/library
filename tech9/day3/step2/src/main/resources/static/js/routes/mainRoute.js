@@ -1,6 +1,3 @@
-/**
- * 
- */
 (function () {
     angular.module('app')
             .config(config);
@@ -14,13 +11,13 @@
                 controller: 'MainController',
                 controllerAs: 'vm'
             })
-            .when('/book', {
-                templateUrl: '/views/book.html',
+            .when('/books', {
+                templateUrl: '/views/books.html',
                 controller: 'BookController',
                 controllerAs: 'vm'
             })
-            .when('/category', {
-                templateUrl: '/views/category.html',
+            .when('/categories', {
+                templateUrl: '/views/categories.html',
                 controller: 'CategoryController',
                 controllerAs: 'vm'
             })
