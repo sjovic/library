@@ -8,7 +8,6 @@ angular.module('app')
         
         var vm = this;
         vm.addBook = addBook;
-        vm.cancelForm = cancelForm;
         vm.deleteBook = deleteBook;
         vm.editBook = editBook;
         vm.openCalendar = openCalendar;
@@ -21,10 +20,12 @@ angular.module('app')
         function init() {
             getCategories();
             getBooks();
+            vm.error = {};
             //Create new book
             vm.book = {
                 publishDate: new Date()
             };
+            vm.closeModal = false;
         }
 
         vm.datePickerOptions = {
@@ -37,26 +38,22 @@ angular.module('app')
         }; 
 
         function addBook() {
+            vm.addBookForm.$setPristine();
             vm.operation = "Add";
             init();
         }
-        
-        function cancelForm(){
-            vm.showForm = false;
-        }
 
-        
         function deleteBook(){
             BookService.deleteBook(vm.book.id).then(function(response){
                 getBooks();
             }, function(error){
 
             });
-
             vm.book= {};
         }
 
         function editBook(book){
+        	vm.error = {};
             vm.operation = "Edit";
             vm.book = angular.copy(book);
             vm.book.publishDate = new Date(vm.book.publishDate.split('-').join(' '));
@@ -84,17 +81,35 @@ angular.module('app')
             vm.popupCalendar.opened = true;
         };
 
+        function capitalize(error){
+            return '* ' + error[0].toUpperCase() + error.slice(1); 
+        }
+
+        function errorHandler(error){
+            switch(error.field){
+                case 'title':
+                    vm.error.title = capitalize(error.message);
+                    break;
+                case 'isbn':
+                    vm.error.isbn = capitalize(error.message);
+                    break;
+            }
+        }
+
         function saveBook(book){
             book.publishDate = $filter('date')(book.publishDate, "yyyy-MM-dd");
-            console.log(book.publishDate);
             BookService.saveBook(book).then(function(response){
                 getBooks();
+                $('#add-book-modal').modal('hide');
             }, function(error){
-
+                vm.error = {};
+                angular.forEach(error.data.exceptions, function(e){
+                    errorHandler(e);
+                });
             })
             //remove input value after submit
             vm.addBookForm.$setPristine();
-            vm.showForm = false;
+            vm.error = {};
         }
         
         function selectBook(book){

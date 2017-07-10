@@ -8,7 +8,6 @@
         
         var vm = this;
         vm.addCategory = addCategory;
-        vm.cancelForm = cancelForm;
         vm.deleteCategory = deleteCategory;
         vm.editCategory = editCategory;
         vm.saveCategory = saveCategory;
@@ -25,11 +24,7 @@
             vm.addCategoryForm;
             vm.category = {};
         }
-        
-        function cancelForm(){
-            vm.showForm = false;
-        }
-        
+
         function deleteCategory(){
             CategoryService.deleteCategory(vm.category.id).then(function(response){
                 getCategories();

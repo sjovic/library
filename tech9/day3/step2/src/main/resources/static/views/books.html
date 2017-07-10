@@ -89,7 +89,8 @@
                                 <label>Title: </label>
                                 <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.title.$invalid && !vm.addBookForm.title.$pristine }">
                                     <input name="title" type="text" class="form-control" required ng-model="vm.book.title"/>
-                                    <span class="error" ng-show="vm.addBookForm.title.$invalid && !vm.addBookForm.title.$pristine">* Title is required! </span>
+                                    <span class="error" ng-show="vm.addBookForm.title.$invalid && !vm.addBookForm.title.$pristine">* Title is required!</span>
+                                    <span ng-if="vm.error.title" class="error">{{vm.error.title}}</span>
                                 </div>
                                 <label>Author:</label>
                                 <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.author.$invalid && !vm.addBookForm.author.$pristine }">
@@ -102,18 +103,19 @@
                                         <button type="button" class="btn btn-secondary" ng-click="vm.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
                                     <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="vm.book.publishDate" is-open="vm.popupCalendar.opened" datepicker-options="vm.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
-                                    <span class="error" ng-show="vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine">* Date is in wrong format!</span>
                                 </div>
+                                <span class="input-group error "input-group"" ng-show="vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine">* Date is in wrong format!</span>
                                 <label>ISBN:</label>
                                 <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine }">
                                     <input name="isbn" type="text" class="form-control" required ng-model="vm.book.isbn"/>
-                                    <span class="error" ng-show="vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine">* ISBN is required! </span>
+                                    <span class="error" ng-show="vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine">* ISBN is required! </span><br>
+                                    <span ng-if="vm.error.isbn" class="error">{{vm.error.isbn}}</span>
                                 </div>
                             </div>
                         </form>
                         <div class="modal-footer">
                             <button type="button" ng-disabled="vm.addBookForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="vm.saveBook(vm.book)">OK</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.cancelForm()">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
