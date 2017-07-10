@@ -5,7 +5,7 @@ Introduction and setup of development environment from the ground-up: Java, Ecli
 
 Project setup
 -------------
-*   [Download and install Java development kit JDK for Java 8](http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-windows-x64.exe)
+*   [Download and install Java development kit JDK for Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 *   [Eclipse](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32-x86_64.zip&mirror_id=492)
 *   [Gradle](https://gradle.org/install)
 *   [MySql](https://dev.mysql.com/downloads/file/?id=470090)
