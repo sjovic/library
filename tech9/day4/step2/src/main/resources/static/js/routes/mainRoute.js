@@ -7,8 +7,8 @@
     function config($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: '/views/main.html',
-                controller: 'MainController',
+                templateUrl: '/views/home.html',
+                controller: 'HomeController',
                 controllerAs: 'vm'
             })
             .when('/books', {
@@ -20,6 +20,7 @@
                 templateUrl: '/views/categories.html',
                 controller: 'CategoryController',
                 controllerAs: 'vm'
-            }).otherwise('/');
+            })
+            .otherwise('/');
     }
 }());
