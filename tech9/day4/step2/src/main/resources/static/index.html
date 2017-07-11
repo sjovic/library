@@ -20,9 +20,9 @@
     <body ng-controller="MainController as vm" class="ng-cloak">
         <div class="wrapper">
             <!-- login page -->
-            <div class="container" ng-show=!vm.authenticated" ng-include src="'views/login.html'"></div>
+            <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>
             <!-- home page -->
-            <div class="container" ng-show="vm.authenticated">
+            <div class="container" ng-show="vm.user">
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div class="container">
@@ -41,12 +41,12 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
                                     <li ng-class="{ 'active': vm.isActive('/') }"><a href="#/">Home </a></li>
-                                    <li ng-class="{ 'active': vm.isActive('/categories') }"><a href="#/categories">Categories </a></li>
-                                    <li ng-class="{ 'active': vm.isActive('/books') }"><a href="#/books">Books </a></li>
+                                    <li ng-if="vm.user.principal.authorities[0].authority == 'ROLE_ADMIN'" ng-class="{ 'active': vm.isActive('/categories') }"><a href="#/categories">Categories </a></li>
+                                    <li ng-if="vm.user.principal.authorities[0].authority == 'ROLE_ADMIN'" ng-class="{ 'active': vm.isActive('/books') }"><a href="#/books">Books </a></li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Username <span class="caret"></span></a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{vm.user.principal.username}} <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="#" ng-click="vm.logout()">Log out</a></li>
                                         </ul>
@@ -85,7 +85,7 @@
 
         <!-- controllers -->
         <script src="js/controllers/categoryController.js" type="text/javascript"></script>
-        <script src="js/controllers/loginController.js" type="text/javascript"></script>
+        <script src="js/controllers/homeController.js" type="text/javascript"></script>
         <script src="js/controllers/mainController.js" type="text/javascript"></script>
         <script src="js/controllers/bookController.js" type="text/javascript"></script>
 

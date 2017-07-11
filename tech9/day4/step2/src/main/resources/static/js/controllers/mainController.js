@@ -2,46 +2,24 @@
     angular.module('app')
             .controller('MainController', MainController);
 
-    MainController.$inject = ['CategoryService', 'BookService', '$location', '$http'];
+    MainController.$inject = ['$location', '$http', '$route'];
 
-    function MainController(CategoryService, BookService, $location, $http) {
+    function MainController($location, $http, $route) {
 
         var self = this;
         self.isActive = isActive;
-        self.categories;
-        self.books;
-        self.authenticated;
         self.login = login;
         self.logout = logout;
+        self.user;
 
         init();
 
 
         function init() {
-            if (self.authenticated) {
-                getCategories();
-                getBooks();
+            if (self.user) {
+                $route.reload();
             }
         }
-
-        function getCategories() {
-            CategoryService.getCategories().then(handleSuccessCategories);
-        }
-
-        function getBooks() {
-            BookService.getBooks().then(handleSuccessBooks);
-        }
-
-        //Get all category
-        function handleSuccessCategories(data, status) {
-            self.categories = data;
-        }
-
-        //Get all books
-        function handleSuccessBooks(data, status) {
-            self.books = data.data;
-        }
-
 
         //nav-bar
         function isActive(viewLocation) {
@@ -66,9 +44,7 @@
                     // setting the same header value for all request calling from this app
                     $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                     self.user = res;
-                    //setCookie('authenticated', true, 1);
-//                    init();
-                    self.authenticated = true;
+                    init();
                 } else {
                     self.message = 'Authetication Failed !';
                 }
@@ -81,33 +57,10 @@
         function logout() {
             // clearing the authorization header
             $http.defaults.headers.common['Authorization'] = null;
-            setCookie("authenticated", null, 0);
             // clearing all data
-            self.user = null;
+            delete self.user;
             self.message = 'Successfully logged out';
             self.resource = null;
-        }
-
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
         }
     }
 
