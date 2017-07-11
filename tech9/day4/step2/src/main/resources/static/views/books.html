@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>ISBN</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Publish date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="book in vm.books track by $index">
+                <tr>
+                    <td>{{$index}}</td>
+                    <td>{{book.category.name}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.publishDate}}</td>
+                    <td class="option">
+                        <button class="btn btn-default" data-toggle="modal" data-target="#add-book-modal" type="button" ng-click="vm.editBook(book)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                    <td class="option">
+                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#delete-book-modal" ng-click="vm.selectBook(book)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#add-book-modal" ng-click="vm.addBook()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <!-- Delete book -->
+        <div class="modal fade" id="delete-book-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete book</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete <i>{{vm.book.title}}</i>, by <i>{{vm.book.author}}</i> ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.deleteBook(vm.selectedBook.id)">OK</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <!-- Add/Edit book -->
+        <div class="modal fade" id="add-book-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{vm.operation}} category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Category Form -->
+                        <form name="vm.addBookForm" novalidate>
+                            <div class="form-group">
+                                <label>Category: </label>
+                                <div class="modal-item">
+                                    <select class="form-control" name="selectCategory" ng-options="category.name for category in vm.categories track by category.id"
+                                            ng-model="vm.book.category" required>
+                                        <option value="" ng-disabled="true" disabled>---Must select category---</option>
+                                    </select>
+                                </div>
+                                <label>Title: </label>
+                                <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.title.$invalid && !vm.addBookForm.title.$pristine }">
+                                    <input name="title" type="text" class="form-control" required ng-model="vm.book.title"/>
+                                    <span class="error" ng-show="vm.addBookForm.title.$invalid && !vm.addBookForm.title.$pristine">* Title is required!</span>
+                                    <span ng-if="vm.error.title" class="error">{{vm.error.title}}</span>
+                                </div>
+                                <label>Author:</label>
+                                <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.author.$invalid && !vm.addBookForm.author.$pristine }">
+                                    <input name="author" type="text" class="form-control" required ng-model="vm.book.author"/>
+                                    <span class="error" ng-show="vm.addBookForm.author.$invalid && !vm.addBookForm.author.$pristine">* Author is required! </span>
+                                </div>
+                                <label>Publish date:</label>
+                                <div class="modal-item input-group" ng-class="{ 'has-error' : vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine }">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-secondary" ng-click="vm.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                    <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="vm.book.publishDate" is-open="vm.popupCalendar.opened" datepicker-options="vm.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
+                                </div>
+                                <span class="input-group error "input-group"" ng-show="vm.addBookForm.datePicker.$invalid && !vm.addBookForm.$pristine">* Date is in wrong format!</span>
+                                <label>ISBN:</label>
+                                <div class="modal-item" ng-class="{ 'has-error' : vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine }">
+                                    <input name="isbn" type="text" class="form-control" required ng-model="vm.book.isbn"/>
+                                    <span class="error" ng-show="vm.addBookForm.isbn.$invalid && !vm.addBookForm.isbn.$pristine">* ISBN is required! </span><br>
+                                    <span ng-if="vm.error.isbn" class="error">{{vm.error.isbn}}</span>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" ng-disabled="vm.addBookForm.$invalid" data-dismiss="modal" class="btn btn-default" ng-click="vm.saveBook(vm.book)">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
