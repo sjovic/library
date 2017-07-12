@@ -39,9 +39,8 @@ Step 1 - Getting data via JDBC template
 Step 1 - assignment
 -------------------
 
-1.  Add persistance layer for Book entity repeating the sections 7 to 9 from the step 1.
-2.  Additionally, you'll need to add CallbackHandler in order to process entity Book with the Category.
-3.  Manually test the implementation with Postman
+1.  Add persistence layer for Book entity repeating the sections 7 to 9 from the step 1.
+2.  Manually test the implementation with Postman
 
 Step 2 - Persistence layer with Spring Data JPA
 -----------------------------------------------
@@ -53,6 +52,11 @@ Step 2 - Persistence layer with Spring Data JPA
 Step 3 - Add validators
 -----------------------
 
-1.  
+1.	Implement validation logic for validating ISBN 13 digit number
+2.	Add validator class that will be used with validation annotation
+3.	Add custom ISBN13 validator annotation and use previously created validation class
+4.	Annotate field ISBN in book domain object to use custom validator
+5.	Declare all fields to be non-null meaning all fields are required.
+6.	Anontate publish date field with Past annotation meaning that book publish date should be in the past.
 
 
