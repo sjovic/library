@@ -19,7 +19,7 @@ public class JdbcBookRepository implements BookRepository {
     private static final String FIND_ALL_QUERY = "select b.id, b.isbn, c.id as cid, c.name, b.title, b.author, b.publish_date from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id";
-    private static final String FIND_BY_ID_QUERY = "select b.id, b.isbn, c.id, c.name, b.title, b.author, b.publish_date from book b\n" +
+    private static final String FIND_BY_ID_QUERY = "select b.id, b.isbn, c.id as cid, c.name, b.title, b.author, b.publish_date from book b\n" +
             "left join category c\n" +
             "on b.category_id = c.id\n" +
             "where b.id = ?";
@@ -38,7 +38,7 @@ public class JdbcBookRepository implements BookRepository {
     
     @Override
     public Book findOne(Long id) {
-        List<Book> resultSet = jdbcTemplate.query(FIND_BY_ID_QUERY, new BookRowMapper());
+        List<Book> resultSet = jdbcTemplate.query(FIND_BY_ID_QUERY, new Object[]{id}, new BookRowMapper());
         return resultSet.get(0);
     }
     
@@ -53,8 +53,9 @@ public class JdbcBookRepository implements BookRepository {
         Book book;
         if (entity.getId() != null) {
             book = (Book) entity;
-            jdbcTemplate.update(SAVE_QUERY, book.getIsbn(), book.getCategory().getId(), book.getTitle(),
-                    book.getAuthor(), book.getPublishDate());
+            jdbcTemplate.update(UPDATE_QUERY, book.getIsbn(), book.getCategory().getId(), book.getTitle(),
+                    book.getAuthor(), book.getPublishDate(), book.getId());
+            return (T) findOne(book.getId());
         } else {
             book = (Book) entity;
 
@@ -71,7 +72,9 @@ public class JdbcBookRepository implements BookRepository {
                         }
                         ps.setString(3, book.getTitle());
                         ps.setString(4, book.getAuthor());
-                        ps.setDate(5, new java.sql.Date(book.getPublishDate().getTime()));
+                        if (book.getPublishDate() != null) {
+                        	ps.setDate(5, new java.sql.Date(book.getPublishDate().getTime()));
+                        }
                         return ps;
                     }
                 }, keyHolder);
