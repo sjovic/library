@@ -1,4 +1,4 @@
-package rs.levi9.library.config;
+package rs.levi9.library.service;
 
 import java.util.HashSet;
 import java.util.Set;
