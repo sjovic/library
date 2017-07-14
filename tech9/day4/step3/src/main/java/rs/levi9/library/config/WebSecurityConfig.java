@@ -1,5 +1,6 @@
 package rs.levi9.library.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,15 +16,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // This method is for overriding the default AuthenticationManagerBuilder.
     // We can specify how the user details are kept in the application. It may
     // be in a database, LDAP or in memory.
+    
+    @Autowired
+    private LibraryUserService libraryUserService; 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            // using in memory authentication
-            .inMemoryAuthentication()
-                .withUser("admin").password("admin").authorities("ROLE_ADMIN")
-                .and()
-                .withUser("user").password("user").authorities("ROLE_USER");
+        auth.userDetailsService(libraryUserService);
     }
 
     // This method is for overriding some configuration of the WebSecurity
