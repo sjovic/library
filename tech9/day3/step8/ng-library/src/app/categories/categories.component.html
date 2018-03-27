@@ -1,0 +1,44 @@
+<!-- Table -->
+<div class="row">
+  <div class="col">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th scope="col" class="text-center align-middle">#</th>
+                      <th scope="col" class="text-center align-middle">Category</th>
+                      <th scope="col" class="text-center align-middle">Edit</th>
+                      <th scope="col" class="text-center align-middle">Delete</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor='let category of categoryService.categories; let i = index'>
+                      <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                      <td class="text-center align-middle">{{ category.name }}</td>
+                      <td class="text-center align-middle">
+                        <button type="button" class="btn btn-outline-secondary">
+                          Edit
+                        </button>
+                      </td>
+                      <td class="text-center align-middle">
+                          <span class="d-inline-block">
+                              <button type="button" class="btn btn-danger">
+                                Delete
+                              </button>
+                          </span>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="float-right">
+            <button type="button" class="btn btn-primary mr-2">
+              Add Category
+            </button>
+        </div>
+    </div>
+</div>

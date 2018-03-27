@@ -46,17 +46,22 @@ Set the session to stateless, which means no sessions will be kept on the server
   
 5.    Annotate controller methods (Book and Category) with PreAuthorize and set the appropriate roles 
   
-Step 2 - frontend 
+Step 2 (frontend) - Create Login component and authorization service
 ----------------------------------- 
   
-1.  Add HTML code on index.html that will represent a login page with user, password edit fields and with login button.  
-Provide error message if user credentials are not valid with an alert box.  
-2.  In app.js controller add login method, which will create an encoded base64 string for username and password,  
-and send a http GET request  on backend and check if user is authenticated.  
-3.  Add methods for getting admin and user Name from API endpoints, these will be presented on the front page.  
-4.  Add logout method in controller in which you will clear all the user data and present the user with the  
-message if he successfully logs out. 
-  
+1.  Generate "login" component.
+2.  Add form element with input fields for username, password and "Sign In" button in "login.component.html" template file.
+3.  Pass values from login form to onLogin function inside "login.component.ts".
+4.  Create AuthService class with "login" function that takes "username" and "password" as arguments, encodes them into base64 string and pass it as authorization headers to http GET request to check if user is authenticated.
+5.  Add "AuthService" to "app.module.ts" providers array.
+6.  Pass request headers, from "AuthService", on every request in book and category service.
+7.  Add functions for retrieving username and roles for displaying userneame in header component and displaying links in header based on roles of currently logged-in user.
+8.  Add "AuthService" to "header.component.ts" constructor.
+9.  Add login link and dropdown for logging out in header template.
+10.  Add "login" route to "app-routing.module.ts".
+11.  Add function for getting authorization headers that is passed on every REST request.
+12.  Add logout function that will clear all the user data and redirect user to the login page.
+
 Step 3 
 ------ 
   
@@ -66,6 +71,15 @@ Step 3
 3.    Add user repository, which will be used for user credentials and roles  
 4.    Add user service class and implement UserDetailsService, and change the configure method in config to use this class 
 5.    Add user credentials to RDBMS in order to persist user and roles. 
+
+Step 4 (frontend) - Add  request interceptor and create auth-guard service to restrict unauthorized routes
+----------------------------------- 
+
+1. Create request interceptor that will include "X-Requested-With: XMLHttpRequest" headers for every request to prevent browser from showing login dialog.
+2. Create "auth-guard.service.ts" that implements "CanActivate" interface and "canActivate" function.
+3. "canActivate" function returns true if user is authenticated and have authorities to access route, otherwise it returns false and navigate to "/home" or "/signin" route.
+4. In "app-routing.module.ts" file define AuthGuard as a service for the canActivate property and pass required role for the given routes that needs to bi authorized.
+
   
 Assignment 
 ---------- 

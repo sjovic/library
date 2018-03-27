@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th scope="col" class="text-center align-middle">#</th>
+                  <th scope="col" class="text-center align-middle">Category</th>
+                  <th scope="col" class="text-center align-middle">ISBN</th>
+                  <th scope="col" class="text-center align-middle">Name</th>
+                  <th scope="col" class="text-center align-middle">Author</th>
+                  <th scope="col" class="text-center align-middle">Publish date</th>
+                  <th scope="col" class="text-center align-middle">Edit</th>
+                  <th scope="col" class="text-center align-middle">Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor='let book of bookService.books; let i = index'>
+                  <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                  <td class="text-center align-middle">{{ book.category.name }}</td>
+                  <td class="text-center align-middle">{{ book.isbn }}</td>
+                  <td class="text-center align-middle">{{ book.title }}</td>
+                  <td class="text-center align-middle">{{ book.author }}</td>
+                  <td class="text-center align-middle">{{ book.publishDate | date:'dd. MMM yyyy.' }}</td>
+                  <td class="text-center align-middle">
+                    <button type="button" class="btn btn-outline-secondary">
+                      Edit
+                    </button>
+                  </td>
+                  <td class="text-center align-middle">
+                    <button type="button" class="btn btn-danger" (click)="onBookDelete(book)" data-toggle="modal" data-target="#deleteBookModal">
+                      Delete
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="float-right">
+            <button type="button" class="btn btn-primary mr-2">Add Book</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteBookModalLabel">Delete Book</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <p>Do you want to delete <i>{{selectedBook?.title}}</i>, by <i>{{selectedBook?.author}}</i>?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onBookDeleteSubmit()">Submit</button>
+        </div>
+        </div>
+    </div>
+</div>

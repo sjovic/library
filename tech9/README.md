@@ -10,7 +10,8 @@ Project setup
 *   [Gradle](https://gradle.org/install)
 *   [MySql](https://dev.mysql.com/downloads/file/?id=470090)
 *   [DBeaver](http://dbeaver.jkiss.org/files/dbeaver-ce-latest-win32.win32.x86_64.zip)
-*   [Brackets](https://github.com/adobe/brackets/releases/download/release-1.9/Brackets.Release.1.9.msi)
+*   [Node.js](https://nodejs.org/dist/v9.8.0/node-v9.8.0-x64.msi)
+*   [Visual Studio Code](https://code.visualstudio.com/docs/?dv=win)
 *   [Postman](https://www.google.rs/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjFveTppuXUAhWSJVAKHbgXDW4QFggpMAA&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fpostman%2Ffhbjgbiflinjbdggehcddcbncdddomop&usg=AFQjCNEKwgqPDcgrMAsS6iZ8PUYhTzB58A)
 
 Reading

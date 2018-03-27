@@ -1,8 +1,5 @@
 package rs.levi9.library.service;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,9 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import rs.levi9.library.domain.Role;
 import rs.levi9.library.domain.LibraryUser;
+import rs.levi9.library.domain.Role;
 import rs.levi9.library.repository.UserRepository;
+
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 @Service
