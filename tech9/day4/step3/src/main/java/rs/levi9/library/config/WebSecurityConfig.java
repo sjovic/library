@@ -2,13 +2,13 @@ package rs.levi9.library.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
 import rs.levi9.library.service.LibraryUserService;
 
 @Configurable
@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // be in a database, LDAP or in memory.
     
     @Autowired
-    private LibraryUserService libraryUserService; 
+    private LibraryUserService libraryUserService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,8 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             // starts authorizing configurations
             .authorizeRequests()
+            // ignore options method sent by browser
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             // ignore the static files
-            .antMatchers("/", "/bower_components/**", "/css/**", "/js/**", "/views/**", "/images/**").permitAll()
+            .antMatchers(  "/", "/login", "/index.html", "/*.bundle.*", "/favicon.ico", "/assets/**").permitAll()
             // authenticate all remaining URLS
             .anyRequest().fullyAuthenticated().and()
             // enabling the basic authentication
@@ -54,5 +56,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // disabling the CSRF - Cross Site Request Forgery
             .csrf().disable();
     }
-
 }

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th scope="col" class="text-center align-middle">#</th>
+                      <th scope="col" class="text-center align-middle">Name</th>
+                      <th scope="col" class="text-center align-middle">Image</th>
+                      <th scope="col" class="text-center align-middle">Author</th>
+                      <th scope="col" class="text-center align-middle">Publish date</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor='let book of bookService.books; let i = index'>
+                      <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                      <td class="text-center align-middle">{{ book.title }}</td>
+                      <td class="text-center align-middle"><img src="assets/images/placeholder.jpg" alt="placeholder" class="img-thumbnail"></td>
+                      <td class="text-center align-middle">{{ book.author }}</td>
+                      <td class="text-center align-middle">{{ book.publishDate | date:'dd. MMM yyyy.' }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
