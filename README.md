@@ -1,4 +1,3 @@
-
 ## Library - introductory project for Levi9 summer workshop
 
 Library is simple web application design to represent virtual library. Project was intentionally kept simple ie. it has
@@ -15,7 +14,7 @@ the technologies used.
 
 Project development steps/labs are divided between days:
 
-1.	[Introduction and setup of development environment from the ground-up: Java, Eclipse IDE, Gradle, MySql, GIT](https://github.com/sjovic/library/tree/master/tech9)
+1.	[Introduction and setup of development environment from the ground-up: Java, IntelliJ IDEA IDE, Gradle, MySql, GIT](https://github.com/sjovic/library/tree/master/tech9)
 2.  [day 1: Project startup and introduction to Spring framework, MVC pattern, REST, JUnit](https://github.com/sjovic/library/tree/master/tech9/day1)
 3.  [day 2: Adding persistance layer to the project, JDBC Template, JavaPersistanceApi JPA, validation](https://github.com/sjovic/library/tree/master/tech9/day2)
 4.  [day 3: Frontend: HTML5, CSS3, Bootstrap, Angular, Form Validation, Error messages](https://github.com/sjovic/library/tree/master/tech9/day3)
@@ -25,7 +24,7 @@ In Introduction we will concentrate on setup of the development environment, ins
 finish the project course. The links will be provided in the Introduction README document. You will also get the chance to
 clone the project code from the repository and build/run complete project so that you can see the scope of the project.
 
-On Day 1 we will start development of the project with the initial setup with Gradle build system. We will use Eclipse as
+On Day 1 we will start development of the project with the initial setup with Gradle build system. We will use IntelliJ IDEA as
 our IDE and you will get introduction to Spring Boot and MVC pattern. Later on we'll add domain and service layers.
 In the end we will implement REST endpoints and write JUnit unit tests.
 
@@ -42,7 +41,7 @@ In Day 4 we will wrap up the course with all previous phases and add security la
 
 To run the project you should clone the repository in directory of your choosing.
 Before run project do npm install in ng-library folder.
-You can import project in Eclpise IDE and run from there or run Application.
+You can import project in IntelliJ IDEA IDE and run from there or run Application.
 
 # Technologies used
 
@@ -60,6 +59,6 @@ You can import project in Eclpise IDE and run from there or run Application.
 - Node.js
 - VS Code
 - Angular CLI
-- Eclipse IDE for Java EE
+- IntelliJ IDEA IDE
 - DBeaver for database management
 - GIT version control system VCS

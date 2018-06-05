@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="category">Name</label>
+                                <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name"  ngModel required #name="ngModel" [ngClass]="{'is-invalid': error?.name || (name.invalid && (name.dirty || name.touched))}">
                                 <div class="invalid-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">Please enter category name!</div>
                                 <div *ngIf="error?.name" class="invalid-feedback">{{error.name}}</div>

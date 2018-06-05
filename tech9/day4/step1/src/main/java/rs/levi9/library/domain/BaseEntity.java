@@ -13,7 +13,7 @@ public abstract class BaseEntity {
     private Long id;
     
     public Long getId() {
-        return this.id;
+        return id;
     }
     
     public void setId(Long id) {
