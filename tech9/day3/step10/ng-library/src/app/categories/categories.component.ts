@@ -19,6 +19,8 @@ export class CategoriesComponent implements OnInit {
   constructor(private categoryService: CategoryService, private bookService: BookService) { }
 
   ngOnInit() {
+    this.categoryService.getCategories();
+    this.bookService.getBooks();
   }
 
   onCategoryDelete(category: Category) {
@@ -37,7 +39,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   ifCategoryExists(categoryToDelete: Category): boolean {
-    return this.bookService.books.some((book) => book.category.id === categoryToDelete.id);
+    if (this.bookService.books) {
+      return this.bookService.books.some((book) => book.category.id === categoryToDelete.id);
+    }
+    return false;
   }
 
   onCategoryAdd() {

@@ -40,7 +40,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   ifCategoryExists(categoryToDelete: Category): boolean {
-    return this.bookService.books.some((book) => book.category.id === categoryToDelete.id);
+    if (this.bookService.books) {
+      return this.bookService.books.some((book) => book.category.id === categoryToDelete.id);
+    }
+    return false;
   }
 
   onCategoryAdd() {

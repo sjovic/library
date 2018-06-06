@@ -20,6 +20,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit() {
     this.bookService.getBooks();
+    this.categoryService.getCategories();
   }
 
   onBookDelete(book: Book) {
