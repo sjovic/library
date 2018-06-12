@@ -2,25 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Category } from './category.model';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CategoryService {
   API = 'http://localhost:8080/categories';
-  categories: Category[];
 
   constructor(private httpClient: HttpClient) { }
 
-  // Subscribe to Observable and assign response data to categories array property
-  getCategories() {
-    return this.httpClient.get<Category[]>(this.API)
-      .subscribe(
-          (categories) => this.categories = categories,
-          (error) => console.error('Failed to get categories!')
-      );
+  // Return Observable that wraps array of Categories
+  getCategories(): Observable<Category[]> {
+    return this.httpClient.get<Category[]>(this.API);
   }
 
   // Update category if book already has an ID, save it otherwise and return Observable
-  saveCategory(category: Category) {
+  saveCategory(category: Category): Observable<any> {
     if (category.id) {
         return this.httpClient.put(this.API, category);
     }

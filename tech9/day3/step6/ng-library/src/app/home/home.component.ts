@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CategoryService } from './../categories/category.service';
-import { BookService } from './../books/book.service';
-
 @Component({
   selector: 'library-home',
   templateUrl: './home.component.html',
@@ -10,10 +7,9 @@ import { BookService } from './../books/book.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private bookService: BookService, private categoryService: CategoryService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.bookService.getBooks();
-    this.categoryService.getCategories();
   }
+
 }

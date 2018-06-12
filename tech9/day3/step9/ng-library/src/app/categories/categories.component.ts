@@ -1,3 +1,5 @@
+import { Book } from './../books/book.model';
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import { CategoryService } from './category.service';
@@ -10,13 +12,19 @@ import { Category } from './category.model';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
+  categories$: Observable<Category[]>;
   selectedCategory: Category;
+  books: Book[];
 
   constructor(private categoryService: CategoryService, private bookService: BookService) { }
 
   ngOnInit() {
-    this.categoryService.getCategories();
-    this.bookService.getBooks();
+    this.categories$ = this.categoryService.getCategories();
+    this.bookService.getBooks().subscribe(
+      (books) => {
+        this.books = books;
+      }
+    );
   }
 
   onCategoryDelete(category: Category) {
@@ -27,7 +35,7 @@ export class CategoriesComponent implements OnInit {
     this.categoryService.deleteCategory(this.selectedCategory.id)
     .subscribe(
       () => {
-        this.categoryService.getCategories();
+        this.categories$ = this.categoryService.getCategories();
         this.selectedCategory = null;
       },
       (error) => console.error(error)
@@ -35,8 +43,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   ifCategoryExists(categoryToDelete: Category): boolean {
-    if (this.bookService.books) {
-      return this.bookService.books.some((book) => book.category.id === categoryToDelete.id);
+    if (this.books) {
+      return this.books.some((book) => book.category.id === categoryToDelete.id);
     }
     return false;
   }

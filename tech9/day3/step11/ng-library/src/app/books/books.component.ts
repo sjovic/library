@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { BookService } from './book.service';
@@ -9,12 +10,13 @@ import { Book } from './book.model';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
+  books$: Observable<Book[]>;
   selectedBook: Book;
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
-    this.bookService.getBooks();
+    this.books$ = this.bookService.getBooks();
   }
 
   onBookDelete(book: Book) {
@@ -25,7 +27,7 @@ export class BooksComponent implements OnInit {
     this.bookService.deleteBook(this.selectedBook.id)
       .subscribe(
         () => {
-          this.bookService.getBooks();
+          this.books$ = this.bookService.getBooks();
           this.selectedBook = null;
         },
         (error) => console.error(error)

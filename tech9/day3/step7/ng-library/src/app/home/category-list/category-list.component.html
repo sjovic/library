@@ -2,7 +2,7 @@
   <div class="col">
     <div class="list-group mb-4 mt-3 mt-lg-0">
       <button type="button" [ngClass]="{active: selectedCategoryId === null}" class="btn btn-outline-secondary list-group-item" (click)="onCategorySelect(null)">All</button>
-      <button *ngFor='let categroy of categoryService.categories' type="button"[ngClass]="{active: selectedCategoryId === categroy.id}" class="btn btn-outline-secondary list-group-item" (click)="onCategorySelect(categroy.id)">{{ categroy.name }}</button>
+      <button *ngFor='let category of (categories$ | async)' type="button"[ngClass]="{active: selectedCategoryId === category.id}" class="btn btn-outline-secondary list-group-item" (click)="onCategorySelect(category.id)">{{ category.name }}</button>
     </div>
   </div>
 </div>

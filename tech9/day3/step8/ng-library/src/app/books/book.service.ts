@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,21 +7,16 @@ import { Book } from './book.model';
 @Injectable()
 export class BookService {
   API = 'http://localhost:8080/books';
-  books: Book[];
 
   constructor(private httpClient: HttpClient) { }
 
-  // Subscribe to Observable and assign response data to books array property
-  getBooks() {
-    return this.httpClient.get<Book[]>(this.API)
-      .subscribe(
-          (books) => this.books = books,
-          (error) => console.error('Failed to get books!')
-      );
+  // Return Observable that wraps array of Books
+  getBooks(): Observable<Book[]> {
+    return this.httpClient.get<Book[]>(this.API);
   }
 
   // Update book if book already has an ID, save it otherwise and return Observable
-  saveBook(book: Book) {
+  saveBook(book: Book): Observable<any> {
     if (book.id) {
         return this.httpClient.put(this.API, book);
     }

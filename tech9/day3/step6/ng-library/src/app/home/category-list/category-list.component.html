@@ -2,7 +2,7 @@
   <div class="col">
     <div class="list-group mb-4 mt-3 mt-lg-0">
       <button type="button" class="btn btn-outline-secondary list-group-item">All</button>
-      <button *ngFor='let categroy of categoryService.categories' type="button" class="btn btn-outline-secondary list-group-item">{{ categroy.name }}</button>
+      <button *ngFor='let category of (categories$ | async)' type="button" class="btn btn-outline-secondary list-group-item">{{ category.name }}</button>
     </div>
   </div>
 </div>
