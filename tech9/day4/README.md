@@ -69,3 +69,10 @@ Step 5 - Add functionality for editing books
 Step 6 - Refactor cross component communication when filtering books by category 
 (use Subject in service instead of using event and property bindings in components)
 -------------------------------
+1. Delete "categorySelected" event emitter from "category-list.component.ts".
+2. Add "categoryFilterChanged" Subject property in category service.
+3. In "category-list.component.ts" on "onCategorySelect()" method call "categoryFilterChanged.next()" from category service and pass selected categoryId.
+4. In "book-list.component.ts" remove @Input() decorator from "selectedCategoryId" and inject category service into component.
+5. On "ngOnInit()" method subscribe to "categoryFilterChanged" from category service and assign value emitted to "selectedCategoryId" property.
+6. Remove "selectedCategory()" method and "selectedCategoryId" property from "home.component.ts".
+7. Remove "[selectedCategoryId]" property binding and "(categorySelected)" event binding from "home.component.html".
