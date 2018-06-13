@@ -1,9 +1,7 @@
-import { XhrInterceptor } from './interceptors/app.interceptor';
-import { AuthService } from './login/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +17,6 @@ import { CategoryListComponent } from './home/category-list/category-list.compon
 import { BookListComponent } from './home/book-list/book-list.component';
 import { FilterBooksByCategoryPipe } from './filter-books-by-category.pipe';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -32,8 +29,7 @@ import { LoginComponent } from './login/login.component';
     CategoriesComponent,
     CategoryListComponent,
     BookListComponent,
-    FilterBooksByCategoryPipe,
-    LoginComponent
+    FilterBooksByCategoryPipe
   ],
   imports: [
     BrowserModule,
@@ -43,13 +39,7 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: [
     CategoryService,
-    BookService,
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: XhrInterceptor,
-      multi: true
-    }
+    BookService
   ],
   bootstrap: [AppComponent]
 })

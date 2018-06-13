@@ -1,98 +1,71 @@
-Day 4: Adding security layer: Spring security, course wrap up 
-============================================================= 
-  
-Adding security layer 
---------------------- 
-  
-Today we will add security layer to our application which will consist of basic authentication and will serve to  
-authorize user for certain operations. 
-  
-Reading 
-------- 
-  
-* [Spring Security](https://spring.io/guides/tutorials/spring-security-and-angular-js/) 
-* [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) 
-* [Authentication](https://en.wikipedia.org/wiki/Authentication) 
-* [Authorization](https://en.wikipedia.org/wiki/Authorization) 
-* [Encryption](https://www.bu.edu/tech/about/security-resources/bestpractice/auth/) 
-  
-Concepts 
--------- 
-  
-* Spring Security 
-* Authentication vs authorization 
-* Encryption 
-* User roles 
-  
-Step 1 
------- 
-  
-1. Add dependency for Spring Security in build.gradle "compile('org.springframework.boot:spring-boot-starter-security')"
-2. Add src/main/java/rs/levi9/library/config/WebSecurityConfig.java configuration class and annotate it with @EnableWebSecurity and @Configurable, add annotation EnableGlobalMethodSecurity in application class.    
-3. Extend that class WebSecurityConfigurerAdapter in order to override default settings of spring boot security    
-4. Override configure method with parameter AutheticationManagerBuilder, in order to define how are user credentials  
-stored in our applications and later retrieved. For simplicity, set the storage as in-memory implementation with  
-two users: admin and user. Also, two authorities should be created, named the same as users. Passwords should be  
-same as user-name. (never do this on production systems!)    
-5. Override configure method with HttpSecurity parameter, which will allow you to set authorization criteria  
-ie., what user can access which API endpoints and should sessions be stored on server. At the start, you need to  
-ignore root elements such as "/", "/signin", "/index.html", "/\*.bundle.\*", "/favicon.ico", "/assets/**".
-Set the session to stateless, which means no sessions will be kept on the server. In the end disable the CSRF.    
-6. Annotate controller methods (Book and Category) with PreAuthorize and set the appropriate roles and statuses
 
-Step 2 
------- 
-  
-1. Add user library user to domain layer, include fields username and password and set of role objects, which we will add next 
-2. Add role entity with fields type that enumerates two values: ROLE_USER and ROLE_ADMIN 
-3. Add authenticated user 
-3. Add user repository, which will be used for user credentials and roles  
-4. Add user service class and implement UserDetailsService, and change the configure method in config to use this class 
-5. Add user credentials to RDBMS in order to persist user and roles adding this lines to data.sql so that content will look like this
-> INSERT INTO `category`(`name`) VALUES('Java');  
-> INSERT INTO `category`(`name`) VALUES('Spring');  
-> INSERT INTO `category`(`name`) VALUES('Data Structures');  
+Day 4 Frontend: HTML5, CSS3, Bootstrap, Angular, Form Validation, Error messages
+==================================================================================
 
-> INSERT INTO `book` (`isbn`, `title`, `author`, `publish_date`, `category_id`) VALUES ('9788675553083', 'Thinking In Java', 'Bruce Eckel', '2007-01-01', 1);  
-> INSERT INTO `book` (`isbn`, `title`, `author`, `publish_date`, `category_id`) VALUES ('9784673535114', 'Spring In Action', 'Craig Walls', '2014-01-01', 2);  
+Designing frontend presentation
+-------------------------------
 
-> INSERT INTO `role`(`type`) VALUES ('ROLE_ADMIN');  
-> INSERT INTO `role`(`type`) VALUES ('ROLE_USER');  
+After finishing the backend implementation today we will focus to design the user interface with frontend technologies.
+Basic validation and data input will be done on frontend, after that data will be sent to backend via exposed REST endpoints.
+Also, we will validate data entry and present any potential error messages to user that system might throw. 
 
-> INSERT INTO `library_user`(`password`,`username`) VALUES ('admin','admin');  
-> INSERT INTO `library_user`(`password`,`username`) VALUES ('user','user');  
+Reading
+-------
 
-> INSERT INTO `library_user_roles`(`user_id`,`role_id`)VALUES(1, 1);  
-> INSERT INTO `library_user_roles`(`user_id`,`role_id`)VALUES(1, 2);  
-> INSERT INTO `library_user_roles`(`user_id`,`role_id`)VALUES(2, 2); 
-  
-Step 3 (frontend) - Create Login component and authorization service
------------------------------------ 
-  
-1. Generate "login" component.
-2. Add form element with input fields for username, password and "Sign In" button in "login.component.html" template file.
-3. Pass values from login form to onLogin function inside "login.component.ts".
-4. Create AuthService class with "login" function that takes "username" and "password" as arguments, encodes them into base64 string and pass it as authorization headers to http GET request to check if user is authenticated.
-5. Add "AuthService" to "app.module.ts" providers array.
-6. Pass request headers, from "AuthService", on every request in book and category service.
-7. Add functions in auth service for retrieving username and roles for displaying username in header component and displaying links in header based on roles of currently logged-in user.
-8. Add "AuthService" to "header.component.ts" constructor.
-9. Add login link and dropdown for logging out in header template.
-10. Add "login" route to "app-routing.module.ts".
-11. Add function in auth service for getting authorization headers that is passed on every REST request.
-12. Add logout function in auth service that will clear all the user data and redirect user to the login page.
+*   [HTML5](https://dev.w3.org/html5/html-author/)
+*   [CSS3](https://www.w3schools.com/cssref/)
+*   [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
+*   [TypeScript](https://www.typescriptlang.org/docs)
+*   [Angular](https://angular.io/docs)
+*   [Bootstrap](https://getbootstrap.com/docs)
 
-Step 4 (frontend) - Add  request interceptor and create auth-guard service to restrict unauthorized routes
------------------------------------ 
+Concepts
+--------
 
-1. Create app.interceptor.ts in src/app/interceptors and add intercept method that will include "X-Requested-With: XMLHttpRequest" headers for every request to prevent browser from showing login dialog.
-2. Create "auth-guard.service.ts" that implements "CanActivate" interface and "canActivate" function.
-3. "canActivate" function returns true if user is authenticated and have authorities to access route, otherwise it returns false and navigate to "/home" or "/signin" route.
-4. In "app-routing.module.ts" file define AuthGuard as a service for the canActivate property and pass required role for the given routes that needs to bi authorized.
+*   Laying the foundation structure with HTML5, high level components like edit fields, buttons, lists etc.
+*   Adding styling with Bootstrap and CSS3
+*   Writing client-side to add interactive behaviour with Angular and also to initialize REST client which be used to exchange with backend
 
-  
-Assignment 
----------- 
-  
-Add new user with your name suffixed with the word 'Admin' ie., 'PeraAdmin' which will have the same role as admin and  
-user with your name with same role as user. Test new implementation with rest client Postman. 
+Step 1 - Add HTML and TypeScript code for deleting books and categories
+-------------------------------
+1. Add delete modal dialog in books template to confirm deleting of the selected book.
+2. Add action for opening dialog and passing selected book on Delete button click in table.
+3. Add function for getting selected book for deletion and assign it to "selectedBook" variable.
+4. Add function that will delete selected book by calling delete function from services and update list of books if successfully deleted by backend.
+5. Add delete modal dialog in categories template to confirm deleting of the  selected category.
+6. Add action for opening dialog and passing selected category on Delete button click in table.
+7. Add function for getting selected category for deletion and assign it to "selectedCategory" variable.
+8. Add function that will delete selected category by calling delete function from services and update list of categories if successfully deleted by backend.
+9. Add function to prevent from deleting category that is assigned to a book (initialize "books" variable with "getBooks()" method from book service in "ngOnInit()").
+10. Bind result of "ifCategoryExists" function  to "disabled" attribute in categories template. 
+
+Step 2 - Add save modal for adding new categories
+-------------------------------
+1. Add "FormsModule" to "app.module.ts" file imports array.
+2. Add modal dialog with form element, in "categories.component.html", for adding new category.
+3. Add function for resetting form on "Add Category" button click.
+4. Add function for submitting angular form data and pass it to the category service save function.
+5. Add error handling function and validation for form input elements.
+
+Step 3 - Add functionality for editing categories
+-------------------------------
+1. Add "operation" property for determining if save modal is used for adding or editing category.
+2. Add function for getting selected category data on "Edit" button click.
+3. Modify function for submitting angular form data, based on "operation" property, and pass it to the category service save function.
+
+Step 4 - Add save modal for adding new books
+-------------------------------
+1. Add modal dialog with form element, in "books.component.html", for adding new book.
+2. Add function for resetting form on "Add Book" button click.
+3. Add function for submitting angular form data and pass it to the book service save function.
+4. Add error handling function and validation for form input elements.
+
+Step 5 - Add functionality for editing books
+-------------------------------
+1. Add "operation" property for determining if save modal is used for adding or editing book.
+2. Add function for getting selected book data on "Edit" button click.
+3. Modify function for submitting angular form data, based on "operation" property, and pass it to the book service save function.
+
+Step 6 - Refactor cross component communication when filtering books by category 
+(use Subject in service instead of using event and property bindings in components)
+-------------------------------

@@ -22,9 +22,6 @@ export class CategoryListComponent implements OnInit {
 
   onCategorySelect(categoryId: number) {
     this.selectedCategoryId = categoryId;
-    if (!categoryId) {
-      this.categorySelected.emit(null);
-    }
     this.categorySelected.emit(categoryId);
   }
 }

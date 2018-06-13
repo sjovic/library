@@ -50,7 +50,7 @@
         <div class="modal-header">
             <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="category">Name</label>
+                                <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="selectedCategory.name" required #name="ngModel" [ngClass]="{'is-invalid': error?.name || (name.invalid && (name.dirty || name.touched))}">
                                 <div class="invalid-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">Please enter category name!</div>
                                 <div *ngIf="error?.name" class="invalid-feedback">{{error.name}}</div>
