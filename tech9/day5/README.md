@@ -71,7 +71,7 @@ Step 3 (frontend) - Create Login component and authorization service
   
 1. Generate "login" component.
 2. Add form element with input fields for username, password and "Sign In" button in "login.component.html" template file.
-3. Pass values from login form to onLogin function inside "login.component.ts".
+3. Pass values from login form to "onLogin()" method inside "login.component.ts".
 4. Create AuthService class with "login" function that takes "username" and "password" as arguments, encodes them into base64 string and pass it as authorization headers to http GET request to check if user is authenticated.
 5. Add "AuthService" to "app.module.ts" providers array.
 6. Pass request headers, from "AuthService", on every request in book and category service.
