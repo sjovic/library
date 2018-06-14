@@ -1,13 +1,13 @@
 
-Day 3 Frontend: HTML5, CSS3, Bootstrap, Angular, Form Validation, Error messages
+Day 3 Frontend: HTML5, CSS3, Bootstrap, Angular, Components, Routes, Directives, Service Injection, Observables
 ==================================================================================
 
 Designing frontend presentation
 -------------------------------
 
-After finishing the backend implementation today we will focus to design the user interface with frontend technologies.
-Basic validation and data input will be done on frontend, after that data will be sent to backend via exposed REST endpoints.
-Also, we will validate data entry and present any potential error messages to user that system might throw. 
+After finishing the backend implementation today we will focus on designing the user interface with frontend technologies.
+We will create all pages needed for this project, define routes and navigation for them,
+get data from backend via REST endpoints and present it on the page.
 
 Reading
 -------
@@ -17,6 +17,7 @@ Reading
 *   [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 *   [TypeScript](https://www.typescriptlang.org/docs)
 *   [Angular](https://angular.io/docs)
+*   [RxJS](https://rxjs-dev.firebaseapp.com/)
 *   [Bootstrap](https://getbootstrap.com/docs)
 
 Concepts
@@ -24,7 +25,7 @@ Concepts
 
 *   Laying the foundation structure with HTML5, high level components like edit fields, buttons, lists etc.
 *   Adding styling with Bootstrap and CSS3
-*   Writing client-side to add interactive behaviour with Angular and also to initialize REST client which be used to exchange with backend
+*   Writing REST client-side to add interactive behaviour with Angular, which will be used to exchange data with backend
 
 Step 0 - Initial setup
 -------------------------------
