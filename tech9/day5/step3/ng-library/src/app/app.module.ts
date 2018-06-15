@@ -1,9 +1,7 @@
-import { XhrInterceptor } from './interceptors/app.interceptor';
 import { AuthService } from './login/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,12 +42,7 @@ import { LoginComponent } from './login/login.component';
   providers: [
     CategoryService,
     BookService,
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: XhrInterceptor,
-      multi: true
-    }
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
