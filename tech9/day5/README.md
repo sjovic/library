@@ -73,14 +73,15 @@ Step 3 (frontend) - Create Login component and authorization service
 2. Add form element with input fields for username, password and "Sign In" button in "login.component.html" template file.
 3. Pass values from login form to "onLogin()" method inside "login.component.ts".
 4. Create AuthService class with "login" function that takes "username" and "password" as arguments, encodes them into base64 string and pass it as authorization headers to http GET request to check if user is authenticated.
-5. Add "AuthService" to "app.module.ts" providers array.
-6. Pass request headers, from "AuthService", on every request in book and category service.
-7. Add functions in auth service for retrieving username and roles for displaying username in header component and displaying links in header based on roles of currently logged-in user.
-8. Add "AuthService" to "header.component.ts" constructor.
-9. Add login link and dropdown for logging out in header template.
-10. Add "login" route to "app-routing.module.ts".
-11. Add function in auth service for getting authorization headers that is passed on every REST request.
-12. Add logout function in auth service that will clear all the user data and redirect user to the login page.
+5. If successfully authenticated store headers, user and set authenticated property to true in auth service.
+6. Add "AuthService" to "app.module.ts" providers array.
+7. Add function in auth service for getting authorization headers that is passed on every REST request.
+8. Pass request headers, from "AuthService", on every request in book and category service.
+9. Add functions in auth service for retrieving username and roles for displaying username in header component and displaying links in header based on roles of currently logged-in user.
+10. Add "AuthService" to "header.component.ts" constructor.
+11. Add login link and dropdown for logging out in header template.
+12. Add "login" route to "app-routing.module.ts".
+13. Add logout function in auth service that will clear all the user data and redirect user to the login page.
 
 Step 4 (frontend) - Add  request interceptor and create auth-guard service to restrict unauthorized routes
 ----------------------------------- 
