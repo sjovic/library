@@ -1,26 +1,23 @@
-Introduction and setup of development environment from the ground-up: Java, Eclipse IDE, Gradle, MySql, GIT
+Introduction and setup of development environment from the ground-up: Java, IntelliJ IDEA, Gradle, MySql, GIT
 ==================================================================================================================
 
 ----
 
 Project setup
 -------------
-*   [Download and install Java development kit JDK for Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-*   [Eclipse](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32-x86_64.zip&mirror_id=492)
-*   [Gradle](https://gradle.org/install)
-*   [MySql](https://dev.mysql.com/downloads/file/?id=470090)
-*   [DBeaver](http://dbeaver.jkiss.org/files/dbeaver-ce-latest-win32.win32.x86_64.zip)
-*   [Node.js](https://nodejs.org/dist/v9.8.0/node-v9.8.0-x64.msi)
-*   [Visual Studio Code](https://code.visualstudio.com/docs/?dv=win)
-*   [Postman](https://www.google.rs/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjFveTppuXUAhWSJVAKHbgXDW4QFggpMAA&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fpostman%2Ffhbjgbiflinjbdggehcddcbncdddomop&usg=AFQjCNEKwgqPDcgrMAsS6iZ8PUYhTzB58A)
+*   [Download and install Java development kit JDK for Java 8 (Windows x64)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+*   [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows)
+*   [MySQL Community 5.7.22 (Install only MySQL server)](https://dev.mysql.com/downloads/windows/installer/5.7.html)
+*   [DBeaver](https://dbeaver.io/download/)
+*   [Postman](https://www.getpostman.com/apps)
+*   [Git](https://git-scm.com/)
+*   [Visual Studio Code](https://code.visualstudio.com)
+*   [NodeJS (v8.11.2 LTS)](https://nodejs.org/dist/v8.11.2/node-v8.11.2-x64.msi)
 
 Reading
 -------
 
 *   [Java documentation](http://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html)
+*   [Angular documentation](https://angular.io/docs)
 *   [Gradle](https://gradle.org/docs)
-*   [Eclipse - Java development user guide](http://help.eclipse.org/neon/index.jsp?nav=%2F0)
-*   [GIT](https://git-scm.com/book/sr/v2)
-
-
-
+*   [Git](https://git-scm.com/book/sr/v2)

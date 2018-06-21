@@ -1,88 +1,106 @@
-Day 4: Adding security layer: Spring security, course wrap up 
-============================================================= 
-  
-Adding security layer 
---------------------- 
-  
-Today we will add security layer to our application which will consist of basic authentication and will serve to  
-authorize user for certain operations. 
-  
-Reading 
-------- 
-  
-*   [Spring Security](https://spring.io/guides/tutorials/spring-security-and-angular-js/) 
-*   [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) 
-*   [Authentication](https://en.wikipedia.org/wiki/Authentication) 
-*   [Authorization](https://en.wikipedia.org/wiki/Authorization) 
-*   [Encryption](https://www.bu.edu/tech/about/security-resources/bestpractice/auth/) 
-  
-Concepts 
--------- 
-  
-*   Spring Security 
-*   Authentication vs authorization 
-*   Encryption 
-*   User roles 
-  
-Step 1 
------- 
-  
-1.    Add dependency for Spring Security in build.gradle 
-     
-2.  Add SecurityConfig configuration class and annotate it with @EnableWebSecurity and @Configurable, add annotation EnableGlobalMethodSecurity in application class. 
-  
-2.  Extend that class WebSecurityConfigurerAdapter in order to override default settings of spring boot security 
-  
-3.  Override configure method with parameter AutheticationManagerBuilder, in order to define how are user credentials  
-stored in our applications and later retrieved. For simplicity, set the storage as in-memory implementation with  
-two users: admin and user. Also, two authorities should be created, named the same as users. Passwords should be  
-same as user-name. (never do this on production systems!)  
-  
-4.  Override configure method with HttpSecurity parameter, which will allow you to set authorization criteria  
-ie., what user can access which API endpoints and should sessions be stored on server. At the start, you need to  
-ignore root elements such as "/", "index.html", "/app/app.js" and "/css/**. Next, allow the user with ADMIN  
-authority to access "/api/admin/*" and allow user to access "/api/user/**, ADMIN also has the access to latter.  
-Set the session to stateless, which means no sessions will be kept on the server. In the end disable the CSRF. 
-  
-5.    Annotate controller methods (Book and Category) with PreAuthorize and set the appropriate roles 
-  
-Step 2 (frontend) - Create Login component and authorization service
------------------------------------ 
-  
-1.  Generate "login" component.
-2.  Add form element with input fields for username, password and "Sign In" button in "login.component.html" template file.
-3.  Pass values from login form to onLogin function inside "login.component.ts".
-4.  Create AuthService class with "login" function that takes "username" and "password" as arguments, encodes them into base64 string and pass it as authorization headers to http GET request to check if user is authenticated.
-5.  Add "AuthService" to "app.module.ts" providers array.
-6.  Pass request headers, from "AuthService", on every request in book and category service.
-7.  Add functions for retrieving username and roles for displaying userneame in header component and displaying links in header based on roles of currently logged-in user.
-8.  Add "AuthService" to "header.component.ts" constructor.
-9.  Add login link and dropdown for logging out in header template.
-10.  Add "login" route to "app-routing.module.ts".
-11.  Add function for getting authorization headers that is passed on every REST request.
-12.  Add logout function that will clear all the user data and redirect user to the login page.
 
-Step 3 
------- 
-  
-1.    Add user library user to domain layer, include fields username and password and set of role objects, which we will add next 
-2.    Add role entity with fields type that enumerates two values: ROLE_USER and ROLE_ADMIN 
-3.    Add authenticated user 
-3.    Add user repository, which will be used for user credentials and roles  
-4.    Add user service class and implement UserDetailsService, and change the configure method in config to use this class 
-5.    Add user credentials to RDBMS in order to persist user and roles. 
+Day 4 Frontend: Modals, Forms and Form Validation, Error messages, Subject
+==================================================================================
 
-Step 4 (frontend) - Add  request interceptor and create auth-guard service to restrict unauthorized routes
------------------------------------ 
+Designing frontend presentation
+-------------------------------
 
-1. Create request interceptor that will include "X-Requested-With: XMLHttpRequest" headers for every request to prevent browser from showing login dialog.
-2. Create "auth-guard.service.ts" that implements "CanActivate" interface and "canActivate" function.
-3. "canActivate" function returns true if user is authenticated and have authorities to access route, otherwise it returns false and navigate to "/home" or "/signin" route.
-4. In "app-routing.module.ts" file define AuthGuard as a service for the canActivate property and pass required role for the given routes that needs to bi authorized.
+Today we will be working on basic validation and data input on frontend. 
+After that data will be sent to backend via exposed REST endpoints.
+Also, we will validate data entry and present any potential error messages to user that system might throw. 
 
-  
-Assignment 
----------- 
-  
-Add new user with your name suffixed with the word 'Admin' ie., 'PeraAdmin' which will have the same role as admin and  
-user with your name with same role as user. Test new implementation with rest client Postman. 
+Reading
+-------
+
+*   [HTML5](https://dev.w3.org/html5/html-author/)
+*   [CSS3](https://www.w3schools.com/cssref/)
+*   [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
+*   [TypeScript](https://www.typescriptlang.org/docs)
+*   [Angular](https://angular.io/docs)
+*   [RxJS](https://rxjs-dev.firebaseapp.com/)
+*   [Bootstrap](https://getbootstrap.com/docs)
+
+Concepts
+--------
+
+*   Laying the foundation structure with HTML5, high level components like edit fields, buttons, lists etc.
+*   Adding styling with Bootstrap and CSS3
+*   Writing REST client-side to add interactive behaviour with Angular, which will be used to exchange data with backend
+
+Step 1 - Add HTML and TypeScript code for deleting books and categories
+-------------------------------
+1. Add delete modal dialog in books template to confirm deleting of the selected book.
+2. Add action for opening dialog and passing selected book on Delete button click in table.
+3. Add function for getting selected book for deletion and assign it to "selectedBook" variable.
+4. Add function that will delete selected book by calling delete function from services and update list of books if successfully deleted by backend.
+5. Add delete modal dialog in categories template to confirm deleting of the  selected category.
+6. Add action for opening dialog and passing selected category on Delete button click in table.
+7. Add function for getting selected category for deletion and assign it to "selectedCategory" variable.
+8. Add function that will delete selected category by calling delete function from services and update list of categories if successfully deleted by backend.
+9. Add function to prevent from deleting category that is assigned to a book (initialize "books" variable with "getBooks()" method from book service in "ngOnInit()").
+10. Bind result of "ifCategoryExists" function  to "disabled" attribute in categories template. 
+
+Step 2 - Add save modal for adding new categories
+-------------------------------
+1. Add "FormsModule" to "app.module.ts" file imports array.
+2. Add modal dialog with form and input element, in "categories.component.html", for adding new category.
+3. Add "ngModel" directive to the input element and define name attribute so that this element can be recognized as form control by angular.
+4. Create local reference to "ngForm" that will be passed on submitting the form on "ngSubmit" event triggered by button of type submit.
+5. Create local reference to "ngModal" of the input element so that we can display validation errors if input value is invalid.
+6. Add reference to "NgForm" with "@ViewChild()" decorator.
+7. Create "onCategoryAdd()" method in "categories.component.ts" for resetting form and error on "Add Category" button click.
+8. Call "onCategoryAdd()" method and add trigger to show save category modal when clicking on "Add Category" button.
+9. Add function for submitting angular form data, pass it to the category service save function and update list of categories if successfully saved by backend.
+10. Add error handling functions.
+
+Step 3 - Add functionality for editing categories
+-------------------------------
+1. In "categories.component.ts" create "onCategoryEdit()" method for getting selected category data passed when clicking on "Edit" button.
+2. In categories template file call "onCategoryEdit()" method and add trigger to show save category modal when clicking on "Edit" button.
+3. Modify input element by passing value from "selectedCategory" to "ngModel" by using two-way data binding. 
+4. Add "operation" property in "categories.component.ts" for determining if save modal is used for adding or editing category.
+5. Assign value "Add" to "operation" property in "onCategoryAdd()" and value "edit" in "onCategoryEdit()" method.
+6. Modify function for submitting angular form data, based on "operation" property (with or without id), and pass it to the category service save function.
+
+Step 4 - Add save modal for adding new books
+-------------------------------
+1. Add modal dialog with form and input element, in "books.component.html", for adding new book.
+2. Add select element with options that will list categories and bind each category to "ngValue".
+3. Add "ngModel" directive to the input elements and define name attributes so that this elements can be recognized as form controls by angular.
+4. Create local reference to "ngForm" that will be passed on submitting the form on "ngSubmit" event triggered by button of type submit.
+5. Create local references to "ngModal" of the input elements so that we can display validation errors if input values are invalid.
+6. Add reference to "NgForm" with "@ViewChild()" decorator.
+7. Create "onBookAdd()" method in "books.component.ts" for resetting form and error on "Add Book" button click.
+8. Call "onBookAdd()" method and add trigger to show save book modal when clicking on "Add Book" button.
+9. Add function for submitting angular form data, pass it to the book service save function and update list of books if successfully saved by backend.
+10. Add error handling functions.
+
+Step 5 - Add functionality for editing books
+-------------------------------
+1. In "books.component.ts" create "onBookEdit()" method for getting selected book data passed when clicking on "Edit" button.
+2. In books template file call "onBookEdit()" method and add trigger to show save book modal when clicking on "Edit" button.
+3. Modify input element by passing value from "selectedBook" to "ngModel" by using two-way data binding. 
+4. With property binding bind "selectedBook.category" with "ngModel" of the select element.
+5. Bind "compareWith" directive to compareFn function that will compare by id category in selectedBook with those in select element.
+6. Add "operation" property in "books.component.ts" for determining if save modal is used for adding or editing book.
+7. Assign value "Add" to "operation" property in "onBookAdd()" and value "edit" in "onBookEdit()" method.
+8. Modify function for submitting angular form data, based on "operation" property (with or without id), and pass it to the book service save function.
+
+Step 6 - Refactor cross component communication when filtering books by category 
+(use Subject in service instead of using event and property bindings in components)
+-------------------------------
+1. Delete "categorySelected" event emitter from "category-list.component.ts".
+2. Add "categoryFilterChanged" Subject property in category service.
+3. In "category-list.component.ts" on "onCategorySelect()" method call "categoryFilterChanged.next()" from category service and pass selected categoryId.
+4. In "book-list.component.ts" remove @Input() decorator from "selectedCategoryId" and inject category service into component.
+5. On "ngOnInit()" method subscribe to "categoryFilterChanged" from category service and assign value emitted to "selectedCategoryId" property.
+6. Remove "selectedCategory()" method and "selectedCategoryId" property from "home.component.ts".
+7. Remove "[selectedCategoryId]" property binding and "(categorySelected)" event binding from "home.component.html".
+
+Assignment
+-------------------------------
+1. Create "Contact" page with form element and input fields.
+2. Form should have input fields for entering user email and massage and button for submitting form.
+3. Display values from input fields with "console.log" or in alert window after the form is submitted.
+4. Add form validation to prevent submitting the form and displaying error message if email is not valid and/or message is empty.
+5. Add appropriate route in routing module for created component, and add link to that route in header component.

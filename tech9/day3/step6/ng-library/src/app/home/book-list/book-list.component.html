@@ -12,7 +12,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor='let book of bookService.books; let i = index'>
+                  <tr *ngFor='let book of (books$ | async); let i = index'>
                       <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
                       <td class="text-center align-middle">{{ book.title }}</td>
                       <td class="text-center align-middle"><img src="assets/images/placeholder.jpg" alt="placeholder" class="img-thumbnail"></td>

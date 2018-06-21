@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th scope="col" class="text-center align-middle">#</th>
+                  <th scope="col" class="text-center align-middle">Category</th>
+                  <th scope="col" class="text-center align-middle">ISBN</th>
+                  <th scope="col" class="text-center align-middle">Name</th>
+                  <th scope="col" class="text-center align-middle">Author</th>
+                  <th scope="col" class="text-center align-middle">Publish date</th>
+                  <th scope="col" class="text-center align-middle">Edit</th>
+                  <th scope="col" class="text-center align-middle">Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor='let book of (books$ | async); let i = index'>
+                  <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                  <td class="text-center align-middle">{{ book.category.name }}</td>
+                  <td class="text-center align-middle">{{ book.isbn }}</td>
+                  <td class="text-center align-middle">{{ book.title }}</td>
+                  <td class="text-center align-middle">{{ book.author }}</td>
+                  <td class="text-center align-middle">{{ book.publishDate | date:'dd. MMM yyyy.' }}</td>
+                  <td class="text-center align-middle">
+                    <button type="button" class="btn btn-outline-secondary" (click)="onBookEdit(book)" data-toggle="modal" data-target="#saveBookModal">
+                      Edit
+                    </button>
+                  </td>
+                  <td class="text-center align-middle">
+                    <button type="button" class="btn btn-danger" (click)="onBookDelete(book)" data-toggle="modal" data-target="#deleteBookModal">
+                      Delete
+                    </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="float-right">
+            <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#saveBookModal" (click)="onBookAdd()">Add Book</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteBookModalLabel">Delete Book</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <p>Do you want to delete <i>{{selectedBook?.title}}</i>, by <i>{{selectedBook?.author}}</i>?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onBookDeleteSubmit()">Submit</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Save Modal -->
+<div class="modal fade" id="saveBookModal" tabindex="-1" role="dialog" aria-labelledby="saveBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="saveBookModalLabel">Add Book</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form (ngSubmit)="onBookSaveSubmit(f, c)" #f="ngForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col" ngFormGroup>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control" id="category" name="category" [compareWith]="compareFn" [ngModel]="selectedBook.category" required #category [ngClass]="{'is-invalid': category.invalid && (category.dirty || category.touched)}">
+                                    <option [ngValue]="null" disabled>Please select category</option>
+                                    <option *ngFor="let category of (categories$ | async)" [ngValue]="category">{{category.name}}</option>
+                                </select>
+                                <div class="invalid-feedback" *ngIf="category.invalid && (category.dirty || category.touched)">Please select category!</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="selectedBook.title" required #title="ngModel" [ngClass]="{'is-invalid': error?.title || (title.invalid && (title.dirty || title.touched))}">
+                                <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">Please enter book title!</div>
+                                <div *ngIf="error?.title" class="invalid-feedback">{{error.title}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Author</label>
+                                <input type="text" class="form-control" id="author" name="author" [(ngModel)]="selectedBook.author" required #author="ngModel" [ngClass]="{'is-invalid': author.invalid && (author.dirty || author.touched)}">
+                                <div class="invalid-feedback" *ngIf="author.invalid && (author.dirty || author.touched)">Please enter author name!</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="publishDate">Publish Date</label>
+                                <input type="date" class="form-control" id="publishDate" name="publishDate" max="getCurrentDate()" [(ngModel)]="selectedBook.publishDate" required #publishDate="ngModel" [ngClass]="{'is-invalid':  error?.publishDate || (publishDate.invalid && (publishDate.dirty || publishDate.touched))}">
+                                <div class="invalid-feedback" *ngIf="publishDate.invalid && (publishDate.dirty || publishDate.touched)">Please select publish date!</div>
+                                <div *ngIf="error?.publishDate" class="invalid-feedback">{{error.publishDate}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isbn">ISBN</label>
+                                <input type="text" class="form-control" id="isbn" name="isbn" [(ngModel)]="selectedBook.isbn" required #isbn="ngModel" [ngClass]="{'is-invalid': error?.isbn || (isbn.invalid && (isbn.dirty || isbn.touched))}">
+                                <div class="invalid-feedback" *ngIf="isbn.invalid && (isbn.dirty || isbn.touched)">Please enter ISBN!</div>
+                                <div *ngIf="error?.isbn" class="invalid-feedback">{{error.isbn}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #c>Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

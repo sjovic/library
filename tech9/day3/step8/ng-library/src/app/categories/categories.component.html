@@ -12,7 +12,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor='let category of categoryService.categories; let i = index'>
+                  <tr *ngFor='let category of (categories$ | async); let i = index'>
                       <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
                       <td class="text-center align-middle">{{ category.name }}</td>
                       <td class="text-center align-middle">

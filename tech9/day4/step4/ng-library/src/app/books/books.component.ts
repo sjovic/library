@@ -1,3 +1,5 @@
+import { Category } from './../categories/category.model';
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -5,7 +7,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BookService } from './book.service';
 import { CategoryService } from './../categories/category.service';
 import { Book } from './book.model';
-import { Category } from './../categories/category.model';
 
 @Component({
   selector: 'library-books',
@@ -13,15 +14,17 @@ import { Category } from './../categories/category.model';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
+  books$: Observable<Book[]>;
+  categories$: Observable<Category[]>;
   @ViewChild('f') saveBookForm: NgForm;
-  selectedBook: Book = new Book(null, null, null, null, null, null);
+  selectedBook: Book;
   error: { title: string, isbn: string, publishDate: string };
-  operation: string;
 
   constructor(private bookService: BookService, private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.bookService.getBooks();
+    this.books$ = this.bookService.getBooks();
+    this.categories$ = this.categoryService.getCategories();
   }
 
   onBookDelete(book: Book) {
@@ -32,30 +35,23 @@ export class BooksComponent implements OnInit {
     this.bookService.deleteBook(this.selectedBook.id)
       .subscribe(
         () => {
-          this.bookService.getBooks();
-          this.selectedBook = new Book(null, null, null, null, null, null);
+          this.books$ = this.bookService.getBooks();
+          this.selectedBook = null;
         },
         (error) => console.error(error)
       );
   }
 
   onBookAdd() {
-    this.operation = 'Add';
     this.saveBookForm.reset(
       {publishDate: this.getCurrentDate()}
     );
     this.error = null;
   }
 
-  onBookEdit(book: Book) {
-    this.operation = 'Edit';
-    this.selectedBook = JSON.parse(JSON.stringify(book));
-    this.error = { title: null, isbn: null, publishDate: null };
-  }
-
   onBookSaveSubmit(form: NgForm, closeButton: HTMLButtonElement) {
     const book: Book = new Book(
-      this.operation === 'Add' ? null : this.selectedBook.id,
+      null,
       form.value.isbn,
       form.value.category,
       form.value.title,
@@ -65,7 +61,7 @@ export class BooksComponent implements OnInit {
     this.bookService.saveBook(book)
       .subscribe(
         () => {
-          this.bookService.getBooks();
+          this.books$ = this.bookService.getBooks();
           closeButton.click();
         },
         (httpErrorResponse: HttpErrorResponse) => {
@@ -98,9 +94,5 @@ export class BooksComponent implements OnInit {
 
   getCurrentDate() {
     return (new Date()).toISOString().slice(0, 10);
-  }
-
-  compareFn(c1: Category, c2: Category): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 }

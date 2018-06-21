@@ -1,7 +1,0 @@
-- Step 1, explain gradle daemon, gradle warpper, gradle repositories, dependencies, folders/config files, params
-
-- Step 2, annotations for service layer, in-memory implementation
-
-Day 2
-
-Switched steps 3 and 4, first unit test then controllers

@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web');
-    compile('mysql:mysql-connector-java:5.1.39');
-    compile('org.springframework.boot:spring-boot-starter-jdbc:1.5.4.RELEASE');
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('mysql:mysql-connector-java:5.1.39')
+    compile('org.springframework.boot:spring-boot-starter-jdbc:1.5.4.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
