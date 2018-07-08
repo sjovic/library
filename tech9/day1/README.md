@@ -43,7 +43,7 @@ Step 2 - Creating domain and service layers
 -------------------------------------------
 
 1. Create src folder in root of project
-2. Create additional folder path main/java/rs/levi9/library
+2. Create additional folder path src/main/java/rs/levi9/library
 3. In library folder create packages domain, repository and service
 4. In library folder create LibraryApplication.java class
 5. Edit build.gradle with this configuration
@@ -89,7 +89,7 @@ Step 2 - Creating domain and service layers
 Step 2 - Assignment
 -------------------
 
-Add the Book entity to project with the following properties: Id, Name, Category, ISBN,  publish date. Implement domain and service layers, and add in-memory repository implementation by the example of category repository with basic CRUD operations.
+Add the Book entity to project with the following properties: title, author, category, isbn,  publishDate. Implement domain and service layers, and add in-memory repository implementation by the example of category repository with basic CRUD operations.
 
 Step 3 - Unit testing
 ---------------------

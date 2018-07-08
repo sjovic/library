@@ -18,7 +18,8 @@ Project development steps/labs are divided between days:
 2.  [day 1: Project startup and introduction to Spring framework, MVC pattern, REST, JUnit](https://github.com/sjovic/library/tree/master/tech9/day1)
 3.  [day 2: Adding persistance layer to the project, JDBC Template, JavaPersistanceApi JPA, validation](https://github.com/sjovic/library/tree/master/tech9/day2)
 4.  [day 3: Frontend: HTML5, CSS3, Bootstrap, Angular, Form Validation, Error messages](https://github.com/sjovic/library/tree/master/tech9/day3)
-5.  [day 4: Adding security layer: Spring security, course wrap up](https://github.com/sjovic/library/tree/master/tech9/day4)
+4.  [day 4: Frontend: Continuation of day 3](https://github.com/sjovic/library/tree/master/tech9/day4)
+5.  [day 5: Adding security layer: Spring security, course wrap up](https://github.com/sjovic/library/tree/master/tech9/day5)
 
 In Introduction we will concentrate on setup of the development environment, install various needed software to successfully
 finish the project course. The links will be provided in the Introduction README document. You will also get the chance to
@@ -28,13 +29,15 @@ On Day 1 we will start development of the project with the initial setup with Gr
 our IDE and you will get introduction to Spring Boot and MVC pattern. Later on we'll add domain and service layers.
 In the end we will implement REST endpoints and write JUnit unit tests.
 
-In Day 2 we will continue development of the project by adding persistence layer with MySql relational database server.
+On Day 2 we will continue development of the project by adding persistence layer with MySql relational database server.
 This includes using JDBC template and later on moving to JPA. We will finish this day by adding various validation annotations
 for category names ie., category name should not be empty, should be unique etc.
 
-In Day 3, after adding REST endpoint we proceed to frontend implementation - graphical interface that will communicate with endpoints.
+On Day 3, after adding REST endpoint we proceed to frontend implementation - graphical interface that will communicate with endpoints.
 
-In Day 4 we will wrap up the course with all previous phases and add security layer with basic Spring Security.
+On Day 4, we are going to continue development of frontend application using Angular.
+
+On Day 5 we will wrap up the course with all previous phases and add security layer with basic Spring Security.
 
 
 # Setup information
