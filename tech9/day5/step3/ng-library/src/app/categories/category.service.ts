@@ -4,10 +4,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Category } from './category.model';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class CategoryService {
   API = 'http://localhost:8080/categories';
+  categoryFilterChanged = new Subject<number>();
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
