@@ -1,5 +1,5 @@
 import { Category } from './../../categories/category.model';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { CategoryService } from './../../categories/category.service';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +11,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CategoryListComponent implements OnInit {
   categories$: Observable<Category[]>;
-  @Output() categorySelected = new EventEmitter<number>();
   selectedCategoryId: number = null;
 
   constructor(private categoryService: CategoryService) { }
@@ -22,6 +21,6 @@ export class CategoryListComponent implements OnInit {
 
   onCategorySelect(categoryId: number) {
     this.selectedCategoryId = categoryId;
-    this.categorySelected.emit(categoryId);
+    this.categoryService.categoryFilterChanged.next(categoryId);
   }
 }

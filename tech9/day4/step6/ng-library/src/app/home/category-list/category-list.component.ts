@@ -11,7 +11,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CategoryListComponent implements OnInit {
   categories$: Observable<Category[]>;
-
   selectedCategoryId: number = null;
 
   constructor(private categoryService: CategoryService) { }
