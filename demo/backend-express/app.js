@@ -1,11 +1,12 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var bookRouter = require('./routes/booksRoute');
+var index = require('./controllers');
+var bookController = require('./controllers/books.controller');
 
 var app = express();
 
@@ -15,8 +16,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/books', bookRouter);
+app.use(session({ secret: 'keyboard cat' }));
+app.use(cors());
+
+app.use('/', index);
+app.use('/books', bookController);
 
 module.exports = app;

@@ -10,7 +10,7 @@ var Book = function(book) {
     this.title = book.title;
 }
 
-Book.createBook = function createBook(newBook, result) {
+Book.createBook = function (newBook, result) {
     sql.query("INSERT INTO book set ?", newBook, function (err, res) {
         if(err) {
             console.log("error: ", err);
@@ -18,12 +18,12 @@ Book.createBook = function createBook(newBook, result) {
         }
         else{
             console.log(res.insertId);
-            result(null, res.insertId);
+            result(null, res);
         }
     });
 };
 
-Book.getBookById = function getBookById(bookId, result) {
+Book.getBookById = function (bookId, result) {
     sql.query("Select book.id, book.title, book.author, book.isbn, book.category_id, book.publish_date from book where id = ? ", bookId, function (err, res) {
         if(err) {
             console.log("error: ", err);
@@ -35,7 +35,7 @@ Book.getBookById = function getBookById(bookId, result) {
     });
 };
 
-Book.getAllBooks = function getAllBooks(result) {
+Book.getAllBooks = function (result) {
     sql.query("Select * from book", function (err, res) {
         if(err) {
             console.log("error: ", err);
