@@ -1,22 +1,25 @@
+
 'user strict';
 
-var mysql = require('mysql');
 var config = require('../config');
 
-//local mysql db connection
-var connection = mysql.createConnection({
-    host     : config.host,
-    user     : config.user,
-    password : config.password,
-    database : config.database
-});
+const Sequelize = require('sequelize');
 
-connection.connect(function(err) {
-    if (err) {
-        throw err;
-    } else {
-        console.log('DB connected!');
+// Option 1: Passing parameters separately
+const sequelize = new Sequelize(
+    config.database,
+    config.user,
+    config.password, {
+        host: config.host,
+        dialect: 'mysql'
     }
-});
+);
 
-module.exports = connection;
+sequelize.authenticate().then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
+module.exports = sequelize;

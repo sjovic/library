@@ -1,73 +1,44 @@
 'user strict';
-var sql = require('../db/db.js');
+var sequelize = require('../db/db.js');
+const Sequelize = require('sequelize');
 
-var Book = function(book) {
-    this.id = book.id;
-    this.author = book.author;
-    this.category_id = book.category_id;
-    this.isbn = book.isbn;
-    this.publish_date = new Date(book.publish_date);
-    this.title = book.title;
-}
+var Category = require('./category');
 
-Book.createBook = function (newBook, result) {
-    sql.query("INSERT INTO book set ?", newBook, function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(err, null);
-        }
-        else{
-            console.log(res.insertId);
-            result(null, res);
-        }
-    });
-};
+const Model = Sequelize.Model;
+class Book extends Model {}
+Book.init({
+    // attributes
+    author: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    isbn: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    publish_date: {
+        type: Sequelize.DATE,
+        allowNull: false
+    },
+    category_id: {
+        type: Sequelize.INTEGER,
+        references: {
+            // This is a reference to another model
+            model: Category,
 
-Book.getBookById = function (bookId, result) {
-    sql.query("Select book.id, book.title, book.author, book.isbn, book.category_id, book.publish_date from book where id = ? ", bookId, function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(err, null);
+            // This is the column name of the referenced model
+            key: 'id'
         }
-        else{
-            result(null, res);
-        }
-    });
-};
-
-Book.getAllBooks = function (result) {
-    sql.query("Select * from book", function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(null, err);
-        }
-        else{
-            result(null, res);
-        }
-    });
-};
-Book.updateBook = function(book, result){
-    sql.query("UPDATE book SET ? WHERE id = ?", [book, book.id], function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(null, err);
-        }
-        else{
-            result(null, res);
-        }
-    });
-};
-Book.remove = function(id, result){
-    sql.query("DELETE FROM book WHERE id = ?", [id], function (err, res) {
-
-        if(err) {
-            console.log("error: ", err);
-            result(null, err);
-        }
-        else{
-            result(null, res);
-        }
-    });
-};
+    }
+}, {
+    sequelize,
+    modelName: 'book',
+    timestamps: false,
+    freezeTableName: true
+});
 
 module.exports= Book;
