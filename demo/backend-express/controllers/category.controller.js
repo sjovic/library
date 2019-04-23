@@ -7,7 +7,7 @@ var categoryService = require('../service/category.service');
 router.get('/', async (req, res, next) => {
     try {
         await categoryService.getAllCategories(function(err, categories) {
-            if (err) res.send(err);
+            if (err) res.status(400).send(err);
             res.send(categories);
         });
     } catch(err) {
@@ -20,8 +20,12 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         await categoryService.getCategoryById(req.params.id, function(err, category) {
-            if (err) res.send(err);
-            res.send(category);
+            if (err) res.status(400).send(err);
+            if(category) {
+                res.send(category);
+            } else {
+                res.status(404).send('Not found');
+            }
         });
     } catch(err) {
         console.log("Error router get by id category");
@@ -36,7 +40,7 @@ router.post('/', async (req, res, next) => {
 
         if(new_category.id){
             await categoryService.getCategoryById(new_category.id, function(err, category) {
-                if (category) res.send('Category with these id already exist');
+                if (category) res.status(400).send('Category with these id already exist');
                 return;
             });
         }
@@ -45,7 +49,7 @@ router.post('/', async (req, res, next) => {
             res.status(400).send({ error:true, message: 'Please provide category' });
         } else {
             await categoryService.createCategory(new_category, function(err, category) {
-                if (err) res.send(err);
+                if (err) res.status(400).send(err);
                 res.json(category);
             });
         }
@@ -59,8 +63,8 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     try {
         await categoryService.updateCategory(req.body, function(err, category) {
-            if (err) res.send(err);
-            res.json(category);
+            if (err) res.status(400).send(err);
+            res.status(200).json(category);
         });
     } catch(err) {
         console.log("Error router update category");
@@ -73,8 +77,8 @@ router.put('/', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     try {
         await categoryService.removeCategory( req.params.id, function(err, category) {
-            if (err) res.send(err);
-            res.json({ message: 'Book successfully deleted' });
+            if (err) res.status(400).send(err);
+            res.status(200).json({ message: 'Book successfully deleted' });
         });
     } catch(err) {
         console.log("Error router delete book");

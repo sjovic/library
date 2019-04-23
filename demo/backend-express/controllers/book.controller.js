@@ -21,7 +21,11 @@ router.get('/:id', async (req, res, next) => {
     try {
         await bookService.getBookById(req.params.id, function(err, book) {
             if (err) res.send(err);
-            res.send(book);
+            if(book) {
+                res.send(book);
+            } else {
+                res.status(404).send('Not found');
+            }
         });
     } catch(err) {
         console.log("Error router get book by id");
@@ -40,11 +44,11 @@ router.post('/', async (req, res, next) => {
             return;
         } if(new_book.id) {
             await bookService.getBookById(new_book.id, function(err, book) {
-                if (book) res.send('Book with these id already exist');
+                if (book) res.status(400).send('Book with these id already exist');
                 return;
             });
         } if(new_book.isbn.length != 13) {
-            res.send('ISBN must contains 13 characters ');
+            res.status(400).send('ISBN must contains 13 characters ');
             return;
         } else {
             await bookService.createBook(new_book, function(err, book) {
@@ -77,7 +81,7 @@ router.delete('/:id', async (req, res, next) => {
     try {
         await bookService.removeBook( req.params.id, function(err, book) {
             if (err) res.send(err);
-            res.json({ message: 'Book successfully deleted' });
+            res.status(200).json({ message: 'Book successfully deleted' });
         });
     } catch(err) {
         console.log("Error router delete book");
