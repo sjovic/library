@@ -24,7 +24,7 @@ updateBook = function(book, result){
     })
 };
 
-remove = function(id, result){
+removeBook = function(id, result){
     Book.destroy({where: {id:id}}).then(data => {
         result(null, data);
     })
@@ -35,5 +35,5 @@ module.exports = {
     getAllBooks,
     createBook,
     updateBook,
-    remove
+    removeBook
 };

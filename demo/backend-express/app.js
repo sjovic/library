@@ -6,7 +6,8 @@ var logger = require('morgan');
 const cors = require('cors');
 
 var index = require('./controllers');
-var bookController = require('./controllers/books.controller');
+var bookController = require('./controllers/book.controller');
+var categoryController = require('./controllers/category.controller');
 
 var app = express();
 
@@ -21,5 +22,6 @@ app.use(cors());
 
 app.use('/', index);
 app.use('/books', bookController);
+app.use('/categories', categoryController);
 
 module.exports = app;

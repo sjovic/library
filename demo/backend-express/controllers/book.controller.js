@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
             res.send(book);
         });
     } catch(err) {
-        console.log("Error router books");
+        console.log("Error router get all books");
         return next(err);
     }
 });
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res, next) => {
             res.send(book);
         });
     } catch(err) {
-        console.log("Error router books");
+        console.log("Error router get book by id");
         return next(err);
     }
 });
@@ -35,20 +35,25 @@ router.post('/', async (req, res, next) => {
         var new_book = req.body;
 
         //handles null error
-        if(!new_book.isbn && !new_book.author && !new_book.title && !new_book.category_id){
+        if(!new_book.isbn && !new_book.author && !new_book.title && !new_book.category_id) {
             res.status(400).send({ error:true, message: 'Please provide book' });
-        }
-        else{
+            return;
+        } if(new_book.id) {
+            await bookService.getBookById(new_book.id, function(err, book) {
+                if (book) res.send('Book with these id already exist');
+                return;
+            });
+        } if(new_book.isbn.length != 13) {
+            res.send('ISBN must contains 13 characters ');
+            return;
+        } else {
             await bookService.createBook(new_book, function(err, book) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    res.json(book);
-                }
+                if (err) res.send(err);
+                res.json(book);
             });
         }
     } catch(err) {
-        console.log("Error router books");
+        console.log("Error router create new book");
         return next(err);
     }
 });
@@ -57,14 +62,11 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     try {
         await bookService.updateBook(req.body, function(err, book) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.json(book);
-            }
+            if (err) res.send(err);
+            res.json(book);
         });
     } catch(err) {
-        console.log("Error router books");
+        console.log("Error router update book");
         return next(err);
     }
 });
@@ -73,15 +75,12 @@ router.put('/', async (req, res, next) => {
 /* DELETE book. */
 router.delete('/:id', async (req, res, next) => {
     try {
-        await bookService.remove( req.params.id, function(err, book) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.json({ message: 'Book successfully deleted' });
-            }
+        await bookService.removeBook( req.params.id, function(err, book) {
+            if (err) res.send(err);
+            res.json({ message: 'Book successfully deleted' });
         });
     } catch(err) {
-        console.log("Error router books");
+        console.log("Error router delete book");
         return next(err);
     }
 });

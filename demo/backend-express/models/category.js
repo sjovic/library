@@ -16,3 +16,5 @@ Category.init({
     freezeTableName: true
     // options
 })
+
+module.exports = Category;
