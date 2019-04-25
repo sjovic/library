@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+const expressValidator = require('express-validator')
 
 var index = require('./controllers');
 var bookController = require('./controllers/book.controller');
@@ -11,6 +12,8 @@ var categoryController = require('./controllers/category.controller');
 
 var app = express();
 
+
+app.use(expressValidator())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

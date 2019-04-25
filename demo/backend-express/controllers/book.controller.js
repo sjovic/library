@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var bookService = require('../service/book.service');
+var validate = require('../validation/book.validator');
+
+const { validationResult } = require('express-validator/check');
 
 /* GET all books. */
 router.get('/', async (req, res, next) => {
@@ -24,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
             if(book) {
                 res.send(book);
             } else {
-                res.status(404).send('Not found');
+                res.status(404).send({errors:'Not found'});
             }
         });
     } catch(err) {
@@ -34,28 +37,27 @@ router.get('/:id', async (req, res, next) => {
 });
 
 /* POST create book. */
-router.post('/', async (req, res, next) => {
+router.post('/', validate.validateBook('createBook'), async (req, res, next) => {
     try {
+        // Finds the validation errors in this request and wraps them in an object with handy functions
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+
         var new_book = req.body;
 
-        //handles null error
-        if(!new_book.isbn && !new_book.author && !new_book.title && !new_book.category_id) {
-            res.status(400).send({ error:true, message: 'Please provide book' });
-            return;
-        } if(new_book.id) {
+        if(new_book.id) {
             await bookService.getBookById(new_book.id, function(err, book) {
-                if (book) res.status(400).send('Book with these id already exist');
+                if (book) res.status(400).send({errors:'Book with these id already exist'});
                 return;
             });
-        } if(new_book.isbn.length != 13) {
-            res.status(400).send('ISBN must contains 13 characters ');
-            return;
-        } else {
-            await bookService.createBook(new_book, function(err, book) {
-                if (err) res.send(err);
-                res.json(book);
-            });
         }
+
+        await bookService.createBook(new_book, function(err, book) {
+            if (err) res.send(err);
+            res.json(book);
+        });
     } catch(err) {
         console.log("Error router create new book");
         return next(err);
@@ -65,10 +67,22 @@ router.post('/', async (req, res, next) => {
 /* PUT update book. */
 router.put('/', async (req, res, next) => {
     try {
-        await bookService.updateBook(req.body, function(err, book) {
-            if (err) res.send(err);
-            res.json(book);
-        });
+        if(req.body.id){
+            await bookService.getBookById(req.body.id, function(err, book) {
+                if (book) {
+                    bookService.updateBook(req.body, function(err, book) {
+                        if (err) res.send(err);
+                        res.json(book);
+                    });
+                } else {
+                    res.status(404).json({ message: 'Book does not exist' });
+                    return;
+                }
+            });
+        } else {
+            res.status(400).json({ message: 'Book id missing' });
+            return;
+        }
     } catch(err) {
         console.log("Error router update book");
         return next(err);
@@ -79,9 +93,16 @@ router.put('/', async (req, res, next) => {
 /* DELETE book. */
 router.delete('/:id', async (req, res, next) => {
     try {
-        await bookService.removeBook( req.params.id, function(err, book) {
-            if (err) res.send(err);
-            res.status(200).json({ message: 'Book successfully deleted' });
+        await bookService.getBookById(req.params.id, function(err, book) {
+            if (book) {
+                bookService.removeBook( req.params.id, function(err, book) {
+                    if (err) res.send(err);
+                    res.status(200).json({ message: 'Book successfully deleted' });
+                });
+            } else {
+                res.status(404).json({ message: 'Book does not exist' });
+                return;
+            }
         });
     } catch(err) {
         console.log("Error router delete book");
