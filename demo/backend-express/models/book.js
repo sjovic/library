@@ -38,7 +38,7 @@ Book.init({
     sequelize,
     modelName: 'book',
     timestamps: false,
-    freezeTableName: true
+    tableName: 'book'
 });
 
 module.exports= Book;

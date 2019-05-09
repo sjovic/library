@@ -13,7 +13,7 @@ Category.init({
     sequelize,
     modelName: 'category',
     timestamps: false,
-    freezeTableName: true
+    tableName: 'category'
     // options
 })
 

@@ -15,8 +15,11 @@ const sequelize = new Sequelize(
     }
 );
 
+// Sync all models that aren't already in the database
+sequelize.sync();
+
 sequelize.authenticate().then(() => {
-        console.log('Connection has been established successfully.');
+        console.log('Connection to db has been established.');
     })
     .catch(err => {
         console.error('Unable to connect to the database:', err);
