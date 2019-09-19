@@ -15,6 +15,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import rs.levi9.library.service.UserService;
 
 @Configuration
@@ -53,17 +58,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+//        return source;
+//    }
+
     @Override
     protected void configure(HttpSecurity hs) throws Exception {
         hs
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS, "/*").permitAll()
-                .antMatchers("/", "/login", "/index.html", "/*.bundle.*", "/favicon.ico", "/assets/**", "/authenticate").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/*").permitAll()
+                .antMatchers(  "/", "/login", "/index.html", "/*.bundle.*", "/favicon.ico", "/assets/**", "/authenticate").permitAll()
                 .anyRequest().fullyAuthenticated().and()
                 //.httpBasic().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .csrf().disable();
+                .cors()
+                //.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .and().csrf().disable();
 
         //adding filter for jwt
         hs.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

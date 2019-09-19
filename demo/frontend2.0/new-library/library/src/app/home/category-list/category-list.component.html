@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col">
+        <div class="list-group mb-4 mt-3 mt-lg-0">
+            <button class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#cat-collapse">Categories</button>
+            <div id="cat-collapse" class="collapse">
+                <button type="button" [ngClass]="{active: selectedCategoryId == 0}" class="btn btn-outline-secondary list-group-item btn-block" (click)="onCategorySelected(0)">All</button>
+                <button *ngFor='let category of categories$' type="button"[ngClass]="{active: selectedCategoryId == category.id}" class="btn btn-outline-secondary list-group-item btn-block" (click)="onCategorySelected(category.id)">{{ category.name }}</button>
+            </div>
+        </div>
+    </div>
+</div>

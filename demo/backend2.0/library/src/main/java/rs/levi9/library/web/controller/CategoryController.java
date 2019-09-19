@@ -12,7 +12,8 @@ import rs.levi9.library.web.exceptions.ResourceNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
+@CrossOrigin
 public class CategoryController {
 
     private final CategoryService service;
@@ -30,7 +31,7 @@ public class CategoryController {
         return service.findAll();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
+    //@PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
     @GetMapping(path = "{id}")
     @ResponseBody
     public ResponseEntity<Category> getCategory(@PathVariable("id") Long id) throws ResourceNotFoundException {
@@ -39,7 +40,7 @@ public class CategoryController {
             return ResponseEntity.ok().body(ret);
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    //@PreAuthorize("hasRole('ADMIN_ROLE')")
     @PostMapping()
     @ResponseBody
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) throws ResourceNotFoundException{
@@ -51,7 +52,7 @@ public class CategoryController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    //@PreAuthorize("hasRole('ADMIN_ROLE')")
     @DeleteMapping(path = "{id}")
     public ResponseEntity deleteCategory(@PathVariable("id") Long id) throws ResourceNotFoundException {
         try {
@@ -63,7 +64,7 @@ public class CategoryController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    //@PreAuthorize("hasRole('ADMIN_ROLE')")
     @PutMapping
     @ResponseBody
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) throws ResourceNotFoundException {

@@ -1,0 +1,75 @@
+<div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#addCategoryModal" (click)="onCategoryAdd(f)">add</button>
+                <br/>
+                <table class="table table-bordered">
+                    <thead>
+                      <th class="text-center align-middle">#</th>
+                      <th class="text-center align-middle">name</th>
+                      <th class="text-center align-middle" colspan="2">actions</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let category of categories$; let i = index">
+                          <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                        <td class="text-center align-middle">{{category.name}}</td>
+                        <td class="text-center align-middle"><button class="btn btn-info" (click)="onEditCategory(category)" data-toggle="modal" data-target="#addCategoryModal">edit</button></td>
+                        <td class="text-center align-middle"><button class="btn btn-danger" (click)="onDeleteCategory( category )" data-toggle="modal" data-target="#deleteCategoryModal" [disabled]="ifCategoryExists(category)" >delit</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+    </div>
+    
+    <div id="deleteCategoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <p>Do you want to delete <i>{{selectedCategory?.name}}</i>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onCategoryDeleteSubmit()">Submit</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="addCategoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">{{operation}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          <form #f="ngForm" (ngSubmit)="onCategorySaveSubmit(f, c)">
+            <div class="modal-body">
+                    <div class="form-group">
+                      <label for="name">Name: </label>
+                      <input type="text" id="name" name="name" [(ngModel)]="selectedCategory.name" required #name="ngModel" class="form-control" [ngClass]="{'is-invalid': (name.invalid && (name.dirty || name.touched))}"/>
+                      <div class="invalid-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">Please enter category name!</div>
+                      <div *ngIf="error == true">
+                        <h3 class="badge badge-pill badge-danger">Category name must be unique!</h3>
+                      </div>
+                    </div>
+                    <div hidden="true">
+                      <input type="text" id="id" name="id" [(ngModel)]="selectedCategory.id" required #id="ngModel" />
+                    </div>
+           </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" #c>Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!name.valid">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>

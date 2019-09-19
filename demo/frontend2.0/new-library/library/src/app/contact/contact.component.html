@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col">
+        <form #f="ngForm" (ngSubmit)=onSubmit(f)>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light" for="email" id="elbl">e-mail: </label>
+                    </div>
+                    <input type="email" id="email" name="email" class="form-control"  aria-describedby="elbl" required [(ngModel)]="contact.email" #email="ngModel" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"/>
+                </div>
+                <div>
+                    <textarea id="message" name="message" class="form-control z-depth-1" placeholder="Enter you message..." #message="ngModel" [(ngModel)]="contact.message" rows="5" required [ngClass]="{'is-invalid': message.invalid && (message.dirty || message.touched)}"></textarea>
+                </div>
+                <br/>
+                <div>
+                    <button type="submit" class="btn btn-primary float-right" [disabled]="!f.valid">Sent</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

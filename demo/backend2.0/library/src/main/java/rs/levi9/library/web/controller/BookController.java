@@ -13,7 +13,8 @@ import rs.levi9.library.web.exceptions.ResourceNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/books")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 30)
 public class BookController {
 
     private final BookService service;
@@ -23,7 +24,7 @@ public class BookController {
         this.service = service;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
+    //@PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
     @GetMapping
     @ResponseBody
     public List<Book> getAllBooks() {
@@ -31,7 +32,7 @@ public class BookController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
+    //@PreAuthorize("hasAnyRole('ADMIN_ROLE', 'USER_ROLE')")
     @GetMapping(path = "{id}")
     @ResponseBody
     public ResponseEntity<Book> getBook(@PathVariable("id") Long id) throws ResourceNotFoundException {
@@ -40,7 +41,7 @@ public class BookController {
         return ResponseEntity.ok().body(ret);
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    //@PreAuthorize("hasRole('ADMIN_ROLE')")
     @PostMapping()
     @ResponseBody
     public ResponseEntity<Book> saveBook(@RequestBody Book book) throws ResourceNotFoundException{
@@ -52,7 +53,7 @@ public class BookController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    //@PreAuthorize("hasRole('ADMIN_ROLE')")
     @DeleteMapping(path = "{id}")
     public ResponseEntity deleteBook(@PathVariable("id") Long id) throws ResourceNotFoundException{
         try {
@@ -64,7 +65,7 @@ public class BookController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+   // @PreAuthorize("hasRole('ADMIN_ROLE')")
     @PutMapping
     @ResponseBody
     public ResponseEntity<Book> updateBook(@RequestBody Book book) throws ResourceNotFoundException{
@@ -76,7 +77,7 @@ public class BookController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(path = "/category")
     @ResponseBody
     public List<Book> getBooksByCategory(@RequestBody Category category) throws ResourceNotFoundException{

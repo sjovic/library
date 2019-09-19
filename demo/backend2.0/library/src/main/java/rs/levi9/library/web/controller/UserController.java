@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.levi9.library.config.JwtTokenUtil;
 import rs.levi9.library.model.Authenticated;
 import rs.levi9.library.model.JwtResponse;
+import rs.levi9.library.model.Role;
 import rs.levi9.library.model.User;
 import rs.levi9.library.service.UserService;
 
@@ -22,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 30)
 public class UserController {
 
     private final UserService service;
@@ -46,19 +47,27 @@ public class UserController {
             roles.add(authority.getAuthority());
 
         }
-        Authenticated user = new Authenticated(authentication.getName(), roles);
+        Authenticated user = new Authenticated(authentication.getName(), roles, null);
 
         return user;
     }
 
-
+    //ovo uzima username i password i daje nam jwt tj, autentikacija
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody User authenticationRequest) throws Exception {
+
+
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword(), getAuthorities(authenticationRequest));
-        final UserDetails userDetails = service
-                .loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = service.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+
+        String username = userDetails.getUsername();
+        List<String> roles = new ArrayList<String>();
+        for(GrantedAuthority authority : userDetails.getAuthorities()) {
+            roles.add(authority.getAuthority());
+        }
+
+        return ResponseEntity.ok(new Authenticated(username, roles, token));
     }
 
     private void authenticate(String username, String password, Collection<? extends GrantedAuthority> authorities) throws Exception {

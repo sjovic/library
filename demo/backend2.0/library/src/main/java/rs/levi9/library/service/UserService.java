@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import rs.levi9.library.repository.UserRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,9 +25,8 @@ public class UserService implements UserDetailsService {
         this.repository = repository;
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         rs.levi9.library.model.User user = repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username "+username+" not founded"));
         return new User(user.getUsername(), user.getPassword(), getAuthorities(user));
