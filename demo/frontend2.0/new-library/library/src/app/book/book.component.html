@@ -1,0 +1,121 @@
+<div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <button class="btn btn-success btn-block" (click)="onAddBook(f)" data-toggle="modal" data-target="#saveBookModal">add</button>
+                <br/>
+                <table class="table table-bordered">
+                    <thead>
+                      <th class="text-center align-middle">#</th>
+                      <th class="text-center align-middle">title</th>
+                      <th class="text-center align-middle">author</th>
+                      <th class="text-center align-middle">category</th>
+                      <th class="text-center align-middle">publish date</th>
+                      <th class="text-center align-middle">isbn</th>                  
+                      <th colspan="2">actions</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let book of ( books$); let i = index">
+                          <th scope="row" class="text-center align-middle">{{ i + 1 }}</th>
+                        <td class="text-center align-middle">{{book.title}}</td>
+                        <td class="text-center align-middle">{{book.author}}</td>
+                        <td class="text-center align-middle">{{book.category.name}}</td>
+                        <td class="text-center align-middle">{{book.publishDate | date:'dd. MMM yyyy.'}}</td>
+                        <td class="text-center align-middle">{{book.isbn}}</td>
+                        <td class="text-center align-middle"><button class="btn btn-info" (click)="onEditBook(book)" data-toggle="modal" data-target="#saveBookModal">edit</button></td>
+                        <td class="text-center align-middle"><button class="btn btn-danger" (click)="onDelitBook( book )" data-toggle="modal" data-target="#deleteBookModal">delit</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+    </div>
+    
+    
+    <div id="deleteBookModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteBookModalLabel">Delete Book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <p>Do you want to delete <i>{{selectedBook?.title}}</i>, by <i>{{selectedBook?.author}}</i>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onBookDeleteSubmit()">Submit</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="saveBookModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="saveBookModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="saveBookModalLabel">{{option}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form (ngSubmit)="onBookSaveSubmit(f, c)" #f="ngForm">
+                    <div class="modal-body">
+                        <div ngFormGroup>
+                            <div hidden="true">
+                                <input type="text" id="id" name="id" [(ngModel)]="selectedBook.id" required #id="ngModel" class="form-control" />
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="title">Title: </label>
+                                <input type="text" id="title" name="title" [(ngModel)]="selectedBook.title" required #title="ngModel" class="form-control" [ngClass]="{'is-invalid':  (title.invalid && (title.dirty || title.touched))}"/>
+                                <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">Please enter book's title!</div>
+                                
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="author">Author: </label>
+                                <input type="text" id="author" name="author" [(ngModel)]="selectedBook.author" required #author="ngModel" class="form-control" [ngClass]="{'is-invalid':  (author.invalid && (author.dirty || author.touched))}"/>
+                                <div class="invalid-feedback" *ngIf="author.invalid && (author.dirty || author.touched)">Please enter book's author!</div>
+                                
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="category">Category: </label>
+                                <select id="category" name="category" [(ngModel)]="selectedBook.category.name" required #category="ngModel" class="browser-default custom-select" [ngClass]="{'is-invalid':  (category.invalid && (category.dirty || category.touched))}">
+                                    <option value="" selected></option>
+                                    <option *ngFor="let categoryElement of categories$" value="{{categoryElement.name}}">{{categoryElement.name}}</option>
+                                </select>
+                                <div class="invalid-feedback" *ngIf="category.invalid && (category.dirty || category.touched)">Please select a category</div>
+                                
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="isbn">ISBN: </label>
+                                <input type="number" id="isbn" name="isbn" [(ngModel)]="selectedBook.isbn" required #isbn="ngModel" class="form-control" [ngClass]="{'is-invalid':  (isbn.invalid && (isbn.dirty || isbn.touched))}"/>
+                                <div class="invalid-feedback" *ngIf="isbn.invalid && (isbn.dirty || isbn.touched)">Please enter book's isbn</div>
+                                
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="publishDate">Publish date: </label>
+                                <input type="date" id="publishDate" name="publishDate" [(ngModel)]="selectedBook.publishDate" required #publishDate="ngModel" class="form-control" [ngClass]="{'is-invalid':  (publishDate.invalid && (publishDate.dirty || publishDate.touched))}"/>
+                                <div class="invalid-feedback" *ngIf="publishDate.invalid && (publishDate.dirty || publishDate.touched)">Please select book's published date</div>
+                                
+                            </div>
+                            <div *ngIf="error == true">
+                                <h3><span class="badge badge-pill badge-danger">Some fealds are invalid.</span></h3>
+                                <p class="badge badge-pill badge-danger">Date must be in past and ISBN must be 13 characters long and valid.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" #c>Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!(title.valid && author.valid && category.valid && isbn.valid && publishDate.valid)">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

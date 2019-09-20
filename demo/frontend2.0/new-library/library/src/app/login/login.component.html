@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="onLogin(f)" #f="ngForm">
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light badge-pill" for="username" id="userdesc">Username: </label> 
+                    </div>
+                    <input type="text" id="username" name="username"  class="form-control" aria-describedby="userdesc" required [(ngModel)]="user.username" #username="ngModel" [ngClass]="{'is-invalid': error==true || (username.invalid && (username.dirty || username.touched))}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light badge-pill" for="password" id="passdesc">Password: </label>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" aria-describedby="passdesc" required [(ngModel)]="user.password" #password="ngModel" [ngClass]="{'is-invalid': error==true || (password.invalid && (password.dirty || password.touched))}"/>
+                </div>
+                <h2>
+                    <span id="error" class="badge badge-pill badge-danger" *ngIf="error==true">Incorrect username or password!</span>
+                </h2>
+            </div>
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="!f.valid">login</button>&nbsp;
+                <button class="btn btn-success btn-lg" (click)="onSignin()">need account</button>
+            </div>
+        </form>
+    </div>
+</div>
