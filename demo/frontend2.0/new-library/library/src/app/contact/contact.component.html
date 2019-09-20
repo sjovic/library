@@ -4,7 +4,7 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text bg-primary text-light" for="email" id="elbl">e-mail: </label>
+                        <label class="input-group-text bg-primary text-light badge-pill" for="email" id="elbl">e-mail: </label>
                     </div>
                     <input type="email" id="email" name="email" class="form-control"  aria-describedby="elbl" required [(ngModel)]="contact.email" #email="ngModel" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"/>
                 </div>
