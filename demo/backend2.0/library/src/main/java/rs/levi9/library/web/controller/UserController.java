@@ -39,8 +39,23 @@ public class UserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception{
+        final UserDetails userDetails = service.save(user);
+        System.out.println(userDetails);
+        if(userDetails == null)
+            throw new Exception("USERNAME IN NOT UNIQUE");
+
+        List<String> roles = new ArrayList<String>();
+        for(GrantedAuthority authority : userDetails.getAuthorities()) {
+            roles.add(authority.getAuthority());
+        }
+
+        return ResponseEntity.ok(new Authenticated(user.getUsername(), roles, null));
+    }
+
     @RequestMapping("/user")
-    public Authenticated getUser(Authentication authentication) {
+    public Authenticated getUser(Authentication authentication){
 
         List<String> roles = new ArrayList<>();
         for(GrantedAuthority authority : authentication.getAuthorities()) {

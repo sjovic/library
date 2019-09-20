@@ -58,19 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-//        return source;
-//    }
-
     @Override
     protected void configure(HttpSecurity hs) throws Exception {
         hs
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/*").permitAll()
-                .antMatchers(  "/", "/login", "/index.html", "/*.bundle.*", "/favicon.ico", "/assets/**", "/authenticate").permitAll()
+                .antMatchers(  "/", "/login", "/index.html", "/*.bundle.*", "/favicon.ico", "/assets/**", "/authenticate", "/signin").permitAll()
                 .anyRequest().fullyAuthenticated().and()
                 //.httpBasic().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()

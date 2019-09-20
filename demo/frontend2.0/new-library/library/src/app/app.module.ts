@@ -18,6 +18,7 @@ import { XhrInterceptor } from './interceptor/XhrInterceptor';
 import { AuthGuardService } from './auth-guard.service';
 import { JwtInterceptor } from './interceptor/JwtInterceptor';
 import { ContactComponent } from './contact/contact.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ContactComponent } from './contact/contact.component';
     CategoryListComponent,
     LoginComponent,
     FilterBooksByCategoryPipe,
-    ContactComponent
+    ContactComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

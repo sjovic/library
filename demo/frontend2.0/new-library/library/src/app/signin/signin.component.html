@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="onSignIn(f)" #f="ngForm">
+            <div class="form-group">
+                <h3>
+                    <span class="bg-primary text-light badge-pill">Creating account</span>               
+                </h3>
+                <br />
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light badge-pill" for="username" id="userdesc">Username: </label> 
+                    </div>
+                    <input type="text" id="username" name="username"  class="form-control" aria-describedby="userdesc" required [(ngModel)]="user.username" #username="ngModel" [ngClass]="{'is-invalid': error==true || (username.invalid && (username.dirty || username.touched))}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light badge-pill" for="password" id="passdesc">Password: </label>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" aria-describedby="passdesc" required [(ngModel)]="user.password" #password="ngModel" [ngClass]="{'is-invalid': notSamePasswords==true || error==true || (password.invalid && (password.dirty || password.touched))}"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text bg-primary text-light badge-pill" for="password2" id="passdesc2">Confirm password: </label>
+                    </div>
+                    <input type="password" id="password2" name="password2" class="form-control" aria-describedby="passdesc2" required [(ngModel)]="user.password2" #password2="ngModel" [ngClass]="{'is-invalid': notSamePasswords==true || error==true || (password2.invalid && (password2.dirty || password2.touched))}"/>
+                </div>
+
+                <h2>
+                    <span id="error" class="badge badge-pill badge-danger" *ngIf="error==true || notSamePasswords==true " >{{message}}</span>
+                </h2>
+            </div>
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="!f.valid">Singn in</button>&nbsp;
+                <button class="btn btn-success btn-lg" (click)="onLogin()">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

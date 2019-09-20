@@ -1,5 +1,7 @@
 package rs.levi9.library.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
